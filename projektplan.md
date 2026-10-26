@@ -24,7 +24,7 @@
    - Branch-strategi: `main` plus feature-branches og pull requests.
    - Lav et GitHub Project board (kolonner: Todo / In progress / Review / Done).
    - Tilføj `.gitignore` og fjern `.DS_Store` fra git.
-1. **Hent data.** Klon `ITAKEA/hoteldata` og kig på:
+1. **Hent data.**:
    - `international_names_with_rooms_1000.csv/.xlsx` (gæster, lande, værelser, bookinger)
    - `drinks_menu_with_sales.xlsx` (cocktails, kaffe og salg)
    - Notér kolonner, datatyper, mangler og fejl i data.
