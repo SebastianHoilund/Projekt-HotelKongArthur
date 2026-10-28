@@ -1,5 +1,9 @@
 <!--
 Sync Impact Report
+- 1.2.0 (MINOR): Afstemt med spec og referencedata: berigede datafiler (datoer, år, antal personer,
+  værelsesnummer), referencedata som eneste kilde til sæsoner/takster/værelser, fast kapacitet
+  (aldrig skaleret), forbud mod overlappende bookinger, sæson udledt af indtjekningsdato, år på alle
+  data, barsalg som transaktioner, kundetilfredshed afklaret. Ingen principper fjernet.
 - 1.1.0 (MINOR): Tilføjet eksterne bookingsystemers skriveadgang, nøgletal i service-laget,
   bookingvalidering, obligatoriske analytics-krav, Tableau som leverance, `specs/`-mappe,
   kodestil. Ingen principper fjernet.
@@ -59,7 +63,8 @@ Hele systemet SKAL være fuldt containeriseret og kunne startes på enhver maski
 - MySQL-data SKAL persisteres i et navngivet Docker-volume, så oprettede og redigerede bookinger
   overlever genstart af containere.
 - Ved første opstart på en tom database SKAL skema og historiske grunddata (værelsestyper, 214
-  værelser, gæster, bookinger samt cocktail-/kaffesalg) seedes automatisk.
+  værelser, gæster, bookinger samt cocktail-/kaffesalg) seedes automatisk fra de berigede
+  datafiler (se Teknologistak). Seeding SKAL være idempotent og må ikke duplikere data.
 
 ### IV. Fra Statisk til Live Data & Centraliseret Logik
 Systemet SKAL transformere de udleverede statiske CSV/XLSX-datasæt til et levende, transaktionelt
@@ -70,11 +75,17 @@ system, hvor ændringer øjeblikkeligt slår igennem i analyserne:
   dedikerede JSON/CSV rapport-endpoints understøttet af API-kontrakten).
 - Definitioner af sæsoner (lav-, mellem- og højsæson), belægningsgrad og prisberegning SKAL være
   entydigt dokumenteret og centraliseret, så nøgletal beregnes konsistent på tværs af visninger.
+  Sæsoner, takster og værelsesfordeling er fastlagt i `specs/001-hotel-analytics-platform/reference-data.md`,
+  som er den eneste kilde. Sæsonen udledes af bookingens indtjekningsdato.
+- Hotellets kapacitet er fast (214 værelser, 78.110 værelsesnætter om året) og SKAL ALDRIG skaleres
+  eller omregnes for at påvirke belægningsgraden.
+- Alle bookinger og salg har et år, og alle nøgletal SKAL kunne afgrænses til et valgt år.
 - Nøgletal SKAL beregnes i backendens service-lag og udstilles via API'et. Hverken databasen
   (views/procedurer) eller Tableau må indeholde selvstændig forretningslogik for nøgletal;
   Tableau viser kun de beregnede resultater.
-- Bookingvalidering (herunder at bookinger ikke må overlappe på samme værelse) SKAL ligge i
-  service-laget og præcises i `Clarify`.
+- Bookingvalidering SKAL ligge i service-laget. To aktive bookinger må ALDRIG overlappe på samme
+  værelse (udtjekningsdagen må være næste gæsts indtjekningsdag), og antal personer må ikke
+  overstige værelsestypens kapacitet. Overlap forhindres også i dataadgangslaget via transaktioner.
 
 ### V. Spec-Drevet Udvikling, Testbarhed & AI-Ejerskab
 Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
@@ -91,12 +102,18 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
 ## Teknologistak & Arkitektoniske Rammer
 
 - **Database**: MySQL 8.x kørende i Docker med automatiseret DDL-migrering og seed-import af
-  `international_names_with_rooms_1000.csv` og `drinks_menu_with_sales.csv`.
+  `international_names_with_rooms_1000.csv` og `drinks_menu_with_sales.csv`. Filerne er beriget med
+  indtjekning, udtjekning, år (2026), antal personer og værelsesnummer (bookinger) samt år (drinks).
+  Berigelsen og reglerne bag den er beskrevet i `reference-data.md`.
 - **Domæneomfang**:
-  - Hoteldrift: 214 værelser fordelt på 8 værelsestyper (kapacitet 1–4 personer, maks. ~428 gæster),
-    sæsonafhængige priser (lav-, mellem- og højsæson), gæster med oprindelsesland og bookinger.
+  - Hoteldrift: 214 værelser fordelt på 8 værelsestyper (kapacitet 1–4 personer, 428 gæster),
+    sæsonafhængige takster (lav-, mellem- og højsæson), gæster med oprindelsesland og bookinger
+    med datoer, antal personer og tildelt værelse.
   - Cocktailbar: Receptionist/bartender Helene Christines sortiment (20 cocktails og 10 kaffetyper)
-    samt løbende salgsregistrering og omsætningsfordeling.
+    samt løbende salgsregistrering som enkelttransaktioner og omsætningsfordeling.
+- **Referencedata**: `specs/001-hotel-analytics-platform/reference-data.md` fastlægger sæsonernes
+  datoer (kun 16.–31. december er højsæson), takster pr. værelsestype og sæson, antal værelser pr.
+  type samt reglerne for de berigede data. Ændringer sker kun dér.
 - **Præsentationsklienter**:
   1. Browserbaseret prototype-frontend til booking-CRUD (opret, vis, redigér, slet).
   2. Swagger UI i Docker til interaktiv udforskning og test af REST API-kontrakten.
@@ -104,15 +121,15 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
 - **Obligatoriske analytics-krav** (SKAL kunne beregnes af API'et og vises i Tableau):
   - Hotel: gæsternes lande; indtjening pr. værelsestype (pr. sæson) og pr. land; hvilke værelser og
     lande der indtjener mest; årets samlede indtjening; belægningsgrad; kundetilfredshed
-    (kilde — data eller tilføjet rating — afklares i `Clarify`); samt mindst ét selvvalgt nøgletal
-    (f.eks. RevPAR, ADR eller gennemsnitlig opholdslængde).
+    (data har ingen rating, så den tilføjes som opfundet score 1–5); samt selvvalgte nøgletal
+    (ADR, RevPAR og gennemsnitlig opholdslængde).
   - Cocktailbar: Helene Christines samlede salg for året, omsætning pr. drink og procentfordeling
     mellem cocktails og kaffe.
 - **Leverancer**: Udover backend og booking-frontend SKAL der leveres et interaktivt
   Tableau-dashboard baseret på backendens REST API.
 - **Leverancedokumentation**: Repositoryet SKAL indeholde `README.md` (med samlet arkitekturdiagram,
   kørselsvejledning og domænedefinitioner), `CONTRIBUTE.md` samt alle Spec Kit-artefakter
-  (`constitution`, `spec`, `plan`, `tasks` og sidste `converge`-resultat) samlet i en `specs/`-mappe.
+  (`constitution`, `spec`, `plan`, `tasks` og sidste `converge`-resultat) (constitution ligger i `.specify/memory/`, de øvrige i `specs/`).
   `spec.md` SKAL indeholde user stories med acceptkriterier. README SKAL desuden beskrive
   request-flowet (frontend → MySQL → svar), lagenes ansvar og udskiftelighed.
 
@@ -145,4 +162,4 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
 - Ved hvert `Converge`-tjek og Pull Request SKAL det kontrolleres, at løsningen overholder
   3-lagsarkitekturen, OpenAPI-kontrakten og single-command Docker-opstarten.
 
-**Version**: 1.1.0 | **Ratified**: 2026-10-28 | **Last Amended**: 2026-10-28
+**Version**: 1.2.0 | **Ratified**: 2026-10-28 | **Last Amended**: 2026-10-28
