@@ -1,0 +1,219 @@
+# Data Model: Hotel Kong Arthur
+
+**Feature**: `001-hotel-analytics-platform` | **Date**: 2026-10-29 | **Plan**: [plan.md](plan.md)
+
+Værdier for sæsoner, takster og værelser kommer fra [reference-data.md](reference-data.md). Tabellerne er MySQL 8 (InnoDB, `utf8mb4`). Alle datoer er `DATE` (ingen tidszone). Beløb er `DECIMAL`.
+
+## ER-diagram
+
+```mermaid
+erDiagram
+    ROOM_TYPE ||--o{ ROOM : "har"
+    ROOM ||--o{ BOOKING : "tildeles"
+    GUEST ||--o{ BOOKING : "foretager"
+    DRINK ||--o{ DRINK_SALE : "sælges i"
+
+    ROOM_TYPE {
+        int id PK
+        varchar name UK "fx 'Standard Double'"
+        tinyint max_guests "1-4"
+        smallint room_count "fx 58"
+        decimal rate_low
+        decimal rate_mid
+        decimal rate_high
+    }
+    ROOM {
+        int id PK
+        smallint number UK "101-806"
+        int room_type_id FK
+    }
+    GUEST {
+        int id PK
+        varchar first_name
+        varchar family_name
+        varchar country
+    }
+    BOOKING {
+        int id PK
+        int guest_id FK
+        int room_id FK
+        date check_in
+        date check_out
+        smallint nights "check_out - check_in"
+        tinyint guests "1..max_guests"
+        enum season "low|mid|high"
+        smallint year "YEAR(check_in)"
+        decimal price "DKK total"
+        boolean price_is_manual
+        tinyint satisfaction "1-5 eller NULL"
+        timestamp created_at
+        timestamp updated_at
+    }
+    DRINK {
+        int id PK
+        varchar name UK
+        enum category "Cocktail|Coffee"
+        decimal unit_price "DKK"
+    }
+    DRINK_SALE {
+        int id PK
+        int drink_id FK
+        int units ">= 1"
+        decimal unit_price "pris på salgstidspunktet"
+        datetime sold_at
+        smallint year "YEAR(sold_at)"
+        varchar bartender "default 'Helene Christine'"
+    }
+```
+
+## Entiteter
+
+### `room_type` – Værelsestype (FR-005)
+
+| Kolonne | Type | Regler |
+|---|---|---|
+| `id` | `INT AUTO_INCREMENT` PK | |
+| `name` | `VARCHAR(40)` UNIQUE NOT NULL | En af de 8 navne, præcis som i CSV'en (`Standard Single`, `Grand Lit`, `Standard Double`, `Superior Double`, `Junior Suite`, `Spa Executive`, `Suite`, `LOFT Suite`) |
+| `max_guests` | `TINYINT` NOT NULL | 1–4 |
+| `room_count` | `SMALLINT` NOT NULL | Sum over typer = 214 |
+| `rate_low`, `rate_mid`, `rate_high` | `DECIMAL(8,2)` NOT NULL | Fra reference-data §2 |
+
+- Seedes af migration `002_reference_data.sql`. Ændres ikke via API'et (kun læsning).
+
+### `room` – Værelse (FR-005)
+
+| Kolonne | Type | Regler |
+|---|---|---|
+| `id` | `INT AUTO_INCREMENT` PK | |
+| `number` | `SMALLINT` UNIQUE NOT NULL | Intervaller pr. type fra reference-data §3 (101–144, 201–230, 301–358, 401–440, 501–516, 601–612, 701–708, 801–806) |
+| `room_type_id` | `INT` FK → `room_type.id` NOT NULL | Index |
+
+- 214 rækker, seedet af migration 002.
+
+### `guest` – Gæst (FR-008)
+
+| Kolonne | Type | Regler |
+|---|---|---|
+| `id` | `INT AUTO_INCREMENT` PK | |
+| `first_name` | `VARCHAR(100)` NOT NULL | Trimmet, ikke tom |
+| `family_name` | `VARCHAR(100)` NOT NULL | Trimmet, ikke tom |
+| `country` | `VARCHAR(100)` NOT NULL | Trimmet, ikke tom. Fritekst som i CSV'en (fx `China`) |
+
+- Én gæst pr. booking (CSV'en har ingen gæste-ID, og samme navn kan være forskellige personer). Gæsten oprettes og opdateres sammen med sin booking. API'et udstiller gæsten indlejret i bookingen (`guest: {firstName, familyName, country}`).
+- Index på `country`.
+
+### `booking` – Booking (FR-001, FR-003, FR-004, FR-016, FR-017, FR-018)
+
+| Kolonne | Type | Regler |
+|---|---|---|
+| `id` | `INT AUTO_INCREMENT` PK | |
+| `guest_id` | `INT` FK → `guest.id` NOT NULL | |
+| `room_id` | `INT` FK → `room.id` NOT NULL | Tildeles af service. Typen afgør hvilke værelser der er mulige |
+| `check_in` | `DATE` NOT NULL | |
+| `check_out` | `DATE` NOT NULL | `check_out > check_in`. Må ligge i næste år (fx 2027-01-01) |
+| `nights` | `SMALLINT` NOT NULL | = `check_out − check_in` i dage (≥ 1). Svarer til CSV `Days Rented` |
+| `guests` | `TINYINT` NOT NULL | 1 ≤ guests ≤ `room_type.max_guests` |
+| `season` | `ENUM('low','mid','high')` NOT NULL | Udledt af `check_in` (`domain/seasons.ts`). Historiske rækker: CSV `Season` |
+| `year` | `SMALLINT` NOT NULL | = år for `check_in`. Index |
+| `price` | `DECIMAL(10,2)` NOT NULL | > 0. Beregnet = takst(type, season) × nights, medmindre manuel |
+| `price_is_manual` | `BOOLEAN` NOT NULL DEFAULT FALSE | TRUE for manuelt angivet pris og for alle seedede rækker (historisk `Price` bevares) |
+| `satisfaction` | `TINYINT` NULL | 1–5 eller NULL (ingen besvarelse) |
+| `created_at`, `updated_at` | `TIMESTAMP` | Automatisk |
+
+**Indexes**: `(room_id, check_in, check_out)` til overlapsøgning, `(year)`, `(guest_id)`.
+
+**Invarianter (håndhæves i `BookingService`, ikke i DB-triggers)**:
+1. **Ingen overlap** (FR-017): for to bookinger *a*, *b* på samme `room_id` gælder ikke (`a.check_in < b.check_out` ∧ `a.check_out > b.check_in`). `a.check_out = b.check_in` er tilladt.
+2. `room.room_type_id` = den værelsestype, der er angivet i requesten.
+3. `guests ≤ room_type.max_guests`.
+4. `season`, `year`, `nights` stemmer med `check_in`/`check_out` (for nye og ændrede bookinger).
+
+### `drink` – Drikkevare (FR-006)
+
+| Kolonne | Type | Regler |
+|---|---|---|
+| `id` | `INT AUTO_INCREMENT` PK | |
+| `name` | `VARCHAR(100)` UNIQUE NOT NULL | CSV `Drink Name` |
+| `category` | `ENUM('Cocktail','Coffee')` NOT NULL | 20 cocktails og 10 kaffetyper |
+| `unit_price` | `DECIMAL(8,2)` NOT NULL | > 0. CSV `Price (DKK)` |
+
+### `drink_sale` – Barsalg (FR-007)
+
+| Kolonne | Type | Regler |
+|---|---|---|
+| `id` | `INT AUTO_INCREMENT` PK | |
+| `drink_id` | `INT` FK → `drink.id` NOT NULL | Skal eksistere (ellers 404 / 400) |
+| `units` | `INT` NOT NULL | ≥ 1 |
+| `unit_price` | `DECIMAL(8,2)` NOT NULL | Kopieres fra `drink.unit_price` ved oprettelse, så historisk omsætning ikke ændres ved prisændring |
+| `sold_at` | `DATETIME` NOT NULL | Default: nu. Seed: `2026-12-31 23:59:59` |
+| `year` | `SMALLINT` NOT NULL | = år for `sold_at`. Index |
+| `bartender` | `VARCHAR(100)` NOT NULL DEFAULT `'Helene Christine'` | |
+
+- Seed: én række pr. drink med `units = Units Sold` (årets samlede antal).
+- Omsætning pr. salg = `units × unit_price`.
+
+### `schema_migrations` (teknisk)
+
+| Kolonne | Type |
+|---|---|
+| `version` | `VARCHAR(50)` PK |
+| `applied_at` | `TIMESTAMP` |
+
+## Livscyklus for en booking
+
+```mermaid
+stateDiagram-v2
+    [*] --> Valideret: POST /api/bookings
+    Valideret --> Afvist400: felter/datoer/kapacitet ugyldige
+    Valideret --> Tildelt: ledigt værelse fundet (FOR UPDATE)
+    Valideret --> Afvist409: intet ledigt værelse af typen
+    Tildelt --> Aktiv: INSERT + commit (201)
+    Aktiv --> Aktiv: PUT (beholder værelse hvis muligt, ellers nyt / 409)
+    Aktiv --> [*]: DELETE (204) – værelset frigives
+```
+
+Der er ingen status-kolonne. En booking er aktiv, så længe den findes (hard delete, research R-16).
+
+## Afledte værdier (beregnes i service-laget, gemmes ikke)
+
+| Værdi | Formel | Endpoint |
+|---|---|---|
+| Omsætning | `Σ price` (år, evt. pr. type/sæson/land/måned) | `/api/analytics/*` |
+| Tilgængelige nætter | `214 × dage i perioden` (år 2026 = 78.110) | summary, occupancy |
+| Belægningsgrad % | `Σ nights ÷ tilgængelige nætter × 100` | summary, occupancy |
+| ADR | `Σ price ÷ Σ nights` (0 hvis 0 nætter) | summary |
+| RevPAR | `Σ price ÷ tilgængelige nætter` | summary |
+| ALOS | `Σ nights ÷ antal bookinger` (0 hvis 0) | summary |
+| Tilfredshed | `AVG(satisfaction)` over ikke-NULL + `responses` | summary, satisfaction |
+| Bar-omsætning | `Σ units × unit_price` | bar |
+| Kategorifordeling % | kategori ÷ total × 100 (omsætning og enheder) | bar |
+
+## Mapping: CSV → tabeller (seed)
+
+### `hotel_bookings_2026.csv` (1.000 rækker)
+
+| CSV-kolonne | Tabel.kolonne |
+|---|---|
+| `First Name`, `Family Name`, `Country` | `guest.first_name`, `guest.family_name`, `guest.country` |
+| `Room Type` + `Room Number` | `booking.room_id` (opslag `room.number`, typen verificeres) |
+| `Days Rented` | `booking.nights` (verificeres = check_out − check_in) |
+| `Season` | `booking.season` |
+| `Price` | `booking.price` (`price_is_manual = TRUE`) |
+| `Check In Date`, `Check Out Date` | `booking.check_in`, `booking.check_out` |
+| `Year` | `booking.year` |
+| `Guests` | `booking.guests` |
+| `Satisfaction` (tom → NULL) | `booking.satisfaction` |
+
+### `drinks_menu_with_sales.csv` (30 rækker)
+
+| CSV-kolonne | Tabel.kolonne |
+|---|---|
+| `Drink Name`, `Category`, `Price (DKK)` | `drink.name`, `drink.category`, `drink.unit_price` |
+| `Units Sold`, `Year` | `drink_sale.units`, `drink_sale.year` (`sold_at = <Year>-12-31 23:59:59`, `unit_price = drink.unit_price`) |
+
+## Forventede værdier efter seed (bruges i test og quickstart)
+
+- `room_type`: 8 · `room`: 214 · Σ `max_guests × room_count` = 428
+- `booking`: 1.000 · Σ `nights` = 5.379 · overlap = 0
+- Belægningsgrad 2026 = 5.379 ÷ 78.110 = **6,89 %**
+- `drink`: 30 (20 Cocktail, 10 Coffee) · `drink_sale`: 30
