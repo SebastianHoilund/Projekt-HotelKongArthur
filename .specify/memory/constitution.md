@@ -102,8 +102,9 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
 ## Teknologistak & Arkitektoniske Rammer
 
 - **Database**: MySQL 8.x kørende i Docker med automatiseret DDL-migrering og seed-import af
-  `international_names_with_rooms_1000.csv` og `drinks_menu_with_sales.csv`. Filerne er beriget med
-  indtjekning, udtjekning, år (2026), antal personer og værelsesnummer (bookinger) samt år (drinks).
+  `hotel_bookings_2026.csv` og `drinks_menu_with_sales.csv`. Filerne er beriget med
+  indtjekning, udtjekning, år (2026), antal personer, værelsesnummer og valgfri kundetilfredshed
+  (bookinger) samt år (drinks).
   Berigelsen og reglerne bag den er beskrevet i `reference-data.md`.
 - **Domæneomfang**:
   - Hoteldrift: 214 værelser fordelt på 8 værelsestyper (kapacitet 1–4 personer, 428 gæster),
@@ -121,7 +122,8 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
 - **Obligatoriske analytics-krav** (SKAL kunne beregnes af API'et og vises i Tableau):
   - Hotel: gæsternes lande; indtjening pr. værelsestype (pr. sæson) og pr. land; hvilke værelser og
     lande der indtjener mest; årets samlede indtjening; belægningsgrad; kundetilfredshed
-    (data har ingen rating, så den tilføjes som opfundet score 1–5); samt selvvalgte nøgletal
+    (data har ingen rating, så den ligger som opfundet, valgfri score 1–5 i datafilen, hvor NULL
+    betyder ingen besvarelse); samt selvvalgte nøgletal
     (ADR, RevPAR og gennemsnitlig opholdslængde).
   - Cocktailbar: Helene Christines samlede salg for året, omsætning pr. drink og procentfordeling
     mellem cocktails og kaffe.

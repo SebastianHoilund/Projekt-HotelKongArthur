@@ -2,7 +2,7 @@
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-10-28
-**Updated**: 2026-10-28 (efter gennemgang mod opgavebeskrivelse og constitution v1.1.0)
+**Updated**: 2026-10-29 (efter gennemgang mod opgavebeskrivelse og constitution v1.2.0)
 **Feature**: [spec.md](../spec.md) · **Referencedata**: [reference-data.md](../reference-data.md)
 
 ## Content Quality
@@ -56,12 +56,12 @@
 
 ## Åbne punkter til Clarify
 
-- [ ] Kundetilfredshed: seedede ratings er opfundne. Bekræft, at det er acceptabelt, eller om de skal ligge i datafilen
-- [ ] Takstmodel: `low` = min / `mid` = midtpunkt / `high` = max, eller midtpunkt af hver tredjedel af intervallet
-- [ ] Ændring af en booking: skal systemet beholde samme værelse, hvis det stadig er ledigt?
-- [ ] Hvem afgør manuelt justeret pris: gælder den kun for den enkelte booking?
-- [ ] Hvordan afgrænses "live" i Tableau (manuel refresh, planlagt refresh eller hver gang data hentes)?
-- [ ] Opholdets år, hvis en booking krydser nytår: indtjekningsåret bruges (antaget)
+- [x] Kundetilfredshed: opfundne ratings (1–5) ligger i datafilen, ca. 30 % er NULL (ingen besvarelse). Gennemsnit beregnes kun over besvarede
+- [x] Takstmodel: `low` = min / `mid` = midtpunkt / `high` = max
+- [x] Ændring af en booking: skal systemet beholde samme værelse, hvis det stadig er ledigt?
+- [x] Hvem afgør manuelt justeret pris: gælder den kun for den enkelte booking?
+- [x] Hvordan afgrænses "live" i Tableau (manuel refresh, planlagt refresh eller hver gang data hentes)?
+- [x] Opholdets år, hvis en booking krydser nytår: indtjekningsåret bruges (antaget)
 
 ## Notes
 

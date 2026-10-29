@@ -4,13 +4,23 @@
 
 **Created**: 2026-10-28
 
-**Status**: Draft
+**Status**: Ready for Plan
 
 **Input**: User description: "Komplet specifikation for Hotel Kong Arthur booking-, cocktailbar- og dataanalyse-platform med live nøgletal baseret på Opgavebeskrivelse.pdf, Tillægsspørgsmål.pdf og projektplan.md"
 
 **Referencedata**: Takster, værelsesfordeling, sæsoner og berigede datafiler er samlet i [reference-data.md](reference-data.md). Det er den eneste kilde til disse værdier.
 
 **Forkortelser**: `US` = User Story, `FR` = Functional Requirement, `NFR` = Non-Functional Requirement, `SC` = Success Criterion. Sporbarhed mellem dem findes i afsnittet [Sporbarhedsmatrix](#sporbarhedsmatrix).
+
+## Clarifications
+
+### Session 2026-10-29
+
+- Q: Skal systemet beholde det oprindeligt tildelte værelsesnummer ved opdatering af en eksisterende booking, hvis værelsestypen er uændret og værelset stadig er ledigt i den nye periode? → A: Behold samme værelse hvis værelsestypen er uændret og værelset er ledigt i den nye periode; tildel kun et nyt ledigt værelse ved overlap eller ændret værelsestype (ellers `409`).
+- Q: Hvordan skal systemet håndtere en manuelt angivet totalpris ved oprettelse og opdatering af en booking? → A: Manuel pris gælder kun for den enkelte booking (`Price` > 0); ved ændring af datoer eller værelsestype genberegnes prisen efter sæsontaksterne, medmindre en ny manuel pris angives.
+- Q: Hvordan skal en bookings omsætning og solgte værelsesnætter henføres til år, sæson og måned i nøgletalsberegningerne, hvis opholdet strækker sig hen over et årsskifte, sæsonskifte eller månedsskifte? → A: Hele bookingens omsætning (`Price`) og alle dens værelsesnætter (`Days Rented`) tilskrives indtjekningsdatoens år, sæson og måned samlet (ingen opsplitning nat-for-nat).
+- Q: Hvilken takstmodel skal anvendes til at fastsætte døgnprisen for `low`, `mid` og `high` sæson ud fra opgavebeskrivelsens prisintervaller? → A: `low` = nedre grænse (min), `mid` = midtpunktet af intervallet, `high` = øvre grænse (max), som fastlagt i `reference-data.md`.
+- Q: Hvordan afgrænses begrebet "live data" i Tableau-dashboardet, når bookinger eller barsalg ændres i systemet? → A: On-demand via REST API: Backendens endpoints leverer altid aktuelle tal fra MySQL ved hvert kald, og Tableau viser ændringerne straks når datakilden opdateres (refresh).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -31,7 +41,7 @@
 **Acceptance Scenarios (Confirmation)**:
 
 1. **Given** receptionisten har åbnet booking-oversigten i browseren, **When** receptionisten indtaster gyldige oplysninger (fornavn, efternavn, land, værelsestype, indtjekning, udtjekning og antal personer inden for værelsestypens kapacitet) og gemmer, **Then** tildeler systemet et ledigt værelse af den valgte type, udleder sæsonen ud fra indtjekningsdatoen, beregner totalprisen i DKK efter [reference-data.md](reference-data.md), og bookingen vises straks i bookinglisten.
-2. **Given** en eksisterende booking findes i systemet, **When** receptionisten ændrer datoer, værelsestype eller antal personer og gemmer, **Then** opdateres bookingens oplysninger, værelse, sæson og totalpris permanent, og de opdaterede værdier vises ved genindlæsning.
+2. **Given** en eksisterende booking findes i systemet, **When** receptionisten ændrer datoer, værelsestype eller antal personer og gemmer, **Then** opdateres bookingens oplysninger, sæson og totalpris permanent, det eksisterende værelse beholdes hvis værelsestypen er uændret og værelset stadig er ledigt i perioden (ellers tildeles et nyt ledigt værelse af typen), og de opdaterede værdier vises ved genindlæsning.
 3. **Given** en eksisterende booking er annulleret eller fejloprettet, **When** receptionisten vælger at slette bookingen og bekræfter, **Then** fjernes bookingen fra listen over aktive bookinger og indgår ikke længere i omsætnings- og belægningsberegninger. Værelset er igen ledigt i perioden.
 4. **Given** hotellets eksterne bookingsystem sender en ny eller opdateret booking via systemets dokumenterede grænsefladekontrakt, **When** data overholder valideringsreglerne, **Then** kvitterer systemet med bekræftelse og det tildelte booking-ID, og bookingen er umiddelbart synlig for receptionisten.
 5. **Given** der findes en booking på værelse 606 fra 10. til 13. marts, **When** en ny eller ændret booking ville få samme værelse i en periode, der overlapper (f.eks. 12.–14. marts), **Then** afvises overlappet. Systemet vælger i stedet et andet ledigt værelse af samme type, og hvis ingen findes, afvises forespørgslen med konflikt (`409`). Udtjekning 13. marts og ny indtjekning 13. marts på samme værelse er tilladt.
@@ -72,7 +82,7 @@
 - **I**ndependent: Indlæsning og forespørgsel af grunddata kan testes straks ved systemopstart.
 - **N**egotiable: Normalisering af gæste- og landeentiteter kan tilpasses datamodellen.
 - **V**aluable: Giver øjeblikkeligt 1.000 bookinger og 30 drikkevarer til analyse.
-- **E**stimable: Kildedata (`international_names_with_rooms_1000.csv` og `drinks_menu_with_sales.csv`) har kendt skema og størrelse (se [reference-data.md](reference-data.md)).
+- **E**stimable: Kildedata (`hotel_bookings_2026.csv` og `drinks_menu_with_sales.csv`) har kendt skema og størrelse (se [reference-data.md](reference-data.md)).
 - **S**mall: Afgrænset til initialisering og udstilling af gæste-/landedata.
 - **T**estable: Kan verificeres ved at tjekke, at alle 1.000 historiske bookinger og 30 drikkevarer er tilgængelige umiddelbart efter første opstart uden manuel filimport.
 
@@ -105,7 +115,7 @@
 3. **Given** bookingdata for et år er tilgængelige, **When** årets nøgletal forespørges, **Then** beregnes og leveres:
    - **Årets samlede hotelindtjening** (sum af `Price` i DKK for alle aktive bookinger med indtjekning i året).
    - **Belægningsgrad (%)** = solgte værelsesnætter ÷ (214 × antal dage i perioden). For 2026 er de tilgængelige nætter 78.110. Opdelt pr. sæson og pr. måned.
-   - **Kundetilfredshed** (gennemsnitlig tilfredshedsscore på skala 1–5 pr. værelsestype og samlet).
+   - **Kundetilfredshed** (gennemsnitlig tilfredshedsscore på skala 1–5 pr. værelsestype og samlet). Bookinger uden besvarelse (NULL) tælles ikke med i gennemsnittet, og antal besvarelser vises sammen med gennemsnittet.
    - **Selvvalgte nøgletal**:
       1. **ADR (Average Daily Rate)**: `Total Hotelomsætning ÷ Solgte Værelsesnætter`.
       2. **RevPAR (Revenue Per Available Room)**: `Total Hotelomsætning ÷ Tilgængelige Værelsesnætter`.
@@ -171,7 +181,7 @@
 - **Ikke-eksisterende booking-ID**: Hvad sker der, når en klient forsøger at hente, opdatere (`PUT`) eller slette (`DELETE`) en booking med et ID, der ikke findes? Systemet SKAL returnere `404`.
 - **Overlappende bookinger**: Hvad sker der, hvis en booking oprettes eller ændres, så den overlapper en anden på samme værelse? Overlap SKAL være umuligt (se FR-017). Systemet SKAL afvise med `409`, hvis intet værelse af typen er ledigt.
 - **Overkapacitet / Overbooking**: Hvad sker der, hvis alle værelser af en type er optaget i hele perioden? Systemet SKAL afvise med `409`. Antal værelser pr. type fremgår af [reference-data.md](reference-data.md).
-- **Ophold over sæsonskifte**: Hvad sker der ved en booking, der starter i en sæson og slutter i en anden? Sæsonen bestemmes af indtjekningsdatoen, og hele opholdet afregnes efter den.
+- **Ophold over sæson-, måneds- eller årsskifte**: Hvad sker der ved en booking, der starter i én periode (år, sæson eller måned) og slutter i en anden? År, sæson og måned bestemmes af indtjekningsdatoen; hele opholdet afregnes efter indtjekningssæsonen, og både fuld omsætning (`Price`) og samtlige værelsesnætter (`Days Rented`) tilskrives indtjekningsdatoens år, sæson og måned uden opsplitning nat-for-nat.
 - **Genstart af system og containere**: Hvad sker der med nyoprettede bookinger, når systemet lukkes ned og startes igen? Data SKAL være persisteret, og opstarts-seeding må IKKE overskrive eller duplikere eksisterende data.
 - **Division med nul i nøgletal**: Hvad sker der, hvis der filtreres på en kombination (f.eks. et land eller en sæson) uden bookinger? Systemet SKAL returnere `0` (ikke `NaN`, `null`-nedbrud eller `500`-fejl) for gennemsnitspriser og procenter.
 
@@ -183,10 +193,10 @@
 - **FR-001** *(US1)*: Systemet SKAL udstille funktionalitet til at oprette (`CREATE`), læse (`READ`), opdatere (`UPDATE`) og slette (`DELETE`) værelsesbookinger.
 - **FR-002** *(US1)*: Systemet SKAL levere en browserbaseret brugergrænseflade (frontend-prototype), hvori en bruger kan se bookinglisten samt oprette, redigere og slette bookinger.
 - **FR-003** *(US1, US2)*: Systemet SKAL ved oprettelse og opdatering af en booking validere, at fornavn, efternavn og land er udfyldt, at værelsestypen er en af hotellets 8 gyldige typer, at udtjekning ligger efter indtjekning, og at antal personer er mindst 1 og højst værelsestypens kapacitet.
-- **FR-004** *(US2)*: Systemet SKAL udlede en bookings sæson (`low`, `mid`, `high`) ud fra indtjekningsdatoen og beregne totalprisen som takst (type, sæson) × antal nætter, hvis en specifik totalpris ikke er angivet manuelt.
-- **FR-005** *(US2)*: Systemet SKAL repræsentere hotellets 214 værelser fordelt på de 8 værelsestyper (kapacitet 1–4 personer pr. værelse, i alt 428 gæster) med sæsontakster som fastlagt i [reference-data.md](reference-data.md).
-- **FR-016** *(US1, US4)*: Hver booking SKAL have et år (indtjekningsåret). Alle nøgletal og rapporter SKAL kunne afgrænses til et valgt år.
-- **FR-017** *(US1, US3)*: Systemet SKAL sikre, at to aktive bookinger aldrig overlapper på samme værelse. Overlap er `indtjekning₁ < udtjekning₂` og `udtjekning₁ > indtjekning₂`. Udtjekningsdagen må være næste gæsts indtjekningsdag. Reglen gælder ved oprettelse, ændring og seed. Systemet tildeler et ledigt værelse af den valgte type, og hvis ingen findes, afvises med `409`.
+- **FR-004** *(US2)*: Systemet SKAL udlede en bookings sæson (`low`, `mid`, `high`) ud fra indtjekningsdatoen og beregne totalprisen som takst (type, sæson) × antal nætter, hvis en specifik totalpris ikke er angivet manuelt. En manuelt angivet pris (`Price` > 0) gælder kun for den enkelte booking; ved senere ændring af datoer eller værelsestype genberegnes prisen efter sæsontaksterne i [reference-data.md](reference-data.md), medmindre en ny manuel pris angives i opdateringen.
+- **FR-005** *(US2)*: Systemet SKAL repræsentere hotellets 214 værelser fordelt på de 8 værelsestyper (kapacitet 1–4 personer pr. værelse, i alt 428 gæster) med sæsontakster fastsat som `low` = nedre grænse (min), `mid` = midtpunktet af prisintervallet og `high` = øvre grænse (max), jf. [reference-data.md](reference-data.md).
+- **FR-016** *(US1, US4)*: Hver booking SKAL have et år (indtjekningsåret). Alle nøgletal og rapporter SKAL kunne afgrænses til et valgt år, og hele bookingens omsætning (`Price`) samt alle dens værelsesnætter (`Days Rented`) tilskrives indtjekningsdatoens år, sæson og måned.
+- **FR-017** *(US1, US3)*: Systemet SKAL sikre, at to aktive bookinger aldrig overlapper på samme værelse. Overlap er `indtjekning₁ < udtjekning₂` og `udtjekning₁ > indtjekning₂`. Udtjekningsdagen må være næste gæsts indtjekningsdag. Reglen gælder ved oprettelse, ændring og seed. Ved oprettelse tildeler systemet et ledigt værelse af den valgte type; ved ændring beholdes det eksisterende værelse, hvis værelsestypen er uændret og værelset er ledigt i den nye periode, og ellers tildeles et andet ledigt værelse af typen. Hvis intet værelse af typen er ledigt, afvises med `409`.
 - **FR-018** *(US1)*: Hver booking SKAL have et antal personer (`Guests`), som ikke må overstige værelsestypens kapacitet.
 
 #### Cocktailbar
@@ -204,9 +214,9 @@
   3. Procentfordeling mellem `Cocktail` og `Coffee` (både målt på omsætning i DKK og på antal solgte enheder).
 
 #### Data-Seeding, Kontrakt & Live-Integration
-- **FR-013** *(US3)*: Systemet SKAL ved første opstart automatisk indlæse de 1.000 historiske bookinger fra `international_names_with_rooms_1000.csv` og de 30 drikkevarer med salgstal fra `drinks_menu_with_sales.csv` (begge med `Year` = 2026).
+- **FR-013** *(US3)*: Systemet SKAL ved første opstart automatisk indlæse de 1.000 historiske bookinger fra `hotel_bookings_2026.csv` og de 30 drikkevarer med salgstal fra `drinks_menu_with_sales.csv` (begge med `Year` = 2026).
 - **FR-014** *(US1, US6)*: Alle funktioner og nøgletal SKAL udstilles gennem en dokumenteret grænsefladekontrakt (OpenAPI), som både frontend-prototypen, eksterne bookingsystemer (`POST`/`PUT`/`DELETE`) og Tableau kan anvende.
-- **FR-015** *(US6)*: Et interaktivt Tableau-dashboard SKAL fremvise samtlige hotel- og cocktailbar-nøgletal baseret på data leveret fra backendens grænseflade.
+- **FR-015** *(US6)*: Et interaktivt Tableau-dashboard SKAL fremvise samtlige hotel- og cocktailbar-nøgletal baseret på data leveret on-demand fra backendens REST API (hvert API-kald returnerer friske realtidsberegninger fra MySQL, som vises i Tableau straks ved datakilde-opdatering/refresh).
 
 ### Non-Functional Requirements
 
@@ -233,7 +243,7 @@ Opgavens tekniske rammer gælder som krav. Se constitution for den bindende begr
 - **RoomType (`Værelsestype`)**: En af hotellets 8 værelseskategorier med navn, personkapacitet (1–4), antal værelser og takster for `low`, `mid` og `high` (se [reference-data.md](reference-data.md)).
 - **Room (`Værelse`)**: Et fysisk værelse (214 i alt) med værelsesnummer, tilknyttet en `RoomType`.
 - **Guest (`Gæst`)**: En hotelgæst med fornavn (`First Name`), efternavn (`Family Name`) og oprindelsesland (`Country`).
-- **Booking (`Booking`)**: Et gæsteophold knyttet til en gæst og et værelse, med indtjekning, udtjekning, antal nætter (`Days Rented`), antal personer (`Guests`), sæson (udledt), år, samlet pris i DKK (`Price`) og kundetilfredshedsrating (1–5).
+- **Booking (`Booking`)**: Et gæsteophold knyttet til en gæst og et værelse, med indtjekning, udtjekning, antal nætter (`Days Rented`), antal personer (`Guests`), sæson (udledt), år, samlet pris i DKK (`Price`) og valgfri kundetilfredshedsrating (1–5, kan være tom/NULL).
 - **Drink (`Drikkevare`)**: En vare på lobbybarens menu (20 cocktails og 10 kaffetyper) med navn (`Drink Name`), kategori (`Cocktail` eller `Coffee`) og stykpris (`Price (DKK)`).
 - **DrinkSale (`Barsalg`)**: En registreret salgstransaktion for en `Drink` udført af Helene Christine med antal solgte enheder (`Units Sold`), tidspunkt og år.
 
@@ -274,11 +284,11 @@ Tidsgrænserne i SC-003 og SC-006 er projektets egne måltal. Opgaven angiver de
   - `mid`: 1. mar–31. maj og 1. sep–31. okt.
   - `high`: 1. jun–31. aug og 16.–31. dec.
   - Sæsonen bestemmes af indtjekningsdatoen.
-- **Datagrundlag og år**: Seeddata er beriget med datoer, år (2026), antal personer og værelsesnumre, jf. [reference-data.md](reference-data.md). Året bestemmes af indtjekningsdatoen, og alle opholdsnætter i seeddata ligger i 2026.
-- **Priser**: Takster pr. type og sæson fastlægges i [reference-data.md](reference-data.md) (`low` = nedre grænse, `mid` = midtpunkt, `high` = øvre grænse af opgavens interval). De historiske `Price`-værdier bevares uændret, og taksterne bruges til nye bookinger. Receptionisten kan justere beløbet.
+- **Datagrundlag og år**: Seeddata er beriget med datoer, år (2026), antal personer og værelsesnumre, jf. [reference-data.md](reference-data.md). År, sæson og måned for en booking bestemmes af indtjekningsdatoen (også hvis udtjekning ligger i næste måned, sæson eller år), og alle 5.379 solgte værelsesnætter samt fuld omsætning tilskrives indtjekningsperioden uden opsplitning.
+- **Priser**: Takster pr. type og sæson fastlægges i [reference-data.md](reference-data.md) (`low` = nedre grænse, `mid` = midtpunkt, `high` = øvre grænse af opgavens interval). De historiske `Price`-værdier bevares uændret, og taksterne bruges til nye bookinger. En manuelt justeret pris gælder kun den enkelte booking og påvirker aldrig grundtaksterne; ved ændring af datoer eller værelsestype genberegnes prisen efter taksterne, medmindre en ny manuel pris angives.
 - **Værelsesfordeling**: 214 værelser fordelt på typerne som i [reference-data.md](reference-data.md), svarende til 428 gæster.
 - **Kapacitet skaleres ALDRIG (beslutning)**: Hotellets kapacitet er fast 214 værelser (78.110 værelsesnætter i 2026) og må ikke skaleres, justeres eller omregnes for at få belægningsgraden til at se højere ud. De 1.000 historiske bookinger (5.379 solgte nætter) giver derfor ca. 6,9 %. Det er det korrekte resultat af de udleverede data.
 - **Belægningsgrad**: `SUM(solgte værelsesnætter i perioden) ÷ (214 × dage i perioden) × 100 %`. Gælder for år, sæson og måned.
-- **Kundetilfredshed**: Opgaven nævner kundetilfredshed blandt de nøgletal, systemet skal kunne beregne, men data indeholder ingen rating. Booking-modellen har derfor en tilfredshedsscore (1–5), som ved seed tildeles deterministisk og kan angives ved nye eller afsluttede bookinger. Seedede ratings er opfundne data.
+- **Kundetilfredshed**: Opgaven nævner kundetilfredshed blandt de nøgletal, systemet skal kunne beregne. Den udleverede data har ingen rating, så `hotel_bookings_2026.csv` er beriget med en opfundet kolonne `Satisfaction` (1–5). Gæster må lade være med at svare, så værdien er tom (NULL) i ca. 30 % af bookingerne. Ratings seedes direkte fra filen, kan angives ved nye eller afsluttede bookinger og er valgfri. Gennemsnit beregnes kun over besvarede bookinger (0 besvarelser giver `0` og ikke fejl).
 - **Barsalg**: Historiske salgstal er ét samlet salg pr. drink for 2026. Nye salg er enkelttransaktioner.
 - **Autentificering (Out of Scope for Prototype)**: Da systemet leveres som en intern arkitektur- og analyseprototype i et lukket container-miljø, kræves der ikke login/brugerstyring til prototype-frontenden eller grænsefladen.
