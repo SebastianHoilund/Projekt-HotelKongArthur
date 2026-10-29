@@ -1,0 +1,1001 @@
+First Name,Family Name,Country,Room Type,Days Rented,Season,Price,Check In Date,Check Out Date,Year,Guests,Room Number,Satisfaction
+Liam,Nguyen,China,Spa Executive,1,mid,2577,2026-03-31,2026-04-01,2026,2,606,1
+Zhang,Rossi,Mexico,Grand Lit,3,low,3360,2026-11-09,2026-11-12,2026,2,221,
+Carlos,Khan,China,Standard Single,5,high,6420,2026-06-14,2026-06-19,2026,1,115,
+Hiroshi,Kim,Russia,LOFT Suite,2,mid,6922,2026-10-22,2026-10-24,2026,4,804,5
+Muhammad,Martinez,Vietnam,Suite,4,mid,12784,2026-10-22,2026-10-26,2026,4,708,2
+Lucas,Khan,Australia,Standard Double,10,high,16700,2026-08-15,2026-08-25,2026,1,329,1
+Hiroshi,Nguyen,Australia,Suite,1,low,2522,2026-11-20,2026-11-21,2026,2,702,
+Santiago,Schneider,Canada,LOFT Suite,5,low,15995,2026-01-13,2026-01-18,2026,1,804,2
+Santiago,Khan,Nigeria,Standard Double,2,low,2530,2026-11-30,2026-12-02,2026,2,332,
+Lucas,Garcia,Spain,Standard Double,9,mid,14400,2026-04-23,2026-05-02,2026,1,326,4
+Maria,Rossi,Japan,Grand Lit,4,high,6064,2026-07-16,2026-07-20,2026,2,226,
+Chen,Garcia,Spain,Grand Lit,7,high,12096,2026-12-25,2027-01-01,2026,2,217,5
+Maria,Silva,India,Junior Suite,5,mid,10020,2026-05-27,2026-06-01,2026,2,503,
+Sara,Garcia,Italy,Standard Single,6,high,7452,2026-07-08,2026-07-14,2026,1,119,4
+Isabella,Johansson,Spain,Spa Executive,3,high,7935,2026-08-22,2026-08-25,2026,2,612,3
+Carlos,Garcia,United Kingdom,Standard Single,8,low,7272,2026-02-09,2026-02-17,2026,1,102,3
+Carlos,Hassan,Canada,LOFT Suite,6,high,22686,2026-07-18,2026-07-24,2026,2,803,
+Ingrid,Ivanov,Russia,Grand Lit,9,mid,10944,2026-03-24,2026-04-02,2026,2,213,
+Fatima,Nguyen,Vietnam,LOFT Suite,1,low,3151,2026-11-12,2026-11-13,2026,4,804,5
+David,Patel,Mexico,Standard Double,2,low,2432,2026-02-24,2026-02-26,2026,2,333,4
+Elena,M�ller,India,Superior Double,3,low,4389,2026-11-20,2026-11-23,2026,2,432,5
+Lucas,Smith,Nigeria,Standard Single,7,high,10087,2026-08-07,2026-08-14,2026,1,117,4
+Santiago,Dubois,Egypt,LOFT Suite,2,high,7934,2026-08-12,2026-08-14,2026,3,804,5
+John,Nguyen,France,Standard Double,6,low,7734,2026-01-04,2026-01-10,2026,1,337,4
+Aisha,Khan,India,Junior Suite,5,low,10915,2026-01-17,2026-01-22,2026,3,502,2
+Ingrid,Khan,Italy,Suite,7,high,21315,2026-08-06,2026-08-13,2026,4,702,
+Lucas,Martinez,South Korea,Grand Lit,9,low,9963,2026-11-04,2026-11-13,2026,1,216,
+Olivia,Rossi,Vietnam,LOFT Suite,6,low,19524,2026-01-30,2026-02-05,2026,3,801,
+Aisha,Sato,Pakistan,Standard Double,8,mid,12072,2026-10-02,2026-10-10,2026,2,344,
+Fatima,Martinez,Mexico,Standard Single,8,mid,9272,2026-05-04,2026-05-12,2026,1,136,
+Santiago,Rossi,Brazil,Junior Suite,2,high,4876,2026-07-10,2026-07-12,2026,3,516,
+Aisha,Dubois,Japan,Standard Single,6,low,5526,2026-02-21,2026-02-27,2026,1,128,3
+Ingrid,Hassan,India,Suite,8,high,24080,2026-07-05,2026-07-13,2026,1,701,3
+Isabella,Johansson,South Korea,Standard Single,7,mid,7441,2026-10-02,2026-10-09,2026,1,134,
+John,Brown,Nigeria,Junior Suite,10,mid,21200,2026-09-10,2026-09-20,2026,2,507,4
+Zhang,Brown,Sweden,Spa Executive,1,high,2512,2026-08-02,2026-08-03,2026,2,608,3
+Hiroshi,Kim,Sweden,Superior Double,6,low,8790,2026-11-10,2026-11-16,2026,2,428,3
+Lucas,M�ller,Germany,Superior Double,6,mid,9192,2026-03-09,2026-03-15,2026,2,419,5
+Elena,Smith,Canada,Junior Suite,10,low,20510,2026-01-13,2026-01-23,2026,3,515,4
+Ingrid,Yamamoto,Spain,Grand Lit,5,mid,6850,2026-10-14,2026-10-19,2026,2,209,5
+Zhang,Garcia,India,Junior Suite,5,mid,10115,2026-04-16,2026-04-21,2026,3,514,3
+Santiago,Johansson,Spain,Standard Single,10,low,9720,2026-11-12,2026-11-22,2026,1,105,
+Carlos,Nguyen,Japan,Junior Suite,1,high,2498,2026-08-03,2026-08-04,2026,1,512,3
+Liam,Sato,Vietnam,Standard Single,4,mid,4832,2026-09-17,2026-09-21,2026,1,110,
+Santiago,Khan,Australia,Spa Executive,4,low,8572,2026-01-02,2026-01-06,2026,1,602,5
+David,Johansson,United Kingdom,Superior Double,1,low,1489,2026-11-16,2026-11-17,2026,2,435,4
+Hiroshi,Garcia,South Korea,LOFT Suite,10,low,34260,2026-01-11,2026-01-21,2026,4,805,5
+Carlos,Kim,Italy,Junior Suite,7,low,15295,2026-02-01,2026-02-08,2026,2,504,3
+Fatima,Martinez,Japan,Junior Suite,1,mid,2094,2026-10-18,2026-10-19,2026,3,509,
+Fatima,Brown,China,Junior Suite,8,mid,18184,2026-09-07,2026-09-15,2026,1,505,3
+Sophia,Smith,India,Suite,9,mid,26100,2026-10-12,2026-10-21,2026,3,703,5
+Olivia,Khan,Pakistan,Grand Lit,2,low,2720,2026-11-03,2026-11-05,2026,1,219,3
+Carlos,M�ller,India,Superior Double,6,low,8658,2026-11-23,2026-11-29,2026,1,433,4
+Isabella,Yamamoto,Pakistan,Spa Executive,3,mid,6636,2026-09-17,2026-09-20,2026,1,611,
+John,Martinez,United Kingdom,Grand Lit,8,mid,10792,2026-04-04,2026-04-12,2026,2,226,
+Zhang,Patel,Mexico,Spa Executive,1,mid,2523,2026-10-29,2026-10-30,2026,2,605,
+Ahmed,M�ller,Italy,Suite,6,mid,17934,2026-09-13,2026-09-19,2026,3,703,5
+Muhammad,Nguyen,Nigeria,Standard Double,9,mid,13851,2026-04-20,2026-04-29,2026,1,325,2
+Ahmed,Garcia,Canada,Junior Suite,8,low,15456,2026-01-14,2026-01-22,2026,3,513,5
+Liam,Brown,Spain,Grand Lit,9,high,13275,2026-06-07,2026-06-16,2026,2,227,5
+David,Kim,Russia,Grand Lit,1,low,1149,2026-02-15,2026-02-16,2026,2,230,1
+John,Johansson,Russia,Grand Lit,1,low,1299,2026-01-04,2026-01-05,2026,2,201,4
+Elena,Johansson,Russia,Grand Lit,8,high,12288,2026-07-12,2026-07-20,2026,2,222,3
+Elena,Khan,Canada,LOFT Suite,9,low,27918,2026-02-11,2026-02-20,2026,2,801,3
+Elena,Silva,Brazil,Grand Lit,7,high,11872,2026-07-30,2026-08-06,2026,2,219,4
+Isabella,Martinez,Australia,Superior Double,2,mid,3814,2026-04-13,2026-04-15,2026,2,410,5
+Elena,Johansson,Nigeria,Standard Double,1,high,1952,2026-06-27,2026-06-28,2026,2,328,
+Olivia,Silva,Australia,Standard Double,8,mid,12368,2026-10-03,2026-10-11,2026,1,339,3
+David,Khan,Nigeria,Superior Double,8,mid,12160,2026-03-18,2026-03-26,2026,2,436,5
+Fatima,Rossi,Egypt,Junior Suite,2,mid,4434,2026-04-20,2026-04-22,2026,1,506,
+Fatima,Khan,Sweden,Standard Double,5,low,7315,2026-11-15,2026-11-20,2026,1,354,4
+Sophia,Johansson,United States,Suite,3,high,9087,2026-12-22,2026-12-25,2026,2,704,
+Maria,Patel,United States,Standard Double,3,low,4740,2026-11-30,2026-12-03,2026,1,357,4
+John,Silva,Sweden,LOFT Suite,2,mid,6532,2026-10-15,2026-10-17,2026,4,802,4
+Chen,Schneider,Japan,Standard Double,1,low,1359,2026-11-08,2026-11-09,2026,2,358,
+Lucas,Rossi,Nigeria,Grand Lit,10,mid,14710,2026-04-11,2026-04-21,2026,2,222,1
+Sophia,Yamamoto,South Korea,Standard Single,2,low,1824,2026-02-19,2026-02-21,2026,1,118,5
+Ingrid,Nguyen,United States,Suite,2,high,6090,2026-07-24,2026-07-26,2026,2,702,4
+Aisha,Ivanov,United Kingdom,Suite,5,low,13515,2026-01-24,2026-01-29,2026,2,706,
+Muhammad,Garcia,India,Junior Suite,10,mid,22920,2026-10-06,2026-10-16,2026,3,516,5
+Muhammad,Sato,United Kingdom,Standard Single,4,low,3752,2026-02-23,2026-02-27,2026,1,119,
+Sara,Sato,China,Suite,3,high,10317,2026-07-12,2026-07-15,2026,2,708,2
+Hiroshi,Hassan,France,Standard Double,5,high,8600,2026-08-07,2026-08-12,2026,2,351,5
+Fatima,Garcia,India,Grand Lit,9,high,12816,2026-07-06,2026-07-15,2026,1,227,
+Olivia,Patel,Pakistan,Standard Double,9,low,13689,2026-01-28,2026-02-06,2026,1,315,4
+Ingrid,Silva,Mexico,Junior Suite,8,low,15696,2026-12-01,2026-12-09,2026,2,511,
+Aisha,Kim,Canada,Standard Single,4,low,4512,2026-11-30,2026-12-04,2026,1,112,4
+Aisha,Johansson,China,LOFT Suite,1,mid,3764,2026-05-30,2026-05-31,2026,2,802,
+Lucas,Smith,Sweden,Standard Single,3,low,3243,2026-12-01,2026-12-04,2026,1,137,4
+Isabella,M�ller,France,Grand Lit,3,high,4329,2026-06-28,2026-07-01,2026,2,204,
+Santiago,Johansson,Brazil,Junior Suite,9,high,19935,2026-07-06,2026-07-15,2026,2,507,5
+Ahmed,Khan,Sweden,Superior Double,1,high,1864,2026-08-12,2026-08-13,2026,2,418,4
+Hiroshi,Johansson,China,Suite,9,high,30105,2026-06-17,2026-06-26,2026,4,702,3
+Ahmed,Sato,South Korea,Junior Suite,7,high,17143,2026-06-13,2026-06-20,2026,2,514,
+Isabella,Schneider,Vietnam,Standard Single,4,mid,4132,2026-03-16,2026-03-20,2026,1,123,4
+Ingrid,Lee,Russia,Suite,10,mid,30490,2026-04-17,2026-04-27,2026,3,702,
+Ingrid,Rossi,Germany,Standard Double,8,mid,10536,2026-05-10,2026-05-18,2026,2,338,
+Zhang,Nguyen,Germany,LOFT Suite,8,high,30480,2026-07-08,2026-07-16,2026,2,803,
+Santiago,Khan,Japan,Grand Lit,8,mid,9808,2026-05-05,2026-05-13,2026,1,203,3
+Elena,Sato,China,Suite,7,mid,20356,2026-05-05,2026-05-12,2026,4,707,5
+Chen,Dubois,Egypt,Spa Executive,8,low,18480,2026-01-08,2026-01-16,2026,1,602,
+Carlos,Rossi,Russia,Suite,10,high,33910,2026-07-10,2026-07-20,2026,1,702,
+Sara,M�ller,Russia,Standard Double,3,mid,4704,2026-10-24,2026-10-27,2026,2,337,3
+Lucas,Garcia,Canada,Standard Single,4,high,5248,2026-07-15,2026-07-19,2026,1,121,
+Aisha,Khan,Sweden,Junior Suite,6,high,13236,2026-08-17,2026-08-23,2026,3,502,4
+Muhammad,Smith,Vietnam,Suite,3,mid,9393,2026-05-20,2026-05-23,2026,3,704,5
+Santiago,Khan,Germany,Standard Single,4,low,3952,2026-02-24,2026-02-28,2026,1,144,3
+Ingrid,Smith,United States,Spa Executive,2,high,5090,2026-08-27,2026-08-29,2026,2,606,
+John,Kim,Nigeria,Standard Double,4,high,6732,2026-08-27,2026-08-31,2026,2,317,4
+David,Khan,Italy,Superior Double,2,low,2800,2026-02-15,2026-02-17,2026,2,404,5
+Maria,Khan,Mexico,Grand Lit,2,high,3216,2026-07-26,2026-07-28,2026,1,229,5
+David,Silva,Vietnam,Suite,2,high,6596,2026-08-28,2026-08-30,2026,2,706,
+Lucas,Patel,United States,Suite,6,mid,16254,2026-04-01,2026-04-07,2026,4,705,4
+Liam,Martinez,United States,Standard Single,6,low,5928,2026-02-10,2026-02-16,2026,1,138,3
+Elena,Olsen,United Kingdom,Junior Suite,1,low,2104,2026-11-11,2026-11-12,2026,2,511,
+Carlos,M�ller,China,Standard Double,10,mid,13260,2026-03-15,2026-03-25,2026,2,347,4
+Chen,Khan,Japan,Junior Suite,4,low,7536,2026-01-21,2026-01-25,2026,1,504,
+Elena,Kim,India,Standard Single,10,mid,11730,2026-04-02,2026-04-12,2026,1,134,
+Liam,Brown,India,Grand Lit,2,low,2460,2026-11-25,2026-11-27,2026,2,221,4
+Liam,Yamamoto,Sweden,Standard Single,7,mid,8554,2026-09-23,2026-09-30,2026,1,138,4
+Muhammad,M�ller,Spain,Superior Double,7,mid,13447,2026-09-21,2026-09-28,2026,2,425,
+Ahmed,Johansson,Pakistan,Spa Executive,8,mid,20384,2026-09-23,2026-10-01,2026,1,611,5
+Fatima,Sato,India,Spa Executive,2,high,5440,2026-06-17,2026-06-19,2026,2,603,5
+Zhang,Kim,Mexico,Superior Double,6,low,9864,2026-12-01,2026-12-07,2026,2,435,3
+Sophia,Sato,Italy,Superior Double,2,low,3310,2026-02-20,2026-02-22,2026,2,417,3
+Liam,Olsen,Spain,Junior Suite,2,mid,4440,2026-04-28,2026-04-30,2026,1,501,2
+Ahmed,Yamamoto,Mexico,Superior Double,1,mid,1966,2026-10-17,2026-10-18,2026,2,431,5
+Sara,Khan,Vietnam,Standard Single,5,low,5685,2026-02-10,2026-02-15,2026,1,109,
+Isabella,Olsen,Germany,Superior Double,5,mid,9640,2026-03-23,2026-03-28,2026,2,412,4
+Elena,Silva,Spain,Junior Suite,2,mid,4118,2026-10-11,2026-10-13,2026,2,509,5
+Olivia,Olsen,Pakistan,Junior Suite,3,low,5541,2026-01-08,2026-01-11,2026,2,501,4
+David,Brown,France,Spa Executive,5,high,12505,2026-07-02,2026-07-07,2026,1,608,3
+Ingrid,Yamamoto,South Korea,Suite,1,high,3068,2026-06-29,2026-06-30,2026,4,703,
+Aisha,Rossi,Japan,Spa Executive,6,mid,13290,2026-09-16,2026-09-22,2026,2,612,4
+Fatima,Ivanov,Vietnam,Superior Double,8,high,15416,2026-06-30,2026-07-08,2026,2,436,5
+Maria,Lee,China,Superior Double,4,mid,7524,2026-05-27,2026-05-31,2026,2,413,
+Muhammad,Nguyen,United States,Spa Executive,1,high,2606,2026-07-29,2026-07-30,2026,2,611,4
+Muhammad,Martinez,United Kingdom,Spa Executive,6,mid,14238,2026-10-05,2026-10-11,2026,2,611,3
+Sara,Rossi,Russia,Grand Lit,10,high,14200,2026-06-25,2026-07-05,2026,2,206,2
+Sophia,Kim,South Korea,Standard Single,4,high,5304,2026-06-20,2026-06-24,2026,1,132,
+Aisha,Silva,Japan,Junior Suite,10,low,19980,2026-02-15,2026-02-25,2026,3,514,4
+Santiago,Silva,Sweden,Standard Double,8,high,13480,2026-08-21,2026-08-29,2026,1,312,
+Chen,Kim,United States,LOFT Suite,8,low,24816,2026-02-17,2026-02-25,2026,4,805,
+Aisha,Nguyen,China,Spa Executive,6,low,14874,2026-01-18,2026-01-24,2026,2,612,3
+Muhammad,Yamamoto,Italy,Standard Double,2,mid,3208,2026-03-05,2026-03-07,2026,1,335,4
+Isabella,Lee,Italy,Standard Single,2,low,2144,2026-12-02,2026-12-04,2026,1,138,4
+Isabella,Rossi,Canada,Grand Lit,1,mid,1391,2026-03-12,2026-03-13,2026,2,213,5
+Liam,Dubois,China,Junior Suite,7,low,13293,2026-11-14,2026-11-21,2026,3,506,
+Chen,Smith,Australia,Spa Executive,2,low,4364,2026-02-19,2026-02-21,2026,2,606,3
+Chen,Nguyen,Vietnam,Spa Executive,1,high,2606,2026-07-10,2026-07-11,2026,2,601,5
+Liam,Olsen,Mexico,Standard Double,6,low,7782,2026-12-01,2026-12-07,2026,1,351,
+Carlos,Silva,Brazil,Superior Double,3,low,5100,2026-02-07,2026-02-10,2026,2,419,5
+Elena,Kim,South Korea,Suite,8,low,21296,2026-02-15,2026-02-23,2026,4,703,
+Aisha,Johansson,India,LOFT Suite,3,mid,9867,2026-04-18,2026-04-21,2026,3,806,5
+Fatima,Hassan,Egypt,Suite,5,mid,15415,2026-10-05,2026-10-10,2026,2,707,2
+Muhammad,Silva,Australia,Spa Executive,10,high,26210,2026-08-08,2026-08-18,2026,2,603,
+John,Rossi,Italy,LOFT Suite,2,low,6830,2026-01-04,2026-01-06,2026,2,802,
+John,Hassan,United States,Grand Lit,1,low,1122,2026-01-19,2026-01-20,2026,1,206,5
+Aisha,Kim,China,Suite,9,high,28359,2026-06-15,2026-06-24,2026,4,701,4
+Isabella,Smith,Vietnam,Suite,3,mid,8454,2026-03-17,2026-03-20,2026,2,706,
+Elena,Smith,South Korea,Spa Executive,8,low,16776,2026-11-17,2026-11-25,2026,2,603,5
+Elena,Kim,Brazil,Spa Executive,8,low,19424,2026-02-01,2026-02-09,2026,1,603,5
+Liam,Rossi,Sweden,Superior Double,7,high,14140,2026-07-12,2026-07-19,2026,1,432,1
+John,Khan,China,Junior Suite,6,high,13434,2026-12-22,2026-12-28,2026,2,503,4
+Liam,Yamamoto,Nigeria,Standard Single,5,low,5825,2026-11-24,2026-11-29,2026,1,120,5
+Isabella,M�ller,Russia,Spa Executive,3,high,7614,2026-07-15,2026-07-18,2026,2,608,
+Aisha,Rossi,Spain,Standard Single,3,low,3087,2026-01-16,2026-01-19,2026,1,136,
+Muhammad,Sato,Egypt,Standard Single,8,mid,9792,2026-09-07,2026-09-15,2026,1,144,
+Muhammad,Johansson,China,Standard Single,7,low,7756,2026-11-22,2026-11-29,2026,1,123,3
+Sara,Khan,India,Spa Executive,2,high,5590,2026-12-24,2026-12-26,2026,2,602,5
+Sophia,Rossi,Spain,Superior Double,6,high,11538,2026-07-10,2026-07-16,2026,2,417,
+Maria,Martinez,Sweden,LOFT Suite,1,high,3654,2026-06-29,2026-06-30,2026,2,802,4
+Olivia,Patel,Spain,Grand Lit,4,high,5912,2026-08-04,2026-08-08,2026,2,218,5
+Hiroshi,Smith,Japan,Grand Lit,5,low,6580,2026-12-08,2026-12-13,2026,2,222,2
+Maria,Ivanov,India,Standard Double,1,low,1410,2026-02-21,2026-02-22,2026,1,321,3
+Fatima,Olsen,Vietnam,Standard Double,6,high,11730,2026-07-30,2026-08-05,2026,2,315,
+Ahmed,Brown,Canada,Suite,1,high,3224,2026-07-15,2026-07-16,2026,2,706,5
+John,Garcia,South Korea,Junior Suite,7,low,13293,2026-11-23,2026-11-30,2026,2,513,
+Elena,Johansson,Canada,Grand Lit,9,high,16065,2026-07-27,2026-08-05,2026,2,224,4
+Santiago,Smith,Pakistan,LOFT Suite,6,mid,19362,2026-04-02,2026-04-08,2026,2,804,1
+Maria,Khan,Brazil,Grand Lit,3,mid,4341,2026-03-31,2026-04-03,2026,1,211,
+Ingrid,Schneider,Vietnam,Junior Suite,6,mid,12300,2026-09-27,2026-10-03,2026,1,509,5
+David,Khan,Germany,Standard Double,5,mid,6805,2026-05-08,2026-05-13,2026,2,315,5
+Fatima,Sato,Nigeria,Standard Single,7,low,7497,2026-01-19,2026-01-26,2026,1,136,2
+Fatima,Yamamoto,Australia,Suite,2,low,5602,2026-02-04,2026-02-06,2026,3,705,
+Fatima,Brown,United Kingdom,Suite,6,mid,17892,2026-09-16,2026-09-22,2026,1,707,5
+Ahmed,Sato,United Kingdom,Standard Double,10,mid,14930,2026-09-02,2026-09-12,2026,2,344,5
+Ahmed,Rossi,Australia,Junior Suite,2,mid,4518,2026-03-25,2026-03-27,2026,3,516,3
+Elena,Ivanov,India,Suite,6,mid,18378,2026-10-23,2026-10-29,2026,2,704,
+Sara,M�ller,Canada,Grand Lit,9,high,13779,2026-08-22,2026-08-31,2026,1,211,
+Ingrid,Olsen,France,Spa Executive,5,mid,11335,2026-04-14,2026-04-19,2026,1,601,5
+Fatima,Khan,Spain,Standard Double,7,mid,9786,2026-05-04,2026-05-11,2026,2,309,4
+Lucas,Kim,United States,Junior Suite,9,mid,20187,2026-09-23,2026-10-02,2026,3,516,
+Ingrid,Dubois,Vietnam,Junior Suite,2,low,3624,2026-11-04,2026-11-06,2026,1,511,5
+Aisha,Silva,Canada,Standard Single,8,low,8400,2026-01-29,2026-02-06,2026,1,141,5
+Carlos,Silva,Russia,Grand Lit,6,high,8586,2026-07-05,2026-07-11,2026,1,211,1
+Hiroshi,Smith,Mexico,Junior Suite,9,low,17154,2026-01-27,2026-02-05,2026,2,515,4
+Ingrid,Olsen,France,LOFT Suite,5,high,18900,2026-08-19,2026-08-24,2026,2,806,5
+Muhammad,Silva,South Korea,Superior Double,8,high,16568,2026-08-11,2026-08-19,2026,2,413,5
+Muhammad,Smith,France,Superior Double,4,mid,6676,2026-03-03,2026-03-07,2026,1,407,
+Muhammad,Ivanov,Australia,Standard Double,6,low,7860,2026-01-29,2026-02-04,2026,1,330,2
+Maria,Rossi,India,Spa Executive,5,low,12160,2026-12-02,2026-12-07,2026,2,603,5
+John,Smith,Sweden,Superior Double,7,low,9870,2026-01-11,2026-01-18,2026,2,437,
+Zhang,Patel,Brazil,Spa Executive,5,mid,12750,2026-10-16,2026-10-21,2026,2,611,4
+Sara,Hassan,China,Standard Double,3,mid,4077,2026-04-04,2026-04-07,2026,1,307,5
+Aisha,Silva,India,Junior Suite,6,high,14688,2026-07-24,2026-07-30,2026,2,502,
+Hiroshi,Johansson,United Kingdom,Grand Lit,1,high,1753,2026-12-17,2026-12-18,2026,2,217,
+Hiroshi,Ivanov,China,Grand Lit,7,mid,9947,2026-10-05,2026-10-12,2026,2,222,
+Maria,Smith,Australia,Standard Single,10,low,11710,2026-02-13,2026-02-23,2026,1,123,5
+Ingrid,Yamamoto,Sweden,Grand Lit,6,mid,9534,2026-10-06,2026-10-12,2026,2,209,3
+Carlos,Kim,Brazil,Grand Lit,6,mid,8400,2026-05-23,2026-05-29,2026,1,227,4
+David,Martinez,China,Junior Suite,6,mid,12792,2026-10-09,2026-10-15,2026,1,505,4
+Lucas,Khan,Australia,Grand Lit,10,high,17150,2026-07-17,2026-07-27,2026,2,209,2
+Santiago,Brown,United Kingdom,Superior Double,7,low,11256,2026-11-07,2026-11-14,2026,2,413,3
+Muhammad,Yamamoto,United Kingdom,Superior Double,5,high,10635,2026-08-05,2026-08-10,2026,2,426,3
+Olivia,Ivanov,Spain,Superior Double,4,mid,6112,2026-03-14,2026-03-18,2026,2,427,
+Olivia,Khan,United Kingdom,Standard Double,10,mid,15770,2026-10-18,2026-10-28,2026,2,344,4
+Santiago,Schneider,China,Standard Double,3,mid,4800,2026-05-16,2026-05-19,2026,2,331,4
+Muhammad,Johansson,Vietnam,Standard Single,2,high,2444,2026-08-05,2026-08-07,2026,1,134,3
+Hiroshi,Ivanov,Japan,Grand Lit,7,low,8099,2026-11-10,2026-11-17,2026,2,211,3
+Isabella,Kim,South Korea,Grand Lit,5,high,8170,2026-07-17,2026-07-22,2026,1,206,1
+Ahmed,Martinez,Egypt,Standard Double,6,low,8832,2026-11-18,2026-11-24,2026,2,356,4
+Liam,Yamamoto,Brazil,Standard Single,10,low,9320,2026-02-02,2026-02-12,2026,1,134,4
+Liam,Yamamoto,Canada,Junior Suite,6,high,13272,2026-07-20,2026-07-26,2026,3,504,4
+Liam,Rossi,Spain,Standard Single,1,mid,1038,2026-04-24,2026-04-25,2026,1,102,
+Muhammad,Silva,Canada,LOFT Suite,7,high,26292,2026-06-27,2026-07-04,2026,3,804,4
+Ahmed,Smith,Australia,Standard Single,4,high,4852,2026-08-07,2026-08-11,2026,1,109,5
+Sophia,Garcia,France,Superior Double,1,mid,1939,2026-05-09,2026-05-10,2026,1,432,3
+Santiago,Martinez,Pakistan,Standard Double,1,high,1759,2026-08-26,2026-08-27,2026,2,354,4
+Liam,Smith,Sweden,Suite,8,low,23560,2026-02-16,2026-02-24,2026,3,707,4
+Lucas,Sato,Italy,Superior Double,6,low,8922,2026-12-09,2026-12-15,2026,1,435,
+Zhang,Dubois,South Korea,Junior Suite,4,low,7464,2026-11-22,2026-11-26,2026,3,505,5
+Fatima,Dubois,Pakistan,Grand Lit,2,low,2686,2026-01-17,2026-01-19,2026,2,226,5
+Aisha,Johansson,France,Standard Double,1,low,1483,2026-11-26,2026-11-27,2026,1,337,3
+Carlos,Khan,South Korea,Grand Lit,2,low,2760,2026-11-28,2026-11-30,2026,1,228,1
+John,Dubois,Sweden,Spa Executive,9,high,25038,2026-07-09,2026-07-18,2026,1,603,
+Olivia,Dubois,Russia,Standard Double,9,high,15003,2026-08-09,2026-08-18,2026,2,345,4
+Santiago,Yamamoto,France,Suite,5,high,16080,2026-07-29,2026-08-03,2026,2,703,4
+Sara,Martinez,Egypt,Spa Executive,8,high,21440,2026-06-07,2026-06-15,2026,2,603,3
+David,M�ller,South Korea,Junior Suite,7,low,14329,2026-02-22,2026-03-01,2026,3,516,5
+Maria,Johansson,Mexico,Superior Double,2,mid,3768,2026-03-08,2026-03-10,2026,1,420,3
+Ingrid,Olsen,Nigeria,Superior Double,10,low,17490,2026-02-16,2026-02-26,2026,1,435,
+David,Garcia,China,LOFT Suite,10,low,33860,2026-11-03,2026-11-13,2026,4,802,5
+Chen,Lee,South Korea,Standard Double,5,mid,8075,2026-04-07,2026-04-12,2026,2,346,5
+Ingrid,Khan,Brazil,Suite,6,mid,19446,2026-10-04,2026-10-10,2026,1,701,5
+Olivia,Yamamoto,India,Suite,1,high,3083,2026-07-16,2026-07-17,2026,2,705,
+Elena,Garcia,Nigeria,Standard Double,6,high,10968,2026-06-04,2026-06-10,2026,2,311,
+Lucas,Rossi,Mexico,Spa Executive,3,mid,7341,2026-03-24,2026-03-27,2026,2,607,
+Carlos,Schneider,India,Standard Single,7,mid,8960,2026-04-21,2026-04-28,2026,1,111,
+Elena,Rossi,Germany,Suite,4,mid,12984,2026-10-08,2026-10-12,2026,2,704,5
+Muhammad,Brown,Sweden,Spa Executive,1,low,2297,2026-11-10,2026-11-11,2026,2,607,
+Muhammad,Schneider,Italy,Grand Lit,4,low,4452,2026-11-03,2026-11-07,2026,2,228,4
+David,Nguyen,India,Superior Double,2,low,2866,2026-01-27,2026-01-29,2026,2,420,
+Sara,Martinez,Australia,Standard Double,9,low,14139,2026-11-06,2026-11-15,2026,2,336,4
+Aisha,Sato,Brazil,Suite,1,mid,2989,2026-03-24,2026-03-25,2026,4,704,
+Fatima,Schneider,Italy,Superior Double,2,mid,3780,2026-03-30,2026-04-01,2026,2,406,1
+Muhammad,Brown,Germany,Grand Lit,9,low,10917,2026-12-06,2026-12-15,2026,2,220,5
+Santiago,Rossi,France,Superior Double,1,low,1736,2026-01-15,2026-01-16,2026,1,412,
+Sara,Smith,Egypt,Suite,1,low,2849,2026-02-25,2026-02-26,2026,4,704,3
+Elena,Patel,Italy,Spa Executive,5,low,12085,2026-02-24,2026-03-01,2026,2,601,4
+Muhammad,Kim,Nigeria,LOFT Suite,6,low,18630,2026-01-19,2026-01-25,2026,4,806,
+Elena,Yamamoto,Russia,Superior Double,8,high,17376,2026-08-21,2026-08-29,2026,1,418,
+Ingrid,Lee,United Kingdom,Grand Lit,8,mid,9784,2026-09-09,2026-09-17,2026,1,213,4
+Ahmed,Smith,Russia,Spa Executive,4,mid,10000,2026-10-15,2026-10-19,2026,2,608,5
+David,Smith,Brazil,LOFT Suite,3,mid,10170,2026-09-01,2026-09-04,2026,4,804,5
+Isabella,Lee,India,Suite,9,mid,27297,2026-03-28,2026-04-06,2026,3,703,5
+Muhammad,Smith,Mexico,Superior Double,8,low,12592,2026-02-15,2026-02-23,2026,2,430,4
+Hiroshi,Smith,Mexico,Superior Double,6,mid,11142,2026-05-23,2026-05-29,2026,2,417,5
+Liam,Sato,United Kingdom,Superior Double,4,mid,7732,2026-03-21,2026-03-25,2026,2,430,5
+Zhang,Hassan,Russia,Junior Suite,5,high,12465,2026-08-09,2026-08-14,2026,3,504,4
+Sophia,Ivanov,Mexico,Spa Executive,5,low,11005,2026-02-07,2026-02-12,2026,1,601,
+John,M�ller,United States,LOFT Suite,2,high,7452,2026-06-06,2026-06-08,2026,3,801,
+Ingrid,Rossi,Mexico,Superior Double,9,high,19332,2026-07-28,2026-08-06,2026,1,437,5
+Aisha,Johansson,Pakistan,Spa Executive,3,low,6630,2026-11-26,2026-11-29,2026,2,610,4
+Olivia,Hassan,Vietnam,Standard Double,8,low,11776,2026-11-27,2026-12-05,2026,2,331,
+Aisha,Yamamoto,United Kingdom,Standard Double,10,low,15860,2026-01-20,2026-01-30,2026,2,358,
+Aisha,Nguyen,Canada,Junior Suite,2,mid,4470,2026-03-07,2026-03-09,2026,2,504,
+Muhammad,Hassan,Italy,Suite,8,mid,23112,2026-04-13,2026-04-21,2026,1,705,
+Elena,M�ller,Egypt,Standard Double,10,low,15740,2026-01-06,2026-01-16,2026,2,348,4
+Liam,M�ller,South Korea,LOFT Suite,3,low,9507,2026-12-10,2026-12-13,2026,3,805,
+Zhang,Smith,France,Grand Lit,10,mid,12290,2026-09-03,2026-09-13,2026,1,223,
+Isabella,Garcia,China,Junior Suite,10,high,24910,2026-07-31,2026-08-10,2026,2,508,5
+David,Dubois,Australia,Standard Single,3,mid,3675,2026-09-30,2026-10-03,2026,1,116,
+David,Dubois,Canada,Standard Double,8,low,11928,2026-02-10,2026-02-18,2026,1,327,4
+Liam,M�ller,Spain,Spa Executive,10,high,25350,2026-07-02,2026-07-12,2026,1,610,3
+Ingrid,Martinez,Spain,Junior Suite,4,mid,9324,2026-04-18,2026-04-22,2026,2,504,5
+Elena,Ivanov,India,Junior Suite,3,low,5772,2026-11-19,2026-11-22,2026,2,513,5
+Isabella,Kim,Italy,Superior Double,10,low,17510,2026-01-03,2026-01-13,2026,2,432,5
+Elena,Silva,Vietnam,Grand Lit,9,high,15435,2026-06-05,2026-06-14,2026,2,217,1
+Lucas,Sato,Brazil,Standard Single,10,mid,11340,2026-04-05,2026-04-15,2026,1,119,4
+Hiroshi,Smith,Mexico,Standard Single,9,high,12015,2026-08-06,2026-08-15,2026,1,121,5
+Santiago,Ivanov,Brazil,Junior Suite,6,high,13620,2026-07-26,2026-08-01,2026,2,501,5
+Olivia,Olsen,Nigeria,Junior Suite,7,low,13860,2026-11-15,2026-11-22,2026,2,504,4
+John,Olsen,Australia,Superior Double,1,high,2098,2026-12-27,2026-12-28,2026,2,414,
+Olivia,Sato,Italy,Standard Single,6,mid,7320,2026-10-25,2026-10-31,2026,1,111,
+Zhang,Nguyen,Germany,LOFT Suite,5,high,18565,2026-06-15,2026-06-20,2026,4,801,2
+Elena,Martinez,Nigeria,Standard Single,2,low,1958,2026-02-23,2026-02-25,2026,1,126,4
+Ahmed,M�ller,India,Grand Lit,4,mid,5580,2026-05-02,2026-05-06,2026,1,207,3
+Santiago,Garcia,France,Superior Double,10,high,18750,2026-06-22,2026-07-02,2026,1,434,3
+David,Schneider,United States,Superior Double,9,high,16524,2026-07-18,2026-07-27,2026,1,406,1
+Isabella,Olsen,United Kingdom,Superior Double,2,mid,3036,2026-03-10,2026-03-12,2026,2,414,4
+David,Yamamoto,United Kingdom,Junior Suite,6,high,14790,2026-08-20,2026-08-26,2026,3,504,
+Muhammad,Schneider,Japan,Junior Suite,10,mid,20640,2026-03-10,2026-03-20,2026,3,512,3
+Maria,Nguyen,Egypt,Suite,8,low,20072,2026-12-07,2026-12-15,2026,4,708,2
+Muhammad,Rossi,Japan,Standard Double,4,high,6520,2026-08-05,2026-08-09,2026,2,341,3
+Aisha,Rossi,Japan,Superior Double,6,mid,9984,2026-04-18,2026-04-24,2026,1,431,5
+Olivia,Patel,China,Superior Double,3,low,4344,2026-01-12,2026-01-15,2026,2,411,5
+Chen,Patel,Nigeria,Grand Lit,9,mid,12294,2026-05-11,2026-05-20,2026,1,207,3
+Santiago,Yamamoto,Spain,Grand Lit,4,low,5156,2026-01-06,2026-01-10,2026,2,216,
+Ahmed,Garcia,Mexico,Grand Lit,1,mid,1564,2026-03-19,2026-03-20,2026,2,229,
+Olivia,Johansson,Pakistan,LOFT Suite,7,high,25550,2026-08-09,2026-08-16,2026,3,802,5
+Ahmed,Rossi,China,Grand Lit,10,mid,13930,2026-10-20,2026-10-30,2026,2,219,4
+Sophia,M�ller,Russia,Spa Executive,2,mid,4950,2026-10-06,2026-10-08,2026,2,601,5
+Chen,Garcia,Canada,Grand Lit,10,high,17590,2026-06-30,2026-07-10,2026,2,218,5
+Elena,Ivanov,Australia,LOFT Suite,6,high,21648,2026-06-12,2026-06-18,2026,1,802,
+Sara,Johansson,Germany,Suite,9,mid,26604,2026-09-22,2026-10-01,2026,3,707,
+Ahmed,Nguyen,United Kingdom,Superior Double,2,high,3694,2026-07-27,2026-07-29,2026,1,440,
+Isabella,Smith,Sweden,Suite,9,mid,24966,2026-04-30,2026-05-09,2026,3,703,
+Santiago,Hassan,Japan,LOFT Suite,3,low,9732,2026-11-08,2026-11-11,2026,2,803,4
+Santiago,Nguyen,South Korea,Standard Single,1,mid,1133,2026-04-13,2026-04-14,2026,1,130,
+Elena,Khan,United States,Junior Suite,5,high,12460,2026-07-15,2026-07-20,2026,3,503,5
+Chen,Ivanov,United States,Grand Lit,3,high,4569,2026-06-17,2026-06-20,2026,2,219,
+Ahmed,Khan,Germany,LOFT Suite,1,high,3719,2026-12-23,2026-12-24,2026,4,802,5
+Aisha,Dubois,Germany,Superior Double,7,low,10423,2026-11-08,2026-11-15,2026,2,410,
+Hiroshi,Kim,Mexico,Superior Double,5,low,8620,2026-02-11,2026-02-16,2026,2,412,5
+Hiroshi,Olsen,Brazil,Superior Double,7,mid,13076,2026-03-30,2026-04-06,2026,1,409,
+Sophia,Smith,Italy,Standard Single,10,high,13760,2026-07-19,2026-07-29,2026,1,106,
+Fatima,Smith,Pakistan,Standard Single,3,high,3942,2026-08-03,2026-08-06,2026,1,141,4
+Zhang,Smith,China,Grand Lit,2,high,3082,2026-08-12,2026-08-14,2026,2,211,4
+Zhang,Lee,Australia,Standard Double,10,mid,14490,2026-09-09,2026-09-19,2026,2,306,2
+Chen,M�ller,Sweden,Grand Lit,6,mid,9006,2026-03-06,2026-03-12,2026,1,221,4
+John,Garcia,Canada,Standard Single,8,low,8032,2026-01-15,2026-01-23,2026,1,125,
+Aisha,Yamamoto,United States,Grand Lit,10,high,14170,2026-07-09,2026-07-19,2026,2,220,5
+Aisha,Sato,Russia,Suite,3,mid,9639,2026-10-26,2026-10-29,2026,2,703,3
+Liam,Ivanov,Pakistan,LOFT Suite,3,low,9000,2026-11-12,2026-11-15,2026,4,801,5
+Olivia,Martinez,Sweden,Junior Suite,2,high,4996,2026-07-14,2026-07-16,2026,3,506,4
+Hiroshi,Brown,China,Standard Double,4,mid,5464,2026-03-25,2026-03-29,2026,2,316,4
+Hiroshi,Olsen,United States,Standard Double,8,low,10528,2026-01-21,2026-01-29,2026,2,339,5
+Santiago,Lee,Japan,LOFT Suite,3,high,11736,2026-08-24,2026-08-27,2026,2,804,3
+Aisha,Brown,Egypt,Spa Executive,7,mid,16562,2026-04-02,2026-04-09,2026,2,601,4
+Muhammad,Sato,China,Standard Single,1,mid,1159,2026-05-19,2026-05-20,2026,1,110,4
+Muhammad,Silva,Sweden,Standard Single,6,low,6702,2026-02-02,2026-02-08,2026,1,102,4
+Zhang,Patel,Mexico,Superior Double,10,high,20720,2026-07-08,2026-07-18,2026,2,410,3
+Liam,M�ller,Italy,Spa Executive,8,high,20976,2026-08-20,2026-08-28,2026,2,601,4
+Aisha,Patel,Brazil,Suite,8,high,24160,2026-06-30,2026-07-08,2026,2,706,4
+David,Olsen,Vietnam,Junior Suite,1,high,2253,2026-06-09,2026-06-10,2026,3,513,3
+Muhammad,Kim,France,Grand Lit,10,high,17930,2026-07-27,2026-08-06,2026,2,225,5
+Lucas,Johansson,Japan,Superior Double,10,low,15900,2026-02-08,2026-02-18,2026,2,417,
+Elena,Smith,Vietnam,LOFT Suite,5,low,16090,2026-11-25,2026-11-30,2026,2,804,4
+John,Sato,China,Spa Executive,10,mid,22700,2026-05-20,2026-05-30,2026,1,603,4
+Isabella,Rossi,Japan,Standard Single,6,mid,7146,2026-10-24,2026-10-30,2026,1,102,1
+Sara,Hassan,India,LOFT Suite,1,low,3225,2026-12-01,2026-12-02,2026,4,803,3
+Lucas,Lee,Spain,Suite,7,mid,20468,2026-09-18,2026-09-25,2026,4,704,
+Fatima,Martinez,Pakistan,Junior Suite,9,mid,18153,2026-05-23,2026-06-01,2026,3,506,4
+John,Dubois,Japan,Junior Suite,9,high,20763,2026-06-30,2026-07-09,2026,1,513,5
+Muhammad,Smith,Japan,Junior Suite,7,low,15365,2026-02-12,2026-02-19,2026,2,513,
+John,Hassan,United Kingdom,LOFT Suite,6,low,19416,2026-11-17,2026-11-23,2026,4,803,
+Sophia,Garcia,Germany,Suite,7,high,23240,2026-08-08,2026-08-15,2026,3,707,2
+Sara,Patel,Vietnam,Grand Lit,4,mid,6028,2026-05-28,2026-06-01,2026,2,228,4
+Ahmed,Smith,Egypt,Spa Executive,8,low,18840,2026-11-14,2026-11-22,2026,1,605,5
+John,Nguyen,Pakistan,Spa Executive,10,mid,23890,2026-04-20,2026-04-30,2026,1,605,4
+Muhammad,Sato,United States,Junior Suite,5,high,12420,2026-07-26,2026-07-31,2026,2,505,2
+David,Lee,Sweden,LOFT Suite,6,high,22368,2026-07-19,2026-07-25,2026,2,806,
+Sophia,Sato,Russia,Standard Single,5,low,5125,2026-01-08,2026-01-13,2026,1,140,3
+Olivia,Garcia,Nigeria,Standard Single,6,mid,7500,2026-03-10,2026-03-16,2026,1,139,4
+Liam,Brown,Sweden,Junior Suite,10,high,22870,2026-08-11,2026-08-21,2026,3,510,4
+Aisha,Garcia,Canada,LOFT Suite,2,mid,6886,2026-04-27,2026-04-29,2026,3,806,4
+Isabella,Dubois,South Korea,LOFT Suite,1,high,3522,2026-08-08,2026-08-09,2026,2,805,4
+Chen,Garcia,South Korea,Suite,1,high,3162,2026-08-25,2026-08-26,2026,4,706,
+Sara,Yamamoto,Japan,Standard Double,10,high,17080,2026-07-15,2026-07-25,2026,2,349,
+Ingrid,Hassan,South Korea,LOFT Suite,10,low,31010,2026-11-04,2026-11-14,2026,2,805,
+Sara,Sato,Australia,Grand Lit,7,low,9471,2026-11-27,2026-12-04,2026,2,229,
+Olivia,Lee,Mexico,Suite,7,low,18823,2026-02-01,2026-02-08,2026,2,707,5
+Carlos,Silva,Sweden,Superior Double,8,high,15240,2026-06-04,2026-06-12,2026,1,407,
+David,Silva,Vietnam,Spa Executive,6,high,15522,2026-06-23,2026-06-29,2026,2,608,
+Muhammad,Kim,Vietnam,Suite,2,high,6786,2026-07-26,2026-07-28,2026,2,704,5
+Hiroshi,M�ller,Sweden,Standard Single,1,high,1312,2026-08-09,2026-08-10,2026,1,106,4
+Isabella,M�ller,United Kingdom,Spa Executive,6,mid,14778,2026-03-30,2026-04-05,2026,2,604,
+Hiroshi,Silva,Russia,Standard Single,10,low,9580,2026-11-09,2026-11-19,2026,1,139,
+Isabella,Ivanov,Vietnam,Spa Executive,4,mid,9760,2026-04-30,2026-05-04,2026,2,606,
+Aisha,Kim,United Kingdom,Spa Executive,9,low,19584,2026-01-09,2026-01-18,2026,2,606,
+Carlos,Johansson,Mexico,Suite,3,low,7560,2026-11-02,2026-11-05,2026,1,707,
+Liam,Schneider,United Kingdom,Junior Suite,5,high,11745,2026-06-14,2026-06-19,2026,3,507,
+Lucas,Johansson,Nigeria,Junior Suite,3,high,7002,2026-08-10,2026-08-13,2026,2,516,3
+John,Ivanov,France,Superior Double,6,high,10962,2026-06-24,2026-06-30,2026,1,408,4
+Maria,Silva,South Korea,Standard Double,1,high,1807,2026-07-01,2026-07-02,2026,2,310,2
+Hiroshi,Khan,Egypt,Junior Suite,6,mid,13506,2026-03-26,2026-04-01,2026,3,514,4
+Liam,M�ller,China,Standard Double,3,mid,4032,2026-04-03,2026-04-06,2026,1,306,4
+Chen,Smith,Canada,Junior Suite,7,mid,14560,2026-10-03,2026-10-10,2026,3,514,4
+Isabella,Schneider,Japan,Standard Double,10,mid,16260,2026-03-17,2026-03-27,2026,2,329,
+Aisha,Ivanov,Russia,Suite,2,mid,5906,2026-09-24,2026-09-26,2026,2,708,
+Lucas,Patel,Vietnam,LOFT Suite,4,mid,14076,2026-03-26,2026-03-30,2026,2,801,4
+Muhammad,Kim,South Korea,Superior Double,9,mid,15516,2026-09-26,2026-10-05,2026,1,405,4
+Maria,Smith,China,LOFT Suite,2,mid,7470,2026-10-19,2026-10-21,2026,2,805,
+David,Yamamoto,Nigeria,Spa Executive,7,low,16373,2026-01-22,2026-01-29,2026,2,601,2
+Liam,Patel,Vietnam,Suite,1,low,2850,2026-11-19,2026-11-20,2026,2,705,
+Lucas,Ivanov,Australia,Superior Double,9,low,13761,2026-11-05,2026-11-14,2026,2,407,3
+Chen,Kim,Sweden,Grand Lit,9,mid,13392,2026-09-10,2026-09-19,2026,2,230,2
+Elena,Garcia,China,Suite,10,mid,30350,2026-09-23,2026-10-03,2026,3,702,4
+Elena,Kim,Russia,Junior Suite,5,high,11205,2026-08-19,2026-08-24,2026,2,509,3
+Chen,Yamamoto,United Kingdom,Superior Double,1,low,1528,2026-11-20,2026-11-21,2026,2,438,4
+Fatima,Khan,Australia,Junior Suite,7,low,12824,2026-11-25,2026-12-02,2026,2,506,5
+John,Ivanov,Australia,Suite,9,mid,29592,2026-05-04,2026-05-13,2026,3,701,4
+Carlos,Kim,United States,Superior Double,10,mid,18100,2026-05-04,2026-05-14,2026,2,434,4
+David,Lee,Pakistan,Spa Executive,1,low,2149,2026-02-22,2026-02-23,2026,2,612,5
+Aisha,Brown,United States,Standard Double,7,low,10906,2026-02-03,2026-02-10,2026,2,314,
+Sophia,Khan,Mexico,Grand Lit,4,high,6892,2026-12-25,2026-12-29,2026,2,224,
+Ingrid,Yamamoto,India,Suite,1,low,2627,2026-01-21,2026-01-22,2026,4,706,3
+David,Martinez,Nigeria,Junior Suite,3,mid,7101,2026-05-19,2026-05-22,2026,2,509,
+Carlos,Kim,Mexico,Superior Double,8,mid,15888,2026-05-03,2026-05-11,2026,2,401,
+Olivia,Patel,Sweden,Suite,7,mid,22981,2026-09-01,2026-09-08,2026,4,706,
+Elena,Rossi,Brazil,Spa Executive,4,high,10412,2026-08-21,2026-08-25,2026,2,602,4
+Lucas,Smith,Australia,Suite,4,mid,11744,2026-03-28,2026-04-01,2026,4,706,
+Sophia,Hassan,Italy,Spa Executive,8,low,17920,2026-11-04,2026-11-12,2026,2,611,
+Sophia,Silva,Germany,LOFT Suite,8,low,24560,2026-02-18,2026-02-26,2026,1,803,5
+Zhang,Khan,Vietnam,Superior Double,4,mid,6616,2026-09-03,2026-09-07,2026,2,425,4
+Liam,Nguyen,Japan,Superior Double,2,high,4206,2026-12-26,2026-12-28,2026,2,417,5
+Elena,Schneider,China,Suite,6,mid,16290,2026-03-03,2026-03-09,2026,2,706,5
+Ahmed,Khan,Nigeria,Standard Single,9,high,12213,2026-06-06,2026-06-15,2026,1,139,4
+Fatima,Smith,Vietnam,Standard Double,2,mid,3142,2026-05-15,2026-05-17,2026,2,335,4
+Chen,Rossi,Mexico,Standard Double,1,low,1287,2026-12-13,2026-12-14,2026,1,304,5
+Elena,Olsen,Pakistan,Standard Single,9,high,10953,2026-07-13,2026-07-22,2026,1,128,
+Zhang,Nguyen,Germany,Standard Double,7,low,8638,2026-02-08,2026-02-15,2026,2,356,
+Aisha,Patel,Australia,Grand Lit,10,low,12420,2026-02-02,2026-02-12,2026,1,201,4
+Isabella,Yamamoto,Egypt,Grand Lit,3,low,3495,2026-01-08,2026-01-11,2026,1,203,3
+David,Patel,France,Suite,1,low,2815,2026-01-07,2026-01-08,2026,4,706,
+Ingrid,Martinez,Japan,Grand Lit,9,mid,11826,2026-10-03,2026-10-12,2026,2,204,4
+Sophia,Yamamoto,Italy,Grand Lit,8,high,13128,2026-08-08,2026-08-16,2026,2,217,4
+Chen,Martinez,Germany,Grand Lit,3,mid,3972,2026-03-14,2026-03-17,2026,1,210,2
+John,Brown,India,Spa Executive,5,mid,11025,2026-09-20,2026-09-25,2026,1,604,
+Santiago,Rossi,Spain,Spa Executive,1,low,2376,2026-12-13,2026-12-14,2026,2,602,4
+David,Rossi,Italy,Junior Suite,5,high,11515,2026-12-22,2026-12-27,2026,1,513,
+John,Johansson,Vietnam,Standard Double,4,high,6444,2026-07-27,2026-07-31,2026,2,354,
+Isabella,Yamamoto,China,Suite,1,high,3265,2026-06-04,2026-06-05,2026,2,705,5
+Muhammad,Hassan,Sweden,Suite,6,mid,17868,2026-09-08,2026-09-14,2026,2,708,5
+David,Khan,Spain,Grand Lit,8,mid,10656,2026-03-14,2026-03-22,2026,2,214,4
+Muhammad,Rossi,Brazil,Superior Double,1,high,1884,2026-07-05,2026-07-06,2026,1,435,
+Olivia,Nguyen,China,Standard Single,2,mid,2222,2026-09-11,2026-09-13,2026,1,104,
+John,Patel,Sweden,Suite,5,low,13155,2026-11-19,2026-11-24,2026,4,707,4
+Carlos,Yamamoto,India,Suite,2,low,5868,2026-02-26,2026-02-28,2026,4,703,5
+Olivia,Brown,Pakistan,Suite,4,high,12836,2026-12-28,2027-01-01,2026,2,703,
+Elena,Khan,China,Spa Executive,6,high,16320,2026-07-05,2026-07-11,2026,2,612,4
+Olivia,Johansson,South Korea,Junior Suite,9,mid,20448,2026-04-08,2026-04-17,2026,2,507,2
+Muhammad,Johansson,United States,Standard Single,7,mid,7560,2026-05-15,2026-05-22,2026,1,102,3
+Liam,Lee,Russia,Superior Double,1,mid,1884,2026-04-19,2026-04-20,2026,2,430,5
+Maria,Silva,Japan,Superior Double,2,mid,3864,2026-09-02,2026-09-04,2026,2,426,4
+Isabella,Rossi,Spain,Suite,3,low,7926,2026-01-02,2026-01-05,2026,3,706,
+Isabella,Khan,France,Superior Double,6,low,10056,2026-01-12,2026-01-18,2026,2,418,5
+Hiroshi,Silva,Russia,Standard Single,3,low,2733,2026-01-25,2026-01-28,2026,1,122,4
+Chen,Ivanov,United States,Spa Executive,2,high,5206,2026-07-09,2026-07-11,2026,2,609,4
+Isabella,Ivanov,Egypt,Standard Single,2,high,2654,2026-12-30,2027-01-01,2026,1,135,4
+Chen,Hassan,Japan,Suite,3,low,7623,2026-01-29,2026-02-01,2026,3,708,5
+Ahmed,Ivanov,Japan,Superior Double,6,high,12402,2026-06-18,2026-06-24,2026,1,411,4
+Carlos,Khan,Mexico,Junior Suite,1,high,2299,2026-08-10,2026-08-11,2026,3,509,3
+Santiago,Dubois,United Kingdom,Superior Double,9,low,15444,2026-11-25,2026-12-04,2026,2,431,5
+Ingrid,Ivanov,Germany,Junior Suite,5,low,10205,2026-01-25,2026-01-30,2026,3,506,5
+Elena,Hassan,Australia,Spa Executive,3,low,6987,2026-11-04,2026-11-07,2026,2,602,
+Carlos,Martinez,Canada,Superior Double,7,mid,12614,2026-04-04,2026-04-11,2026,2,440,5
+Santiago,Dubois,Australia,Grand Lit,2,low,2454,2026-11-11,2026-11-13,2026,2,202,4
+Zhang,Patel,Brazil,LOFT Suite,8,mid,26312,2026-09-04,2026-09-12,2026,4,802,
+Ingrid,M�ller,Pakistan,Standard Double,6,mid,9066,2026-10-05,2026-10-11,2026,2,341,4
+Fatima,Smith,Sweden,Standard Single,1,low,1162,2026-02-09,2026-02-10,2026,1,110,
+Lucas,Silva,Sweden,Grand Lit,1,mid,1448,2026-09-09,2026-09-10,2026,2,229,
+Chen,Ivanov,France,Grand Lit,8,mid,12624,2026-03-27,2026-04-04,2026,2,207,4
+Fatima,Khan,Egypt,Standard Double,2,high,3268,2026-07-04,2026-07-06,2026,2,344,
+Olivia,M�ller,China,Standard Single,9,high,12780,2026-06-10,2026-06-19,2026,1,131,5
+Lucas,Rossi,South Korea,Superior Double,2,low,3218,2026-02-08,2026-02-10,2026,2,409,2
+Muhammad,Nguyen,Canada,Junior Suite,10,low,18530,2026-01-07,2026-01-17,2026,2,503,4
+Isabella,Olsen,Sweden,Spa Executive,1,low,2168,2026-02-25,2026-02-26,2026,2,602,4
+Isabella,Khan,Australia,Grand Lit,4,high,5768,2026-08-23,2026-08-27,2026,2,207,
+Aisha,Ivanov,Pakistan,LOFT Suite,8,high,30464,2026-07-11,2026-07-19,2026,1,802,5
+John,Ivanov,United States,Grand Lit,9,high,14175,2026-07-11,2026-07-20,2026,1,204,
+Zhang,Sato,India,LOFT Suite,7,high,25641,2026-12-17,2026-12-24,2026,3,803,4
+Chen,Nguyen,Russia,Suite,9,mid,25992,2026-10-12,2026-10-21,2026,1,707,4
+Ingrid,Garcia,South Korea,Standard Double,8,low,12120,2026-12-02,2026-12-10,2026,2,322,5
+Maria,Johansson,India,Standard Single,6,mid,7464,2026-04-21,2026-04-27,2026,1,135,
+Sara,Brown,Mexico,LOFT Suite,8,high,30096,2026-08-11,2026-08-19,2026,3,806,4
+Hiroshi,Lee,Mexico,Spa Executive,5,high,13820,2026-07-22,2026-07-27,2026,2,609,4
+Maria,Garcia,Germany,LOFT Suite,4,mid,13296,2026-03-21,2026-03-25,2026,3,806,4
+Elena,Nguyen,India,Suite,1,low,2717,2026-12-09,2026-12-10,2026,2,701,
+Muhammad,Garcia,Brazil,LOFT Suite,2,high,7670,2026-08-27,2026-08-29,2026,3,801,5
+David,Sato,Spain,Standard Single,3,mid,3753,2026-03-11,2026-03-14,2026,1,131,2
+Aisha,Khan,Italy,LOFT Suite,2,mid,7190,2026-10-01,2026-10-03,2026,2,804,4
+Santiago,Hassan,Sweden,Standard Single,1,high,1387,2026-08-22,2026-08-23,2026,1,123,4
+Zhang,Olsen,France,Spa Executive,2,mid,4792,2026-05-07,2026-05-09,2026,1,602,4
+Maria,Lee,France,Grand Lit,5,low,5715,2026-01-29,2026-02-03,2026,1,221,
+Olivia,Lee,Nigeria,Standard Double,3,low,3951,2026-12-01,2026-12-04,2026,1,301,4
+Chen,Nguyen,France,Grand Lit,3,low,3933,2026-12-08,2026-12-11,2026,2,217,
+Sara,Johansson,Mexico,LOFT Suite,4,high,15188,2026-06-23,2026-06-27,2026,4,804,2
+Aisha,M�ller,Pakistan,Spa Executive,9,low,18675,2026-01-26,2026-02-04,2026,2,612,5
+Ahmed,Brown,South Korea,Grand Lit,10,low,12310,2026-01-23,2026-02-02,2026,2,210,4
+Lucas,Silva,Canada,Standard Single,3,low,2808,2026-02-06,2026-02-09,2026,1,128,5
+Olivia,Patel,Australia,Standard Single,4,low,4140,2026-11-16,2026-11-20,2026,1,128,4
+Olivia,Garcia,France,LOFT Suite,4,low,13784,2026-02-20,2026-02-24,2026,4,804,
+Elena,Rossi,Nigeria,Spa Executive,10,high,26530,2026-08-09,2026-08-19,2026,2,612,4
+Aisha,Brown,India,Superior Double,8,low,12504,2026-11-11,2026-11-19,2026,2,417,5
+Chen,Silva,Sweden,Junior Suite,8,high,19576,2026-12-22,2026-12-30,2026,3,508,4
+Ahmed,Olsen,United Kingdom,LOFT Suite,3,high,10515,2026-12-29,2027-01-01,2026,4,806,5
+Liam,Patel,Nigeria,Junior Suite,6,low,11712,2026-02-12,2026-02-18,2026,3,503,4
+Chen,Rossi,India,LOFT Suite,5,low,15530,2026-12-10,2026-12-15,2026,2,803,
+Lucas,Olsen,Australia,Superior Double,7,low,10311,2026-11-06,2026-11-13,2026,1,412,5
+Elena,Olsen,Vietnam,Standard Single,6,high,7326,2026-06-29,2026-07-05,2026,1,120,4
+Santiago,Brown,Italy,Superior Double,4,mid,7032,2026-10-01,2026-10-05,2026,1,430,5
+Isabella,Dubois,Spain,Junior Suite,1,high,2397,2026-07-06,2026-07-07,2026,3,510,5
+Maria,Kim,Nigeria,Spa Executive,8,low,16376,2026-11-29,2026-12-07,2026,1,601,4
+Santiago,Kim,Canada,Standard Single,9,low,8280,2026-11-09,2026-11-18,2026,1,122,4
+Ahmed,Yamamoto,Nigeria,Spa Executive,1,high,2597,2026-06-09,2026-06-10,2026,2,607,2
+John,Johansson,Brazil,Junior Suite,6,high,14706,2026-08-05,2026-08-11,2026,3,514,
+Hiroshi,Brown,Spain,Standard Double,10,high,17770,2026-07-24,2026-08-03,2026,1,306,5
+Chen,M�ller,United States,Suite,1,low,2610,2026-11-29,2026-11-30,2026,2,705,5
+John,Ivanov,South Korea,Junior Suite,10,low,20590,2026-01-08,2026-01-18,2026,2,505,2
+Zhang,Yamamoto,South Korea,LOFT Suite,5,high,19275,2026-07-12,2026-07-17,2026,4,805,5
+Sophia,Smith,United Kingdom,Spa Executive,8,high,20560,2026-06-29,2026-07-07,2026,2,605,5
+Lucas,Brown,Australia,Spa Executive,5,mid,11830,2026-05-09,2026-05-14,2026,2,601,2
+David,Nguyen,Japan,Standard Single,7,high,9051,2026-06-22,2026-06-29,2026,1,137,3
+Santiago,Johansson,Vietnam,LOFT Suite,8,high,28144,2026-08-01,2026-08-09,2026,2,803,3
+Muhammad,Martinez,Sweden,Suite,10,low,25470,2026-11-21,2026-12-01,2026,2,703,4
+David,Rossi,Russia,Standard Single,3,mid,3021,2026-05-08,2026-05-11,2026,1,126,3
+Isabella,Rossi,Vietnam,Suite,10,low,29370,2026-11-01,2026-11-11,2026,3,702,
+Carlos,Ivanov,India,Standard Double,3,mid,5031,2026-09-14,2026-09-17,2026,2,349,4
+Sara,Sato,Canada,Suite,10,low,27750,2026-01-01,2026-01-11,2026,1,701,
+Ahmed,Dubois,United Kingdom,Junior Suite,4,low,8692,2026-01-03,2026-01-07,2026,2,502,3
+Fatima,Smith,France,Grand Lit,2,low,2606,2026-11-24,2026-11-26,2026,1,205,3
+Chen,Brown,China,Spa Executive,5,low,11150,2026-11-08,2026-11-13,2026,2,601,
+Fatima,Yamamoto,India,Superior Double,8,low,12864,2026-11-24,2026-12-02,2026,2,407,
+Hiroshi,Lee,Mexico,Junior Suite,3,mid,6633,2026-03-14,2026-03-17,2026,3,507,5
+Santiago,Brown,Mexico,Spa Executive,3,mid,7404,2026-04-09,2026-04-12,2026,1,608,3
+Isabella,Lee,Germany,Spa Executive,9,low,20295,2026-01-29,2026-02-07,2026,2,601,4
+Fatima,Sato,Sweden,LOFT Suite,10,high,39450,2026-06-05,2026-06-15,2026,3,803,5
+Sophia,Dubois,Brazil,Suite,7,low,19558,2026-11-12,2026-11-19,2026,2,708,4
+Sara,Kim,United Kingdom,Suite,8,high,24032,2026-07-24,2026-08-01,2026,4,707,3
+Isabella,Johansson,Australia,Standard Double,1,high,1838,2026-06-14,2026-06-15,2026,2,320,4
+John,Brown,Egypt,Suite,3,mid,9603,2026-09-02,2026-09-05,2026,1,702,
+Hiroshi,Olsen,Nigeria,Spa Executive,5,high,12720,2026-06-24,2026-06-29,2026,1,601,4
+Aisha,Olsen,Mexico,Suite,5,high,16845,2026-06-07,2026-06-12,2026,1,705,4
+Sara,Smith,Italy,LOFT Suite,4,high,14504,2026-06-27,2026-07-01,2026,4,801,5
+Zhang,Kim,United Kingdom,Spa Executive,10,low,20280,2026-02-09,2026-02-19,2026,2,603,
+Elena,Johansson,India,Superior Double,5,high,10005,2026-12-24,2026-12-29,2026,2,429,4
+Aisha,Khan,Spain,Junior Suite,8,mid,18696,2026-03-26,2026-04-03,2026,3,511,2
+Ahmed,Dubois,Canada,Superior Double,5,high,10260,2026-06-23,2026-06-28,2026,1,438,4
+Hiroshi,Kim,Italy,Standard Single,6,mid,6156,2026-03-12,2026-03-18,2026,1,106,3
+Sophia,Dubois,Nigeria,Superior Double,3,mid,5748,2026-04-05,2026-04-08,2026,2,427,4
+Carlos,Sato,Spain,Spa Executive,7,low,16646,2026-11-13,2026-11-20,2026,1,612,4
+Sophia,Brown,Sweden,Grand Lit,6,low,6828,2026-01-20,2026-01-26,2026,2,225,4
+Santiago,M�ller,United States,Junior Suite,8,high,19048,2026-07-28,2026-08-05,2026,1,516,4
+Ahmed,Patel,United States,Standard Single,2,mid,2206,2026-05-26,2026-05-28,2026,1,132,4
+Sara,Schneider,India,Standard Single,8,high,10096,2026-06-23,2026-07-01,2026,1,138,4
+David,Dubois,Russia,LOFT Suite,6,mid,22218,2026-04-13,2026-04-19,2026,3,802,4
+Hiroshi,Silva,Canada,LOFT Suite,7,low,24241,2026-01-25,2026-02-01,2026,2,802,5
+Ahmed,Garcia,Australia,Spa Executive,8,high,21496,2026-08-05,2026-08-13,2026,1,607,
+Sara,Nguyen,Japan,Standard Single,5,high,6415,2026-08-11,2026-08-16,2026,1,108,
+Maria,M�ller,Canada,Junior Suite,9,high,21150,2026-07-31,2026-08-09,2026,2,511,3
+Ahmed,Olsen,Sweden,Standard Double,4,high,7420,2026-08-09,2026-08-13,2026,2,358,
+Ahmed,Yamamoto,United Kingdom,Grand Lit,7,mid,8624,2026-09-23,2026-09-30,2026,2,213,5
+John,Patel,Brazil,Superior Double,2,mid,3994,2026-04-28,2026-04-30,2026,1,422,5
+Carlos,Schneider,Pakistan,LOFT Suite,9,low,27729,2026-11-13,2026-11-22,2026,4,804,4
+Chen,Johansson,India,LOFT Suite,3,low,9027,2026-02-10,2026-02-13,2026,2,805,4
+Maria,Ivanov,Vietnam,Superior Double,6,low,10746,2026-02-02,2026-02-08,2026,2,436,5
+Carlos,Lee,Nigeria,Suite,8,low,22160,2026-01-18,2026-01-26,2026,2,705,3
+David,Rossi,Egypt,Superior Double,2,high,4082,2026-08-27,2026-08-29,2026,2,411,3
+John,Silva,Germany,Standard Double,3,high,5817,2026-06-29,2026-07-02,2026,2,353,5
+Muhammad,Garcia,South Korea,Junior Suite,3,high,7149,2026-07-23,2026-07-26,2026,3,513,5
+Olivia,Lee,Spain,Suite,3,high,9171,2026-08-06,2026-08-09,2026,3,703,5
+Lucas,Lee,Japan,Superior Double,3,high,5907,2026-08-24,2026-08-27,2026,2,440,5
+Sophia,Sato,United States,Standard Double,8,mid,10464,2026-04-14,2026-04-22,2026,2,301,
+Lucas,M�ller,Egypt,Standard Double,8,low,12240,2026-01-18,2026-01-26,2026,2,346,4
+Lucas,Nguyen,South Korea,Suite,10,mid,31110,2026-04-09,2026-04-19,2026,1,703,5
+Olivia,Schneider,Australia,Standard Double,7,mid,10584,2026-05-15,2026-05-22,2026,2,309,5
+John,Yamamoto,South Korea,Spa Executive,4,mid,9000,2026-10-15,2026-10-19,2026,2,604,3
+Maria,Garcia,Brazil,Spa Executive,7,high,19446,2026-12-18,2026-12-25,2026,2,601,
+Fatima,Martinez,Sweden,Standard Single,4,mid,4688,2026-09-05,2026-09-09,2026,1,103,
+Chen,Johansson,France,Spa Executive,4,mid,9844,2026-03-31,2026-04-04,2026,2,609,4
+Zhang,Kim,United States,Standard Double,1,high,1936,2026-08-15,2026-08-16,2026,2,343,3
+Liam,Brown,Mexico,Suite,10,high,31530,2026-06-16,2026-06-26,2026,2,706,
+Lucas,Nguyen,Vietnam,Superior Double,9,mid,17424,2026-03-14,2026-03-23,2026,1,407,5
+Ingrid,Lee,Germany,Standard Double,9,low,11871,2026-11-30,2026-12-09,2026,2,310,4
+Olivia,Johansson,South Korea,Standard Double,8,low,11552,2026-01-23,2026-01-31,2026,2,325,
+Isabella,Brown,Brazil,Standard Single,1,high,1434,2026-12-19,2026-12-20,2026,1,128,3
+Fatima,Smith,China,LOFT Suite,5,mid,17655,2026-10-03,2026-10-08,2026,4,805,3
+Elena,Hassan,Spain,Suite,2,low,5816,2026-01-18,2026-01-20,2026,2,708,3
+Zhang,Schneider,Japan,Standard Double,9,mid,13500,2026-03-09,2026-03-18,2026,2,342,4
+Liam,Yamamoto,Spain,Standard Single,4,high,5756,2026-06-13,2026-06-17,2026,1,138,5
+John,Lee,Canada,Standard Double,5,high,8245,2026-06-14,2026-06-19,2026,1,312,4
+Aisha,Lee,Sweden,Standard Single,4,mid,4208,2026-10-17,2026-10-21,2026,1,123,
+David,Nguyen,Vietnam,LOFT Suite,3,high,11844,2026-07-29,2026-08-01,2026,1,801,3
+Hiroshi,Lee,Russia,Spa Executive,3,mid,7020,2026-10-20,2026-10-23,2026,2,607,4
+Ahmed,Rossi,South Korea,Standard Single,8,low,8160,2026-12-07,2026-12-15,2026,1,138,1
+Sophia,M�ller,China,Standard Single,10,low,9240,2026-02-12,2026-02-22,2026,1,114,4
+Carlos,Dubois,Canada,Suite,6,low,17916,2026-02-10,2026-02-16,2026,1,706,5
+Fatima,Martinez,Pakistan,Junior Suite,9,high,22176,2026-06-26,2026-07-05,2026,1,512,
+David,Garcia,Germany,Spa Executive,10,mid,24560,2026-03-14,2026-03-24,2026,1,607,4
+John,Lee,Australia,Superior Double,9,mid,14229,2026-10-11,2026-10-20,2026,2,405,4
+Liam,Yamamoto,India,Junior Suite,1,low,1886,2026-12-09,2026-12-10,2026,1,516,3
+Carlos,Dubois,United States,Superior Double,4,high,7740,2026-08-22,2026-08-26,2026,1,408,
+Muhammad,Patel,Canada,Standard Single,3,mid,3027,2026-05-09,2026-05-12,2026,1,115,4
+Hiroshi,Nguyen,Australia,Spa Executive,7,high,18417,2026-07-17,2026-07-24,2026,2,602,4
+Liam,Kim,India,Grand Lit,4,high,6060,2026-08-10,2026-08-14,2026,1,212,1
+John,Nguyen,Germany,Standard Single,2,low,2212,2026-11-14,2026-11-16,2026,1,142,3
+David,Sato,United States,Junior Suite,4,mid,8640,2026-10-21,2026-10-25,2026,3,501,
+Elena,Dubois,Italy,LOFT Suite,2,low,6712,2026-02-11,2026-02-13,2026,2,803,2
+Liam,Silva,Spain,Spa Executive,10,mid,24170,2026-09-17,2026-09-27,2026,1,602,3
+Muhammad,Khan,United Kingdom,Grand Lit,9,low,10008,2026-11-30,2026-12-09,2026,1,230,
+Olivia,Nguyen,Brazil,Standard Double,8,mid,11208,2026-04-15,2026-04-23,2026,1,323,3
+Maria,Garcia,Sweden,Superior Double,6,high,11496,2026-06-14,2026-06-20,2026,2,423,
+Fatima,M�ller,Germany,Superior Double,4,high,7824,2026-06-01,2026-06-05,2026,2,424,1
+Sara,Rossi,Vietnam,Junior Suite,9,mid,18594,2026-03-31,2026-04-09,2026,2,503,3
+Carlos,Dubois,China,Junior Suite,5,mid,10475,2026-04-05,2026-04-10,2026,3,509,
+Elena,Yamamoto,India,Standard Single,2,mid,2596,2026-10-10,2026-10-12,2026,1,114,
+Aisha,Lee,Canada,LOFT Suite,1,high,3739,2026-08-12,2026-08-13,2026,4,801,
+Ingrid,Brown,Vietnam,Grand Lit,7,mid,10724,2026-04-24,2026-05-01,2026,2,217,1
+Ingrid,Johansson,France,Suite,7,low,19432,2026-11-29,2026-12-06,2026,4,702,
+Muhammad,Sato,Vietnam,Standard Single,6,low,6660,2026-02-17,2026-02-23,2026,1,109,3
+Ingrid,Rossi,Sweden,Suite,3,high,9555,2026-12-18,2026-12-21,2026,2,703,3
+Chen,Dubois,Russia,LOFT Suite,1,high,3598,2026-06-28,2026-06-29,2026,4,806,
+Santiago,Sato,Russia,Superior Double,7,low,10052,2026-11-14,2026-11-21,2026,1,425,4
+Lucas,Nguyen,Pakistan,Grand Lit,5,mid,6090,2026-10-19,2026-10-24,2026,2,215,4
+Santiago,Schneider,United States,Grand Lit,2,low,2384,2026-01-06,2026-01-08,2026,2,210,4
+Aisha,Patel,Vietnam,Suite,9,low,23958,2026-02-16,2026-02-25,2026,4,705,
+Sara,Garcia,China,Suite,2,mid,6172,2026-05-13,2026-05-15,2026,3,707,5
+Maria,Nguyen,Russia,Standard Single,8,mid,8152,2026-05-23,2026-05-31,2026,1,119,
+Muhammad,Smith,Sweden,Suite,7,high,23541,2026-07-03,2026-07-10,2026,4,703,5
+David,Schneider,Russia,Standard Double,9,high,15084,2026-07-26,2026-08-04,2026,2,318,4
+Fatima,Smith,United Kingdom,Spa Executive,7,mid,16576,2026-03-19,2026-03-26,2026,2,611,2
+Chen,Olsen,France,Junior Suite,4,mid,8784,2026-10-07,2026-10-11,2026,2,510,4
+Elena,Khan,Russia,LOFT Suite,1,low,3094,2026-11-22,2026-11-23,2026,2,804,4
+Zhang,M�ller,South Korea,Suite,9,high,27072,2026-06-29,2026-07-08,2026,2,704,2
+Elena,Silva,Mexico,LOFT Suite,6,high,22974,2026-06-07,2026-06-13,2026,2,806,
+Santiago,Dubois,China,Grand Lit,7,high,11004,2026-06-03,2026-06-10,2026,2,210,2
+Muhammad,Kim,Italy,Superior Double,10,high,21110,2026-07-17,2026-07-27,2026,1,430,
+Isabella,Khan,Brazil,Superior Double,3,high,5721,2026-07-23,2026-07-26,2026,2,404,4
+Carlos,Silva,Vietnam,LOFT Suite,2,low,6208,2026-02-03,2026-02-05,2026,2,806,5
+Chen,Yamamoto,India,Standard Double,8,low,11544,2026-01-27,2026-02-04,2026,2,333,4
+Ahmed,Lee,India,Standard Double,4,low,6356,2026-12-01,2026-12-05,2026,1,339,2
+Ahmed,Martinez,Vietnam,Grand Lit,1,high,1441,2026-08-09,2026-08-10,2026,2,228,5
+Olivia,Yamamoto,Russia,Grand Lit,9,low,10629,2026-01-14,2026-01-23,2026,2,201,5
+Ingrid,Rossi,Spain,Suite,4,high,13932,2026-08-16,2026-08-20,2026,2,707,3
+Santiago,Johansson,South Korea,Grand Lit,4,high,6444,2026-07-07,2026-07-11,2026,2,213,3
+Liam,Khan,Russia,Standard Single,9,high,11610,2026-07-10,2026-07-19,2026,1,103,4
+Sara,Smith,Sweden,LOFT Suite,1,mid,3357,2026-09-26,2026-09-27,2026,1,802,3
+Isabella,Olsen,Germany,Standard Double,7,low,10514,2026-11-01,2026-11-08,2026,1,335,4
+Sara,Dubois,Sweden,LOFT Suite,9,mid,29547,2026-09-16,2026-09-25,2026,4,806,3
+Muhammad,Sato,France,Superior Double,4,high,8256,2026-08-01,2026-08-05,2026,2,422,2
+Hiroshi,Olsen,Sweden,Suite,2,low,5198,2026-02-15,2026-02-17,2026,2,702,3
+Ingrid,Olsen,South Korea,Standard Single,10,mid,11520,2026-05-17,2026-05-27,2026,1,135,
+Olivia,Silva,Sweden,LOFT Suite,2,high,7506,2026-08-11,2026-08-13,2026,2,805,5
+Liam,Johansson,South Korea,Spa Executive,4,high,10696,2026-08-24,2026-08-28,2026,2,604,4
+Chen,Lee,United Kingdom,Standard Double,6,low,8592,2026-01-22,2026-01-28,2026,1,352,3
+Ahmed,Martinez,Brazil,Superior Double,2,high,3926,2026-08-14,2026-08-16,2026,2,435,
+Elena,Martinez,United States,Junior Suite,8,low,16344,2026-02-01,2026-02-09,2026,1,516,4
+Hiroshi,Garcia,India,LOFT Suite,6,mid,22596,2026-03-02,2026-03-08,2026,4,801,5
+Hiroshi,Hassan,France,LOFT Suite,9,mid,29286,2026-04-15,2026-04-24,2026,4,805,5
+Hiroshi,Schneider,India,Junior Suite,4,low,8004,2026-01-22,2026-01-26,2026,3,501,4
+Maria,Olsen,Canada,Junior Suite,8,mid,16392,2026-03-05,2026-03-13,2026,2,503,3
+Elena,Lee,Egypt,Suite,5,mid,14425,2026-09-21,2026-09-26,2026,4,703,3
+Olivia,Olsen,Spain,Standard Single,10,low,11160,2026-11-17,2026-11-27,2026,1,117,
+Hiroshi,Garcia,United States,Spa Executive,2,low,4926,2026-11-06,2026-11-08,2026,1,609,4
+Aisha,M�ller,Spain,Suite,7,low,20531,2026-12-07,2026-12-14,2026,4,707,4
+Muhammad,Brown,Germany,Standard Double,8,high,13496,2026-06-20,2026-06-28,2026,2,318,5
+Maria,Brown,China,Junior Suite,10,low,20140,2026-01-28,2026-02-07,2026,3,503,5
+Liam,Garcia,South Korea,Grand Lit,5,mid,7570,2026-09-25,2026-09-30,2026,2,209,4
+Zhang,Lee,China,Superior Double,6,mid,9066,2026-09-12,2026-09-18,2026,1,418,
+Ingrid,Sato,France,Spa Executive,1,low,2087,2026-11-22,2026-11-23,2026,1,604,5
+Elena,Kim,Mexico,Suite,3,low,7560,2026-12-03,2026-12-06,2026,4,708,
+Aisha,Patel,United Kingdom,Grand Lit,8,high,12872,2026-07-28,2026-08-05,2026,1,220,
+Lucas,Schneider,South Korea,LOFT Suite,2,high,7062,2026-07-07,2026-07-09,2026,3,801,4
+John,Khan,France,Standard Single,2,high,2608,2026-06-28,2026-06-30,2026,1,119,1
+Santiago,Kim,Canada,Standard Single,9,low,9531,2026-12-02,2026-12-11,2026,1,139,4
+Hiroshi,Schneider,United States,Standard Double,9,low,11070,2026-02-20,2026-03-01,2026,1,329,3
+Liam,Khan,Mexico,Spa Executive,1,mid,2446,2026-03-17,2026-03-18,2026,2,609,2
+Carlos,Martinez,Australia,Spa Executive,4,low,9288,2026-11-18,2026-11-22,2026,2,601,3
+Aisha,Hassan,China,Superior Double,9,mid,15291,2026-04-25,2026-05-04,2026,1,411,4
+Lucas,Garcia,Spain,Suite,4,low,10792,2026-11-10,2026-11-14,2026,4,707,5
+Santiago,Olsen,Germany,Suite,2,mid,6452,2026-04-26,2026-04-28,2026,4,704,4
+Ahmed,Johansson,Australia,Spa Executive,6,mid,14532,2026-03-31,2026-04-06,2026,2,603,
+John,Sato,France,Superior Double,8,low,14120,2026-02-04,2026-02-12,2026,1,432,
+Fatima,Silva,Spain,Junior Suite,6,mid,13854,2026-03-08,2026-03-14,2026,2,505,
+Hiroshi,Patel,France,Junior Suite,9,mid,20268,2026-04-16,2026-04-25,2026,2,502,4
+Carlos,Dubois,South Korea,Spa Executive,5,mid,11860,2026-04-13,2026-04-18,2026,2,606,
+Fatima,Garcia,South Korea,Suite,8,mid,22616,2026-05-22,2026-05-30,2026,3,708,4
+Chen,Kim,Nigeria,Spa Executive,8,high,21816,2026-06-13,2026-06-21,2026,2,608,4
+Ahmed,Johansson,Nigeria,Spa Executive,9,high,22581,2026-07-26,2026-08-04,2026,2,601,3
+John,Dubois,Germany,Standard Single,10,mid,11000,2026-05-06,2026-05-16,2026,1,121,3
+David,Schneider,United Kingdom,Junior Suite,7,mid,15708,2026-03-19,2026-03-26,2026,2,503,4
+Liam,Ivanov,Pakistan,Grand Lit,3,low,3885,2026-11-22,2026-11-25,2026,1,225,1
+Santiago,Lee,Japan,Junior Suite,8,high,18088,2026-06-05,2026-06-13,2026,3,514,4
+John,Sato,Vietnam,Grand Lit,2,low,2288,2026-11-24,2026-11-26,2026,1,218,
+Maria,Nguyen,France,Superior Double,6,high,11022,2026-12-23,2026-12-29,2026,1,403,3
+Lucas,Silva,France,LOFT Suite,10,mid,36090,2026-05-08,2026-05-18,2026,3,806,
+Isabella,M�ller,Nigeria,Spa Executive,6,low,12840,2026-01-15,2026-01-21,2026,2,605,
+Sara,Schneider,South Korea,Standard Double,8,low,12368,2026-01-01,2026-01-09,2026,1,308,1
+Ahmed,Kim,Japan,Suite,2,high,6496,2026-07-01,2026-07-03,2026,4,702,3
+Hiroshi,Khan,Brazil,Junior Suite,4,high,9264,2026-07-18,2026-07-22,2026,1,514,5
+Ingrid,Olsen,Germany,Grand Lit,5,high,7430,2026-12-25,2026-12-30,2026,1,222,5
+Zhang,Hassan,Italy,Spa Executive,8,high,20624,2026-12-22,2026-12-30,2026,2,604,2
+Fatima,Schneider,Russia,Standard Double,5,low,6360,2026-11-11,2026-11-16,2026,2,347,1
+Zhang,Kim,United Kingdom,Superior Double,10,low,15410,2026-11-28,2026-12-08,2026,2,422,
+Muhammad,Sato,United Kingdom,Superior Double,7,mid,13832,2026-03-04,2026-03-11,2026,1,405,5
+Lucas,Khan,Sweden,Spa Executive,1,low,2102,2026-02-13,2026-02-14,2026,2,612,4
+Hiroshi,Khan,France,Superior Double,8,low,11976,2026-02-09,2026-02-17,2026,1,425,4
+Sophia,Schneider,United Kingdom,Junior Suite,10,mid,21370,2026-03-27,2026-04-06,2026,3,512,
+Zhang,Schneider,Japan,Grand Lit,10,low,12490,2026-02-14,2026-02-24,2026,2,224,
+Lucas,Johansson,Canada,Junior Suite,1,mid,2260,2026-03-13,2026-03-14,2026,2,506,5
+Maria,Garcia,Sweden,Spa Executive,7,high,18284,2026-06-05,2026-06-12,2026,2,611,5
+Santiago,Khan,Italy,Spa Executive,7,mid,16163,2026-04-12,2026-04-19,2026,2,611,2
+Fatima,Dubois,Italy,Superior Double,8,low,14248,2026-11-28,2026-12-06,2026,1,404,3
+Fatima,Hassan,Egypt,Standard Double,9,high,15885,2026-08-17,2026-08-26,2026,1,322,4
+Zhang,Schneider,Germany,LOFT Suite,4,low,13108,2026-01-10,2026-01-14,2026,2,803,4
+Santiago,Kim,Brazil,Suite,3,mid,9030,2026-10-05,2026-10-08,2026,2,704,4
+Sophia,Patel,India,Standard Single,9,mid,10278,2026-09-14,2026-09-23,2026,1,142,
+Ingrid,M�ller,Mexico,Suite,6,low,15564,2026-11-03,2026-11-09,2026,4,706,3
+Muhammad,Patel,Italy,Spa Executive,6,high,16326,2026-06-13,2026-06-19,2026,2,607,5
+Lucas,Garcia,Egypt,Standard Double,2,low,2646,2026-02-06,2026-02-08,2026,1,310,4
+Lucas,Lee,Italy,Superior Double,5,mid,7845,2026-05-17,2026-05-22,2026,2,417,5
+Maria,Garcia,Russia,Suite,2,high,6592,2026-08-05,2026-08-07,2026,2,701,
+Fatima,Patel,Brazil,Junior Suite,6,mid,14322,2026-05-08,2026-05-14,2026,3,502,
+Olivia,M�ller,Russia,Junior Suite,2,mid,4028,2026-09-04,2026-09-06,2026,2,512,
+Ingrid,Nguyen,Pakistan,Grand Lit,8,high,14224,2026-07-16,2026-07-24,2026,2,230,5
+Maria,Smith,Spain,LOFT Suite,8,high,28600,2026-06-18,2026-06-26,2026,2,803,3
+Olivia,Silva,France,Suite,10,low,29710,2026-11-14,2026-11-24,2026,1,706,4
+Ingrid,Dubois,South Korea,Standard Single,7,low,6902,2026-11-22,2026-11-29,2026,1,119,4
+Olivia,Lee,Pakistan,Standard Single,6,mid,6966,2026-10-22,2026-10-28,2026,1,143,5
+John,Hassan,Nigeria,Superior Double,1,low,1615,2026-02-09,2026-02-10,2026,1,414,4
+Lucas,Smith,United States,Superior Double,2,mid,3566,2026-09-29,2026-10-01,2026,2,440,5
+Liam,Yamamoto,United Kingdom,Grand Lit,1,high,1772,2026-06-11,2026-06-12,2026,1,230,3
+Aisha,Martinez,China,Grand Lit,7,low,8883,2026-12-06,2026-12-13,2026,2,201,
+David,Lee,Australia,Junior Suite,9,high,20925,2026-07-29,2026-08-07,2026,2,515,4
+Ahmed,Olsen,United Kingdom,Standard Double,10,mid,14690,2026-04-19,2026-04-29,2026,2,344,
+Isabella,Smith,Germany,Standard Double,4,low,5556,2026-11-16,2026-11-20,2026,2,334,
+Ingrid,Yamamoto,Brazil,Suite,9,mid,27738,2026-03-19,2026-03-28,2026,2,701,4
+Ahmed,Schneider,Sweden,Junior Suite,7,low,14091,2026-12-07,2026-12-14,2026,1,509,2
+Olivia,Johansson,France,Superior Double,5,mid,9055,2026-04-29,2026-05-04,2026,1,417,2
+Liam,Sato,Italy,Superior Double,7,mid,13272,2026-05-20,2026-05-27,2026,2,428,5
+Liam,Patel,United States,Standard Double,3,low,4359,2026-01-14,2026-01-17,2026,1,318,4
+Sara,Johansson,Germany,Standard Double,10,mid,16540,2026-09-10,2026-09-20,2026,2,318,4
+Maria,Garcia,Canada,LOFT Suite,2,high,7188,2026-12-22,2026-12-24,2026,3,801,5
+Olivia,Silva,United Kingdom,Spa Executive,2,low,4992,2026-12-06,2026-12-08,2026,2,608,5
+Elena,Sato,India,LOFT Suite,6,low,19608,2026-02-14,2026-02-20,2026,2,804,4
+Hiroshi,M�ller,China,Superior Double,4,high,7228,2026-06-15,2026-06-19,2026,1,432,3
+Carlos,Silva,Egypt,Junior Suite,9,high,21285,2026-12-20,2026-12-29,2026,3,509,
+John,Kim,Japan,Junior Suite,2,high,4780,2026-07-22,2026-07-24,2026,1,510,
+Olivia,Schneider,Australia,Standard Single,8,low,9360,2026-01-19,2026-01-27,2026,1,101,3
+Ingrid,Ivanov,United Kingdom,Spa Executive,3,low,6552,2026-02-04,2026-02-07,2026,2,609,4
+John,Olsen,Sweden,Grand Lit,9,high,13050,2026-12-17,2026-12-26,2026,2,211,
+Santiago,Johansson,Italy,Standard Double,10,high,18920,2026-06-03,2026-06-13,2026,1,352,
+Sophia,Sato,Canada,Standard Double,6,mid,9276,2026-09-08,2026-09-14,2026,2,358,4
+Zhang,Garcia,Egypt,Junior Suite,1,high,2257,2026-12-21,2026-12-22,2026,2,515,3
+Santiago,Olsen,South Korea,Standard Double,5,low,7565,2026-11-08,2026-11-13,2026,2,325,3
+Lucas,Rossi,France,LOFT Suite,2,high,7522,2026-08-03,2026-08-05,2026,2,805,4
+Sara,Smith,South Korea,Grand Lit,5,mid,6395,2026-09-16,2026-09-21,2026,2,225,5
+Ahmed,Rossi,Vietnam,Suite,1,mid,3217,2026-10-04,2026-10-05,2026,3,708,2
+Lucas,Johansson,United Kingdom,LOFT Suite,1,low,3245,2026-11-24,2026-11-25,2026,2,803,
+John,Nguyen,Mexico,Suite,1,low,2951,2026-02-13,2026-02-14,2026,2,707,4
+Isabella,Khan,Mexico,Standard Double,1,low,1575,2026-12-07,2026-12-08,2026,2,324,4
+Ahmed,Ivanov,United States,Standard Double,6,high,10230,2026-12-26,2027-01-01,2026,2,319,5
+Ingrid,Silva,Russia,Standard Single,8,high,11672,2026-06-25,2026-07-03,2026,1,143,4
+David,Brown,United States,Spa Executive,9,mid,23229,2026-09-22,2026-10-01,2026,1,608,
+Lucas,Hassan,Canada,Junior Suite,5,high,11940,2026-06-25,2026-06-30,2026,2,503,5
+Isabella,Khan,India,Junior Suite,3,mid,6489,2026-04-17,2026-04-20,2026,3,509,4
+Hiroshi,Yamamoto,United States,Superior Double,2,mid,3194,2026-10-12,2026-10-14,2026,1,430,5
+Isabella,M�ller,Vietnam,Standard Double,1,mid,1311,2026-09-24,2026-09-25,2026,2,317,4
+Ingrid,Rossi,Australia,Spa Executive,8,mid,19584,2026-04-21,2026-04-29,2026,2,607,5
+Olivia,Sato,Pakistan,Standard Double,6,high,11442,2026-06-06,2026-06-12,2026,1,353,5
+Liam,Johansson,Egypt,Grand Lit,9,low,10089,2026-11-22,2026-12-01,2026,2,203,4
+Sophia,Johansson,United Kingdom,LOFT Suite,9,high,33300,2026-06-18,2026-06-27,2026,1,805,5
+Hiroshi,Johansson,Nigeria,Superior Double,7,low,11725,2026-02-13,2026-02-20,2026,2,403,4
+Lucas,Kim,Sweden,Standard Single,6,low,6138,2026-01-06,2026-01-12,2026,1,131,3
+David,Brown,South Korea,Standard Double,3,high,5832,2026-07-30,2026-08-02,2026,2,333,
+John,Martinez,Germany,Junior Suite,5,high,12385,2026-07-14,2026-07-19,2026,2,510,4
+John,M�ller,Italy,Suite,10,low,29760,2026-01-04,2026-01-14,2026,4,702,
+David,Dubois,Japan,Suite,2,high,6068,2026-07-20,2026-07-22,2026,4,703,
+Ingrid,Hassan,Russia,Suite,10,low,26130,2026-01-28,2026-02-07,2026,2,704,
+Aisha,Olsen,Sweden,Superior Double,2,high,4198,2026-06-12,2026-06-14,2026,2,431,2
+Muhammad,Schneider,Pakistan,Suite,3,low,7917,2026-02-05,2026-02-08,2026,4,706,5
+Santiago,Dubois,Italy,Standard Single,10,high,12450,2026-07-06,2026-07-16,2026,1,114,1
+Sara,Patel,Spain,LOFT Suite,3,high,11067,2026-08-21,2026-08-24,2026,2,805,5
+Santiago,Rossi,Russia,Spa Executive,6,low,14898,2026-02-21,2026-02-27,2026,2,607,
+John,Rossi,Brazil,Spa Executive,6,mid,14118,2026-05-18,2026-05-24,2026,1,608,3
+Sara,Olsen,South Korea,Junior Suite,4,mid,9340,2026-10-01,2026-10-05,2026,1,507,5
+Elena,Yamamoto,Germany,Standard Double,4,mid,6384,2026-03-24,2026-03-28,2026,2,311,3
+Maria,Yamamoto,Spain,Superior Double,10,low,15490,2026-02-04,2026-02-14,2026,1,424,4
+Hiroshi,Dubois,Nigeria,Suite,2,low,5690,2026-01-29,2026-01-31,2026,4,703,3
+Fatima,Martinez,France,Superior Double,2,low,3568,2026-02-04,2026-02-06,2026,2,417,3
+Sophia,Smith,Russia,Suite,7,low,17717,2026-01-02,2026-01-09,2026,2,705,4
+Ingrid,Dubois,Russia,Junior Suite,4,high,9248,2026-07-06,2026-07-10,2026,2,506,4
+Ahmed,Ivanov,India,Superior Double,10,mid,15820,2026-05-19,2026-05-29,2026,2,414,4
+Isabella,Hassan,Germany,Spa Executive,3,mid,7260,2026-05-16,2026-05-19,2026,1,604,4
+Ingrid,Yamamoto,Mexico,Standard Double,6,high,10872,2026-08-13,2026-08-19,2026,2,306,5
+Muhammad,Sato,Russia,Junior Suite,7,low,14616,2026-11-13,2026-11-20,2026,3,507,4
+Elena,Kim,Italy,Junior Suite,6,mid,12618,2026-03-26,2026-04-01,2026,3,510,4
+Liam,M�ller,Italy,Standard Single,4,high,5184,2026-07-13,2026-07-17,2026,1,131,5
+Santiago,Schneider,Egypt,Suite,1,mid,2933,2026-05-14,2026-05-15,2026,4,702,3
+Lucas,Hassan,Spain,Junior Suite,4,mid,8880,2026-05-23,2026-05-27,2026,2,513,
+Elena,Garcia,South Korea,Spa Executive,10,high,25820,2026-12-16,2026-12-26,2026,1,608,5
+Sophia,Rossi,France,Grand Lit,2,mid,3160,2026-04-04,2026-04-06,2026,2,212,2
+Ahmed,Silva,China,Standard Single,8,low,9256,2026-01-20,2026-01-28,2026,1,102,5
+Carlos,Nguyen,United Kingdom,Standard Single,10,high,13990,2026-07-09,2026-07-19,2026,1,141,
+Hiroshi,Johansson,Japan,Superior Double,10,low,17310,2026-02-17,2026-02-27,2026,1,405,3
+Ahmed,Schneider,Sweden,Suite,3,low,7704,2026-11-30,2026-12-03,2026,2,707,3
+Muhammad,Brown,Italy,Spa Executive,8,mid,19832,2026-09-02,2026-09-10,2026,1,609,5
+Sophia,Martinez,Brazil,Spa Executive,5,mid,11875,2026-03-16,2026-03-21,2026,2,603,
+Hiroshi,M�ller,Australia,Standard Single,3,high,4449,2026-06-10,2026-06-13,2026,1,104,3
+Ahmed,M�ller,France,Spa Executive,2,mid,5182,2026-09-02,2026-09-04,2026,2,603,
+John,Martinez,Italy,Standard Single,4,low,3648,2026-02-09,2026-02-13,2026,1,128,
+Aisha,Schneider,United Kingdom,Junior Suite,2,mid,4180,2026-10-10,2026-10-12,2026,1,508,3
+Fatima,Dubois,Vietnam,Junior Suite,3,mid,7116,2026-03-10,2026-03-13,2026,1,515,4
+Zhang,Kim,Australia,Spa Executive,6,low,14580,2026-11-04,2026-11-10,2026,2,603,
+Isabella,Rossi,China,LOFT Suite,2,high,7992,2026-06-27,2026-06-29,2026,3,803,5
+Santiago,Martinez,China,Spa Executive,3,low,6156,2026-11-10,2026-11-13,2026,1,604,5
+David,Smith,Italy,Junior Suite,7,mid,14644,2026-04-13,2026-04-20,2026,2,505,
+Olivia,Hassan,Brazil,Junior Suite,3,low,6510,2026-02-13,2026-02-16,2026,2,509,
+Sophia,Silva,Mexico,Grand Lit,10,mid,14090,2026-03-09,2026-03-19,2026,2,217,4
+Fatima,Yamamoto,Australia,Junior Suite,2,high,4708,2026-06-22,2026-06-24,2026,2,508,
+Lucas,Smith,Japan,Spa Executive,4,mid,8948,2026-05-08,2026-05-12,2026,1,604,4
+Fatima,Lee,India,Superior Double,5,high,10880,2026-07-14,2026-07-19,2026,2,438,
+Sophia,Dubois,India,Standard Double,6,mid,9084,2026-03-01,2026-03-07,2026,2,345,
+Santiago,Lee,Brazil,Junior Suite,4,low,7824,2026-02-17,2026-02-21,2026,2,511,
+Olivia,Smith,United Kingdom,Suite,10,high,33550,2026-08-11,2026-08-21,2026,4,704,4
+Carlos,Martinez,Brazil,Junior Suite,2,low,4028,2026-02-04,2026-02-06,2026,3,510,4
+Ahmed,Dubois,France,Suite,1,low,2860,2026-01-11,2026-01-12,2026,4,706,
+Zhang,Hassan,China,Grand Lit,8,low,9064,2026-02-16,2026-02-24,2026,2,220,
+Hiroshi,Brown,Mexico,Standard Double,4,low,5252,2026-12-09,2026-12-13,2026,2,339,1
+Muhammad,Nguyen,France,Standard Single,2,mid,2454,2026-10-18,2026-10-20,2026,1,106,5
+Hiroshi,Hassan,Egypt,Standard Single,4,mid,5076,2026-04-19,2026-04-23,2026,1,127,2
+Maria,Ivanov,Nigeria,Grand Lit,2,high,3570,2026-06-25,2026-06-27,2026,2,223,4
+Olivia,Lee,Brazil,Spa Executive,4,mid,9668,2026-04-24,2026-04-28,2026,2,601,
+Olivia,Schneider,France,Suite,2,mid,6586,2026-09-24,2026-09-26,2026,2,706,4
+Carlos,Sato,China,LOFT Suite,6,mid,21186,2026-09-19,2026-09-25,2026,1,805,
+Sara,Olsen,Russia,Suite,6,low,17136,2026-12-10,2026-12-16,2026,4,702,4
+Ingrid,M�ller,United States,Grand Lit,1,high,1660,2026-12-26,2026-12-27,2026,2,221,
+John,Dubois,India,Superior Double,9,mid,16461,2026-10-08,2026-10-17,2026,1,426,4
+Sara,Khan,Pakistan,Standard Single,7,mid,7707,2026-09-02,2026-09-09,2026,1,116,
+Isabella,Schneider,Brazil,Standard Double,6,mid,9864,2026-10-26,2026-11-01,2026,2,352,2
+Carlos,Hassan,Pakistan,LOFT Suite,10,mid,34080,2026-04-17,2026-04-27,2026,2,803,4
+Santiago,Yamamoto,United Kingdom,Suite,4,mid,12280,2026-04-30,2026-05-04,2026,1,708,4
+Muhammad,Nguyen,United States,Grand Lit,3,low,4143,2026-12-08,2026-12-11,2026,1,216,4
+Carlos,Sato,Pakistan,Spa Executive,1,low,2088,2026-11-06,2026-11-07,2026,2,601,5
+Sara,Nguyen,France,Superior Double,6,low,10626,2026-01-21,2026-01-27,2026,2,429,
+David,Brown,Mexico,Grand Lit,9,mid,13923,2026-04-03,2026-04-12,2026,1,214,
+Chen,Rossi,Italy,Suite,7,mid,21378,2026-05-11,2026-05-18,2026,2,706,4
+Sophia,Nguyen,Italy,LOFT Suite,10,high,36450,2026-07-08,2026-07-18,2026,3,806,5
+Muhammad,M�ller,Vietnam,Superior Double,9,high,17739,2026-08-02,2026-08-11,2026,2,411,5
+John,Brown,China,Standard Single,4,mid,4600,2026-05-10,2026-05-14,2026,1,144,1
+Ingrid,Garcia,Canada,LOFT Suite,5,high,19675,2026-06-20,2026-06-25,2026,2,801,5
+Maria,M�ller,Brazil,Spa Executive,3,mid,7398,2026-05-26,2026-05-29,2026,2,608,
+Elena,Johansson,South Korea,LOFT Suite,2,mid,6684,2026-09-01,2026-09-03,2026,4,806,4
+Lucas,Martinez,Sweden,Superior Double,9,low,13752,2026-01-20,2026-01-29,2026,1,427,4
+Sara,Garcia,Russia,Spa Executive,1,mid,2208,2026-10-22,2026-10-23,2026,2,611,2
+David,Patel,India,Grand Lit,1,high,1752,2026-08-05,2026-08-06,2026,2,224,4
+Ingrid,Sato,Germany,Junior Suite,2,mid,4304,2026-10-27,2026-10-29,2026,2,507,
+Aisha,Dubois,Mexico,Standard Double,7,high,11795,2026-06-21,2026-06-28,2026,2,338,
+Lucas,Ivanov,United Kingdom,Spa Executive,7,high,18977,2026-06-04,2026-06-11,2026,2,608,
+Ahmed,Patel,Vietnam,Superior Double,10,high,18950,2026-08-17,2026-08-27,2026,1,407,
+Lucas,Schneider,France,Superior Double,6,high,11022,2026-06-12,2026-06-18,2026,2,429,4
+Aisha,Patel,Spain,LOFT Suite,3,mid,10668,2026-03-08,2026-03-11,2026,1,804,4
+Ingrid,Ivanov,Canada,Suite,5,low,14450,2026-02-08,2026-02-13,2026,4,705,
+Isabella,Hassan,India,Suite,5,high,16170,2026-08-16,2026-08-21,2026,4,708,3
+Ahmed,Lee,Vietnam,LOFT Suite,3,mid,10359,2026-05-01,2026-05-04,2026,2,804,5
+Isabella,Johansson,Russia,LOFT Suite,3,mid,10506,2026-10-29,2026-11-01,2026,4,806,4
+Elena,Sato,Sweden,Standard Double,3,low,4455,2026-01-16,2026-01-19,2026,2,330,
+David,Khan,India,Standard Single,5,mid,6030,2026-09-23,2026-09-28,2026,1,104,5
+Zhang,Olsen,Germany,Spa Executive,5,mid,11365,2026-05-14,2026-05-19,2026,1,603,5
+Hiroshi,Schneider,South Korea,Spa Executive,5,high,12805,2026-07-11,2026-07-16,2026,2,612,5
+Aisha,M�ller,India,Superior Double,7,high,14378,2026-12-19,2026-12-26,2026,1,425,4
+Aisha,Johansson,Nigeria,LOFT Suite,1,low,3245,2026-02-25,2026-02-26,2026,3,806,4
+Hiroshi,Silva,France,Spa Executive,8,mid,20448,2026-09-28,2026-10-06,2026,1,606,5
+Zhang,Silva,Mexico,Standard Double,4,high,7892,2026-06-13,2026-06-17,2026,2,322,
+Olivia,Ivanov,Vietnam,Junior Suite,4,high,9708,2026-08-25,2026-08-29,2026,2,507,5
+John,Dubois,Mexico,LOFT Suite,10,mid,34480,2026-04-18,2026-04-28,2026,2,804,4
+Liam,Martinez,Vietnam,Standard Double,10,low,13450,2026-12-06,2026-12-16,2026,1,349,
+Olivia,Brown,Egypt,Standard Single,1,high,1498,2026-08-25,2026-08-26,2026,1,125,3
+Muhammad,Martinez,Nigeria,Suite,6,high,19554,2026-06-25,2026-07-01,2026,4,701,4
+Lucas,Khan,Germany,Grand Lit,5,mid,7760,2026-05-18,2026-05-23,2026,2,209,3
+Olivia,Khan,India,Junior Suite,10,mid,23600,2026-03-24,2026-04-03,2026,3,504,
+Ahmed,Johansson,Australia,Spa Executive,1,low,2102,2026-01-31,2026-02-01,2026,1,604,4
+Aisha,Martinez,China,Superior Double,8,high,15440,2026-08-08,2026-08-16,2026,2,412,3
+Fatima,Olsen,Spain,Junior Suite,9,high,20943,2026-06-01,2026-06-10,2026,2,510,5
+Zhang,Garcia,Russia,Superior Double,7,high,12740,2026-07-18,2026-07-25,2026,1,414,
+Liam,Garcia,Brazil,Suite,10,high,34110,2026-07-24,2026-08-03,2026,1,708,4
+Olivia,Ivanov,Mexico,Junior Suite,5,high,11220,2026-08-04,2026-08-09,2026,2,510,4
+Elena,Sato,United Kingdom,Junior Suite,9,mid,19548,2026-04-21,2026-04-30,2026,2,503,3
+Hiroshi,Olsen,Brazil,Junior Suite,8,low,17016,2026-11-02,2026-11-10,2026,2,516,5
+Santiago,Sato,Brazil,Superior Double,5,high,10945,2026-06-24,2026-06-29,2026,2,432,
+David,Smith,United States,Grand Lit,6,low,7284,2026-02-17,2026-02-23,2026,2,212,
+Zhang,Garcia,Australia,Superior Double,8,mid,13608,2026-09-25,2026-10-03,2026,1,421,4
+John,Khan,Japan,Suite,9,high,30411,2026-06-17,2026-06-26,2026,4,707,4
+Sara,Lee,South Korea,Standard Single,6,high,8448,2026-06-07,2026-06-13,2026,1,106,4
+Ahmed,Garcia,South Korea,Superior Double,4,high,7308,2026-08-24,2026-08-28,2026,2,412,4
+Hiroshi,Johansson,Vietnam,Spa Executive,6,mid,15096,2026-04-17,2026-04-23,2026,2,608,4
+Lucas,Olsen,United Kingdom,Standard Single,7,high,9898,2026-06-27,2026-07-04,2026,1,127,3
+Liam,Hassan,Spain,Spa Executive,3,low,6546,2026-02-24,2026-02-27,2026,2,610,3
+Sara,M�ller,China,Standard Single,1,high,1218,2026-07-19,2026-07-20,2026,1,138,
+Liam,Garcia,Russia,Grand Lit,7,mid,9359,2026-04-20,2026-04-27,2026,2,203,4
+Elena,Khan,Italy,Standard Double,8,mid,10504,2026-03-26,2026-04-03,2026,2,337,4
+Liam,Rossi,India,Standard Double,10,low,14050,2026-02-05,2026-02-15,2026,2,302,
+Carlos,Ivanov,Germany,Junior Suite,1,mid,2210,2026-10-31,2026-11-01,2026,3,507,
+Chen,Rossi,Russia,Standard Single,3,mid,3252,2026-10-01,2026-10-04,2026,1,137,5
+Olivia,Garcia,Germany,Spa Executive,3,mid,7482,2026-09-30,2026-10-03,2026,2,605,
+Zhang,Dubois,Pakistan,Junior Suite,6,high,14508,2026-06-21,2026-06-27,2026,2,505,4
+Isabella,Lee,South Korea,Superior Double,6,high,11892,2026-12-23,2026-12-29,2026,1,440,
+Ahmed,Sato,Canada,Spa Executive,9,high,24867,2026-06-15,2026-06-24,2026,2,609,4
+Chen,Nguyen,Pakistan,Junior Suite,6,low,10986,2026-11-17,2026-11-23,2026,2,501,4
+David,Brown,Pakistan,Spa Executive,1,low,2109,2026-11-12,2026-11-13,2026,2,603,
+Zhang,Nguyen,United Kingdom,Standard Double,6,low,8814,2026-11-24,2026-11-30,2026,2,323,5
+Sara,Nguyen,France,Suite,3,high,9456,2026-06-28,2026-07-01,2026,4,708,4
+Olivia,Khan,Australia,Suite,1,high,3324,2026-07-03,2026-07-04,2026,1,705,
+Zhang,Sato,France,LOFT Suite,3,mid,10404,2026-04-08,2026-04-11,2026,2,803,5
+Elena,Garcia,Mexico,Grand Lit,6,high,9216,2026-08-12,2026-08-18,2026,1,214,4
+Olivia,Brown,India,Suite,2,high,6922,2026-07-11,2026-07-13,2026,2,704,5
+David,Dubois,Spain,Suite,4,high,12696,2026-08-28,2026-09-01,2026,2,701,4
+John,Kim,Brazil,Standard Double,1,low,1479,2026-01-07,2026-01-08,2026,2,334,
+Hiroshi,Kim,Canada,Suite,3,high,9210,2026-06-12,2026-06-15,2026,2,704,
+Zhang,Schneider,Nigeria,Grand Lit,4,low,5244,2026-01-06,2026-01-10,2026,2,209,
+Carlos,Brown,France,Suite,4,low,11428,2026-11-21,2026-11-25,2026,3,708,1
+Liam,Rossi,United Kingdom,Junior Suite,1,high,2220,2026-08-15,2026-08-16,2026,2,504,4
+Zhang,Martinez,Sweden,Superior Double,2,low,3484,2026-11-27,2026-11-29,2026,2,409,4
+Sara,Nguyen,Sweden,Grand Lit,10,high,14520,2026-12-22,2027-01-01,2026,1,206,2
+Zhang,Kim,Russia,Spa Executive,7,low,16128,2026-01-24,2026-01-31,2026,2,602,5
+Aisha,Martinez,South Korea,Spa Executive,4,low,8768,2026-11-02,2026-11-06,2026,2,609,4
+Liam,Khan,United States,Suite,5,high,16015,2026-12-21,2026-12-26,2026,2,708,5
+Santiago,Rossi,Sweden,Junior Suite,10,mid,21350,2026-05-07,2026-05-17,2026,2,505,
+Carlos,Silva,Sweden,Grand Lit,7,high,10535,2026-07-04,2026-07-11,2026,2,223,4
+Chen,Brown,China,Spa Executive,9,high,23553,2026-07-03,2026-07-12,2026,2,604,5
+Hiroshi,Martinez,Spain,Grand Lit,1,mid,1210,2026-03-22,2026-03-23,2026,2,230,5
+Maria,Garcia,Italy,Grand Lit,7,mid,9408,2026-09-27,2026-10-04,2026,2,214,4
+Sophia,Brown,United Kingdom,Junior Suite,3,high,6816,2026-08-10,2026-08-13,2026,3,503,
+Olivia,Martinez,Japan,Spa Executive,8,mid,19192,2026-04-09,2026-04-17,2026,2,602,4
+Ingrid,Smith,Canada,Grand Lit,6,mid,9576,2026-10-23,2026-10-29,2026,2,207,2
+Olivia,Ivanov,Australia,Spa Executive,6,high,15582,2026-07-14,2026-07-20,2026,2,607,
+Sara,M�ller,Spain,Superior Double,4,low,6912,2026-01-13,2026-01-17,2026,2,428,
+Santiago,Rossi,Russia,Standard Single,1,high,1311,2026-06-10,2026-06-11,2026,1,102,
+Sara,Patel,Spain,Suite,4,mid,13176,2026-03-29,2026-04-02,2026,2,701,5
+Chen,Garcia,Japan,Spa Executive,1,low,2095,2026-02-06,2026-02-07,2026,2,608,5
+Hiroshi,Sato,China,Junior Suite,3,low,5733,2026-02-16,2026-02-19,2026,1,507,5
+Sara,Rossi,China,Spa Executive,10,high,25490,2026-07-16,2026-07-26,2026,1,601,
+Aisha,Lee,Egypt,Spa Executive,10,mid,22210,2026-10-03,2026-10-13,2026,2,605,4
+Ahmed,Martinez,Russia,Standard Double,7,low,10549,2026-11-09,2026-11-16,2026,1,335,
+Sara,Lee,Brazil,Superior Double,9,mid,16632,2026-03-19,2026-03-28,2026,2,401,4
+John,Hassan,United Kingdom,Grand Lit,3,high,4938,2026-06-06,2026-06-09,2026,2,205,3
+Sophia,Rossi,Japan,LOFT Suite,7,low,22155,2026-01-18,2026-01-25,2026,3,801,3
+Sophia,Sato,Italy,Junior Suite,1,mid,2002,2026-09-19,2026-09-20,2026,3,512,5
+Olivia,Yamamoto,Germany,Standard Double,9,low,13158,2026-11-13,2026-11-22,2026,1,306,5
+Zhang,M�ller,Mexico,Spa Executive,1,high,2588,2026-07-01,2026-07-02,2026,2,608,5
+John,Smith,Spain,LOFT Suite,2,low,6102,2026-01-21,2026-01-23,2026,4,805,
+Olivia,M�ller,Pakistan,Superior Double,9,high,16929,2026-06-05,2026-06-14,2026,2,418,
+Maria,Hassan,United Kingdom,Suite,6,mid,18684,2026-05-03,2026-05-09,2026,4,704,4
+Hiroshi,Ivanov,Italy,Standard Single,3,high,4365,2026-06-09,2026-06-12,2026,1,126,4
+Liam,Smith,Australia,Spa Executive,1,mid,2467,2026-10-20,2026-10-21,2026,1,602,4
+Ahmed,Dubois,Pakistan,Suite,7,mid,22449,2026-04-18,2026-04-25,2026,2,708,4
+Ahmed,Patel,Pakistan,Standard Single,5,high,6730,2026-06-03,2026-06-08,2026,1,103,
+Muhammad,Ivanov,Canada,Junior Suite,1,mid,2150,2026-04-11,2026-04-12,2026,2,503,4
+Liam,Ivanov,Brazil,Standard Single,1,mid,1181,2026-03-13,2026-03-14,2026,1,125,4
+Santiago,M�ller,Pakistan,Junior Suite,1,mid,2262,2026-09-18,2026-09-19,2026,1,504,
+Ahmed,Smith,Brazil,Superior Double,9,mid,14769,2026-03-03,2026-03-12,2026,2,421,
+Aisha,Johansson,Japan,Grand Lit,1,low,1265,2026-11-14,2026-11-15,2026,2,221,
+Sophia,Dubois,Japan,LOFT Suite,10,low,34740,2026-01-17,2026-01-27,2026,4,803,4
+Muhammad,M�ller,China,Suite,7,mid,22561,2026-03-06,2026-03-13,2026,3,708,
+Aisha,Martinez,Germany,Suite,10,low,27230,2026-02-16,2026-02-26,2026,2,708,4
+Olivia,Hassan,United States,Junior Suite,4,low,7952,2026-01-17,2026-01-21,2026,2,514,5
+Aisha,Silva,South Korea,Superior Double,5,high,10005,2026-06-18,2026-06-23,2026,2,417,5
+Ingrid,Kim,Brazil,Standard Double,10,high,17330,2026-06-26,2026-07-06,2026,2,343,
+Santiago,Olsen,Canada,Spa Executive,7,high,18753,2026-06-13,2026-06-20,2026,1,602,4
+Olivia,Brown,China,Suite,1,high,3195,2026-08-30,2026-08-31,2026,3,707,4
+Zhang,Garcia,South Korea,LOFT Suite,9,mid,30096,2026-04-14,2026-04-23,2026,2,801,
+Olivia,Martinez,Egypt,Junior Suite,10,mid,20270,2026-09-04,2026-09-14,2026,2,508,
+Chen,Yamamoto,Mexico,LOFT Suite,2,mid,7008,2026-10-01,2026-10-03,2026,2,801,
+Zhang,Brown,Russia,Superior Double,1,high,1912,2026-12-25,2026-12-26,2026,1,413,
+Muhammad,Hassan,South Korea,Standard Double,4,low,5040,2026-11-19,2026-11-23,2026,2,309,4
+Muhammad,Schneider,Australia,Junior Suite,3,low,6228,2026-01-14,2026-01-17,2026,3,502,
+Sara,Johansson,Germany,Grand Lit,10,mid,15030,2026-04-13,2026-04-23,2026,1,219,3
+Aisha,Yamamoto,Australia,Spa Executive,6,mid,14706,2026-04-01,2026-04-07,2026,1,605,4
+Zhang,Martinez,South Korea,Spa Executive,5,high,12985,2026-06-30,2026-07-05,2026,2,606,5
+Sara,Ivanov,Australia,Spa Executive,8,low,16392,2026-01-14,2026-01-22,2026,2,601,4
+Fatima,Rossi,Japan,Grand Lit,4,high,6320,2026-08-10,2026-08-14,2026,1,227,3
+Sophia,Schneider,France,LOFT Suite,4,high,14084,2026-07-28,2026-08-01,2026,4,806,
+Olivia,Hassan,Russia,Spa Executive,1,low,2391,2026-12-08,2026-12-09,2026,2,610,4
+Zhang,Rossi,Nigeria,Standard Double,6,high,11532,2026-07-21,2026-07-27,2026,2,308,3
+Lucas,Silva,Japan,Spa Executive,3,mid,6819,2026-05-23,2026-05-26,2026,1,604,2
+Sara,Hassan,South Korea,Spa Executive,1,mid,2218,2026-05-26,2026-05-27,2026,1,606,5
+Santiago,Khan,Pakistan,LOFT Suite,2,mid,7340,2026-03-31,2026-04-02,2026,2,806,4
+Ahmed,Yamamoto,Vietnam,Spa Executive,3,mid,6924,2026-03-22,2026-03-25,2026,2,602,5
+Ingrid,Martinez,Brazil,Superior Double,5,high,10285,2026-08-02,2026-08-07,2026,2,409,5
+Fatima,Kim,South Korea,Superior Double,9,low,15444,2026-01-05,2026-01-14,2026,2,407,5
+Muhammad,Martinez,Nigeria,Standard Single,4,high,5792,2026-07-23,2026-07-27,2026,1,130,4
+John,Sato,France,LOFT Suite,4,high,15144,2026-07-25,2026-07-29,2026,1,801,3
+Carlos,Ivanov,China,Junior Suite,9,low,17163,2026-11-20,2026-11-29,2026,2,509,2
+Ahmed,Martinez,India,Standard Double,1,high,1795,2026-07-15,2026-07-16,2026,2,336,5
+Olivia,M�ller,United Kingdom,Suite,3,high,9984,2026-08-29,2026-09-01,2026,3,705,
+Santiago,Hassan,Nigeria,Standard Double,1,low,1308,2026-11-21,2026-11-22,2026,2,322,4
+David,Sato,Australia,Standard Double,8,mid,10920,2026-10-19,2026-10-27,2026,1,350,
+John,Hassan,Australia,Superior Double,6,low,8814,2026-01-04,2026-01-10,2026,2,440,4
+Sophia,Schneider,Egypt,Grand Lit,6,low,7974,2026-11-22,2026-11-28,2026,2,228,3
+Maria,Olsen,India,Suite,6,high,20808,2026-08-21,2026-08-27,2026,4,705,5
+Maria,Dubois,Sweden,Standard Single,2,high,2588,2026-06-09,2026-06-11,2026,1,141,
+Liam,Patel,South Korea,LOFT Suite,6,low,20748,2026-11-22,2026-11-28,2026,2,801,4
+Olivia,M�ller,South Korea,Suite,9,mid,27873,2026-03-18,2026-03-27,2026,2,705,
+Ahmed,Garcia,Russia,Suite,7,high,24220,2026-12-22,2026-12-29,2026,4,702,
+Carlos,Silva,Sweden,Standard Single,3,mid,3651,2026-03-06,2026-03-09,2026,1,123,4
+Ahmed,Kim,Vietnam,Superior Double,3,mid,5757,2026-10-25,2026-10-28,2026,2,407,4
+Liam,Khan,Italy,Standard Double,4,low,4808,2026-01-19,2026-01-23,2026,1,304,3
+Liam,Rossi,Canada,Suite,4,low,10740,2026-01-20,2026-01-24,2026,4,701,3

@@ -55,7 +55,7 @@ Totalpris for en ny booking = pris pr. nat (type, sæson) × antal nætter.
 
 Filerne i roden er beriget med opfundne, men konsistente data. Originalerne er uændrede i alle eksisterende kolonner.
 
-`international_names_with_rooms_1000.csv` – nye kolonner:
+`hotel_bookings_2026.csv` – nye kolonner:
 
 | Kolonne | Betydning | Regel |
 |---|---|---|
@@ -64,6 +64,7 @@ Filerne i roden er beriget med opfundne, men konsistente data. Originalerne er u
 | `Year` | Indtjekningsår | Altid 2026 |
 | `Guests` | Antal personer | 1 til værelsestypens maks. Vægtet efter kapacitet (se nedenfor) |
 | `Room Number` | Tildelt værelse | Et værelse af den rette type (punkt 3). **Ingen overlappende bookinger** på samme værelse |
+| `Satisfaction` | Kundetilfredshed 1–5 | Opfundet. **Tom (NULL) i ca. 30 % af bookingerne** (gæsten svarede ikke). Vægtet mod 4–5, lidt højere for dyrere værelsestyper. Gennemsnit ca. 3,9 (fast seed 42) |
 
 Fordeling af `Guests` (sandsynlighed for 1, 2, 3, 4 personer):
 
