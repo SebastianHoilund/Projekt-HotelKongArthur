@@ -1,0 +1,108 @@
+name: hotel-kong-arthur
+
+# Alle værdier har defaults, så et frisk clone starter uden en .env-fil (NFR-015).
+x-backend-env: &backend-env
+  MYSQL_HOST: ${MYSQL_HOST:-db}
+  MYSQL_PORT: ${MYSQL_PORT:-3306}
+  MYSQL_USER: ${MYSQL_USER:-hotel}
+  MYSQL_PASSWORD: ${MYSQL_PASSWORD:-hotel}
+  MYSQL_DATABASE: ${MYSQL_DATABASE:-hotel_kong_arthur}
+  PORT: 3000
+  DATA_DIR: /app/data
+  OPENAPI_PATH: /app/openapi.yaml
+
+x-backend-mounts: &backend-mounts
+  - ./hotel_bookings_2026.csv:/app/data/hotel_bookings_2026.csv:ro
+  - ./drinks_menu_with_sales.csv:/app/data/drinks_menu_with_sales.csv:ro
+  - ./api/openapi.yaml:/app/openapi.yaml:ro
+
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_USER: ${MYSQL_USER:-hotel}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-hotel}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-hotel_kong_arthur}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      # TCP frem for socket: MySQLs midlertidige init-server svarer kun på socket,
+      # så -h localhost ville melde healthy, før den rigtige server er oppe.
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    networks:
+      - hotel-net
+
+  backend:
+    build:
+      context: ./backend
+      target: runtime
+    environment: *backend-env
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes: *backend-mounts
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+      - hotel-net
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - hotel-net
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui:v5.17.14
+    environment:
+      SWAGGER_JSON: /spec/openapi.yaml
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./api:/spec:ro
+    networks:
+      - hotel-net
+
+  wdc-build:
+    build: ./tableau-connector
+    volumes:
+      - ./tableau-connector/dist:/output
+    restart: "no"
+    networks:
+      - hotel-net
+
+  backend-test:
+    profiles: [test]
+    build:
+      context: ./backend
+      target: test
+    environment:
+      <<: *backend-env
+      MYSQL_USER: hotel_test
+      MYSQL_PASSWORD: hotel_test
+      MYSQL_DATABASE: hotel_kong_arthur_test
+      NODE_ENV: test
+    volumes: *backend-mounts
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - hotel-net
+
+volumes:
+  mysql-data:
+
+networks:
+  hotel-net:
+    driver: bridge

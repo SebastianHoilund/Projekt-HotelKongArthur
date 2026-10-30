@@ -145,12 +145,12 @@ flowchart TB
 
 | Service | Image / build | Host-port | Healthcheck | `depends_on` | Bemærkning |
 |---|---|---|---|---|---|
-| `db` | `mysql:8.4` | – (ikke publiceret) | `mysqladmin ping -h localhost` | – | Volume `mysql-data:/var/lib/mysql`. Credentials fra `.env` (defaults i `.env.example` og compose) |
-| `backend` | `./backend/Dockerfile` (multi-stage: build → `node:22-alpine`) | `3000` | `wget -qO- http://localhost:3000/api/health` | `db: service_healthy` | Kører migrationer + seed ved start. Bind-mount af CSV-filerne read-only til `/app/data` og `./api/openapi.yaml` til `/app/openapi.yaml` |
-| `frontend` | `./frontend/Dockerfile` (`nginx:alpine`) | `8080` | `wget -qO- http://localhost/` | `backend: service_healthy` | `nginx.conf`: `location /api/ { proxy_pass http://backend:3000; }` |
+| `db` | `mysql:8.4` | – (ikke publiceret) | `mysqladmin ping -h 127.0.0.1` (TCP, så init-serveren ikke tæller som klar) | – | Volume `mysql-data:/var/lib/mysql`. `db/init/` opretter testdatabasen. Credentials fra `.env` (defaults i `.env.example` og compose) |
+| `backend` | `./backend/Dockerfile` (multi-stage: build → `node:22-alpine`) | `3000` | `wget -qO- http://127.0.0.1:3000/api/health` | `db: service_healthy` | Kører migrationer + seed ved start. Bind-mount af CSV-filerne read-only til `/app/data` og `./api/openapi.yaml` til `/app/openapi.yaml` |
+| `frontend` | `./frontend/Dockerfile` (`nginx:alpine`) | `8080` | `wget -qO- http://127.0.0.1/` | `backend: service_healthy` | `nginx.conf`: `location /api/ { proxy_pass http://backend:3000; }` |
 | `swagger-ui` | `swaggerapi/swagger-ui` | `8081` | – | – | `SWAGGER_JSON=/spec/openapi.yaml`, bind-mount af `./api` |
 | `wdc-build` | `./tableau-connector/Dockerfile` | – | – | – | Engangsjob: `taco build && taco pack` → `./tableau-connector/dist/*.taco`. Exit 0. Blokerer ikke de andre services |
-| `backend-test` | `./backend/Dockerfile` (target `test`) | – | – | `db: service_healthy` | Kun i compose-profilen `test`: kører `npm run test:integration` mod en separat testdatabase. Starter ikke ved almindelig `docker-compose up` |
+| `backend-test` | `./backend/Dockerfile` (target `test`) | – | – | `db: service_healthy` | Kun i compose-profilen `test`: kører `npm run test:integration` mod den separate testdatabase `hotel_kong_arthur_test`. Starter ikke ved almindelig `docker-compose up` |
 
 - Netværk: `hotel-net` (bridge). Containerne finder hinanden via service-navne (`db`, `backend`).
 - Restart: `backend` har `restart: on-failure`, så den prøver igen ved midlertidige DB-fejl.
@@ -219,6 +219,8 @@ docker-compose.yml
 .env.example
 api/
 └── openapi.yaml                  # Bindende kontrakt (læses af backend og swagger-ui)
+db/
+└── init/01-test-database.sql     # Testdatabase + testbruger (kun ved tomt volume)
 hotel_bookings_2026.csv           # Seed-data (mountes read-only i backend)
 drinks_menu_with_sales.csv
 
