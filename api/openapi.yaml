@@ -1,0 +1,775 @@
+openapi: 3.1.0
+info:
+  title: Hotel Kong Arthur API
+  version: 1.0.0
+  description: |
+    REST/JSON API for Hotel Kong Arthur: booking-CRUD, værelsestyper, cocktailbar og nøgletal.
+
+    Kunder af kontrakten: prototype-frontend, hotellets eksterne bookingsystem (POST/PUT/DELETE)
+    og Tableau (via Web Data Connector 3.0 på `/api/reports/*` og `/api/analytics/*`).
+
+    Alle nøgletal beregnes i backendens service-lag ved hvert kald (ingen cache). Sæsoner, takster
+    og værelser følger `specs/001-hotel-analytics-platform/reference-data.md`.
+servers:
+  - url: http://localhost:3000
+    description: Lokal backend (docker-compose)
+tags:
+  - name: Bookings
+  - name: Rooms
+  - name: Drinks
+  - name: Analytics
+  - name: Reports
+  - name: Health
+
+paths:
+  /api/health:
+    get:
+      tags: [Health]
+      operationId: getHealth
+      summary: Liveness og databaseforbindelse
+      responses:
+        '200':
+          description: Backend og database er klar
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status: { type: string, enum: [ok] }
+
+  /api/bookings:
+    get:
+      tags: [Bookings]
+      operationId: listBookings
+      summary: List bookinger
+      parameters:
+        - $ref: '#/components/parameters/YearOptional'
+        - name: roomType
+          in: query
+          schema: { $ref: '#/components/schemas/RoomTypeName' }
+        - name: country
+          in: query
+          schema: { type: string }
+        - name: season
+          in: query
+          schema: { $ref: '#/components/schemas/Season' }
+      responses:
+        '200':
+          description: Bookinger sorteret efter indtjekning (nyeste først)
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Booking' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Bookings]
+      operationId: createBooking
+      summary: Opret booking (frontend eller eksternt bookingsystem)
+      description: |
+        Systemet tildeler et ledigt værelse af typen, udleder sæson og år ud fra `checkIn`
+        og beregner prisen (takst × nætter), medmindre `price` angives manuelt.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BookingInput' }
+            example:
+              guest: { firstName: Anna, familyName: Jensen, country: Denmark }
+              roomType: Standard Double
+              checkIn: '2026-07-15'
+              checkOut: '2026-07-20'
+              guests: 2
+      responses:
+        '201':
+          description: Oprettet
+          headers:
+            Location:
+              schema: { type: string, example: /api/bookings/1001 }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /api/bookings/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Bookings]
+      operationId: getBooking
+      summary: Hent én booking
+      responses:
+        '200':
+          description: Booking
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Bookings]
+      operationId: updateBooking
+      summary: Opdatér booking (fuld erstatning)
+      description: |
+        Værelset beholdes, hvis værelsestypen er uændret og værelset er ledigt i den nye periode.
+        Ellers tildeles et andet ledigt værelse af typen, eller der svares 409.
+        Ændres datoer eller type uden ny `price`, genberegnes prisen efter taksterne.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BookingInput' }
+      responses:
+        '200':
+          description: Opdateret
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Booking' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Bookings]
+      operationId: deleteBooking
+      summary: Slet booking (værelset frigives)
+      responses:
+        '204': { description: Slettet }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/room-types:
+    get:
+      tags: [Rooms]
+      operationId: listRoomTypes
+      summary: De 8 værelsestyper med kapacitet og sæsontakster
+      responses:
+        '200':
+          description: Værelsestyper
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/RoomType' }
+
+  /api/room-types/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Rooms]
+      operationId: getRoomType
+      responses:
+        '200':
+          description: Værelsestype
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/RoomType' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/rooms:
+    get:
+      tags: [Rooms]
+      operationId: listRooms
+      summary: De 214 værelser, evt. kun ledige i en periode
+      parameters:
+        - name: roomType
+          in: query
+          schema: { $ref: '#/components/schemas/RoomTypeName' }
+        - name: availableFrom
+          in: query
+          description: Sammen med `availableTo` returneres kun ledige værelser i perioden
+          schema: { type: string, format: date }
+        - name: availableTo
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Værelser
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Room' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/drinks:
+    get:
+      tags: [Drinks]
+      operationId: listDrinks
+      summary: Barens 30 drinks (20 cocktails, 10 kaffe)
+      parameters:
+        - name: category
+          in: query
+          schema: { $ref: '#/components/schemas/DrinkCategory' }
+      responses:
+        '200':
+          description: Drinks
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Drink' }
+
+  /api/drinks/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags: [Drinks]
+      operationId: getDrink
+      responses:
+        '200':
+          description: Drink
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Drink' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/drink-sales:
+    get:
+      tags: [Drinks]
+      operationId: listDrinkSales
+      parameters:
+        - $ref: '#/components/parameters/YearOptional'
+        - name: drinkId
+          in: query
+          schema: { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: Salgstransaktioner
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/DrinkSale' }
+    post:
+      tags: [Drinks]
+      operationId: createDrinkSale
+      summary: Registrér et salg i lobbybaren
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DrinkSaleInput' }
+            example: { drinkId: 1, units: 2 }
+      responses:
+        '201':
+          description: Registreret
+          headers:
+            Location:
+              schema: { type: string }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DrinkSale' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/analytics/summary:
+    get:
+      tags: [Analytics]
+      operationId: getSummary
+      summary: Årets nøgletal (indtjening, belægning, ADR, RevPAR, ALOS, tilfredshed)
+      parameters:
+        - $ref: '#/components/parameters/Year'
+      responses:
+        '200':
+          description: Nøgletal
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Summary' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/analytics/occupancy:
+    get:
+      tags: [Analytics]
+      operationId: getOccupancy
+      summary: Belægningsgrad pr. sæson og pr. måned
+      parameters:
+        - $ref: '#/components/parameters/Year'
+      responses:
+        '200':
+          description: Belægningsgrad
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Occupancy' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/analytics/revenue/room-types:
+    get:
+      tags: [Analytics]
+      operationId: getRevenueByRoomType
+      summary: Indtjening pr. værelsestype opdelt på sæson, rangeret
+      parameters:
+        - $ref: '#/components/parameters/Year'
+      responses:
+        '200':
+          description: Alle 8 typer, også dem uden bookinger (0)
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/RoomTypeRevenue' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/analytics/revenue/countries:
+    get:
+      tags: [Analytics]
+      operationId: getRevenueByCountry
+      summary: Gæsternes lande med bookinger, nætter, gæster og indtjening, rangeret
+      parameters:
+        - $ref: '#/components/parameters/Year'
+      responses:
+        '200':
+          description: Lande
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CountryRevenue' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/analytics/satisfaction:
+    get:
+      tags: [Analytics]
+      operationId: getSatisfaction
+      summary: Gennemsnitlig kundetilfredshed pr. værelsestype og samlet
+      parameters:
+        - $ref: '#/components/parameters/Year'
+      responses:
+        '200':
+          description: Tilfredshed
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SatisfactionReport' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/analytics/bar:
+    get:
+      tags: [Analytics]
+      operationId: getBarAnalytics
+      summary: Helene Christines salg, omsætning pr. drink og cocktail/kaffe-fordeling
+      parameters:
+        - $ref: '#/components/parameters/Year'
+      responses:
+        '200':
+          description: Bar-nøgletal
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/BarAnalytics' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/reports/bookings:
+    get:
+      tags: [Reports]
+      operationId: getBookingsReport
+      summary: Fakta-tabel til Tableau (én række pr. booking)
+      description: |
+        Bruges af WDC 3.0-tabellen `bookings_fact`. Alle udledte felter (sæson, måned, år, nætter)
+        kommer fra backenden. `format=csv` er backup til demo uden WDC.
+      parameters:
+        - $ref: '#/components/parameters/Year'
+        - $ref: '#/components/parameters/Format'
+      responses:
+        '200':
+          description: Rapport
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/BookingFact' }
+            text/csv:
+              schema: { type: string }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/reports/drink-sales:
+    get:
+      tags: [Reports]
+      operationId: getDrinkSalesReport
+      summary: Fakta-tabel over barsalg til Tableau (én række pr. salg)
+      parameters:
+        - $ref: '#/components/parameters/Year'
+        - $ref: '#/components/parameters/Format'
+      responses:
+        '200':
+          description: Rapport
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/DrinkSaleFact' }
+            text/csv:
+              schema: { type: string }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema: { type: integer, minimum: 1 }
+    Year:
+      name: year
+      in: query
+      required: false
+      description: Indtjekningsår / salgsår. Default 2026.
+      schema: { type: integer, minimum: 2000, maximum: 2100, default: 2026 }
+    YearOptional:
+      name: year
+      in: query
+      required: false
+      description: Filtrér på år. Udeladt = alle år.
+      schema: { type: integer, minimum: 2000, maximum: 2100 }
+    Format:
+      name: format
+      in: query
+      required: false
+      schema: { type: string, enum: [json, csv], default: json }
+
+  responses:
+    BadRequest:
+      description: Ugyldigt input
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    NotFound:
+      description: Ressourcen findes ikke
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Conflict:
+      description: Intet ledigt værelse af typen i perioden
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+
+  schemas:
+    Season:
+      type: string
+      enum: [low, mid, high]
+    RoomTypeName:
+      type: string
+      enum:
+        - Standard Single
+        - Grand Lit
+        - Standard Double
+        - Superior Double
+        - Junior Suite
+        - Spa Executive
+        - Suite
+        - LOFT Suite
+    DrinkCategory:
+      type: string
+      enum: [Cocktail, Coffee]
+    Money:
+      type: number
+      description: DKK med højst 2 decimaler
+      minimum: 0
+    Percent:
+      type: number
+      description: Procent (0–100) med 2 decimaler
+      minimum: 0
+      maximum: 100
+
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum: [VALIDATION_ERROR, NOT_FOUND, CONFLICT, INTERNAL]
+            message: { type: string }
+            details:
+              type: array
+              items:
+                type: object
+                required: [field, message]
+                properties:
+                  field: { type: string }
+                  message: { type: string }
+
+    GuestInput:
+      type: object
+      additionalProperties: false
+      required: [firstName, familyName, country]
+      properties:
+        firstName: { type: string, minLength: 1, maxLength: 100 }
+        familyName: { type: string, minLength: 1, maxLength: 100 }
+        country: { type: string, minLength: 1, maxLength: 100 }
+    Guest:
+      allOf:
+        - $ref: '#/components/schemas/GuestInput'
+        - type: object
+          required: [id]
+          properties:
+            id: { type: integer }
+
+    BookingInput:
+      type: object
+      additionalProperties: false
+      required: [guest, roomType, checkIn, checkOut, guests]
+      properties:
+        guest: { $ref: '#/components/schemas/GuestInput' }
+        roomType: { $ref: '#/components/schemas/RoomTypeName' }
+        checkIn: { type: string, format: date }
+        checkOut:
+          type: string
+          format: date
+          description: Skal være efter checkIn (valideres i service-laget)
+        guests:
+          type: integer
+          minimum: 1
+          maximum: 4
+          description: Højst værelsestypens kapacitet (valideres i service-laget)
+        price:
+          type: number
+          exclusiveMinimum: 0
+          description: Valgfri manuel totalpris i DKK. Udeladt = beregnet efter takst.
+        satisfaction:
+          type: [integer, 'null']
+          minimum: 1
+          maximum: 5
+
+    Booking:
+      type: object
+      required:
+        [id, guest, roomType, roomNumber, checkIn, checkOut, nights, guests, season, year, price, priceIsManual, satisfaction]
+      properties:
+        id: { type: integer }
+        guest: { $ref: '#/components/schemas/Guest' }
+        roomType: { $ref: '#/components/schemas/RoomTypeName' }
+        roomNumber: { type: integer, example: 304 }
+        checkIn: { type: string, format: date }
+        checkOut: { type: string, format: date }
+        nights: { type: integer, minimum: 1 }
+        guests: { type: integer, minimum: 1, maximum: 4 }
+        season: { $ref: '#/components/schemas/Season' }
+        year: { type: integer }
+        price: { $ref: '#/components/schemas/Money' }
+        priceIsManual: { type: boolean }
+        satisfaction: { type: [integer, 'null'], minimum: 1, maximum: 5 }
+
+    RoomType:
+      type: object
+      required: [id, name, maxGuests, roomCount, rates]
+      properties:
+        id: { type: integer }
+        name: { $ref: '#/components/schemas/RoomTypeName' }
+        maxGuests: { type: integer, minimum: 1, maximum: 4 }
+        roomCount: { type: integer }
+        rates:
+          type: object
+          required: [low, mid, high]
+          properties:
+            low: { $ref: '#/components/schemas/Money' }
+            mid: { $ref: '#/components/schemas/Money' }
+            high: { $ref: '#/components/schemas/Money' }
+
+    Room:
+      type: object
+      required: [id, number, roomType]
+      properties:
+        id: { type: integer }
+        number: { type: integer }
+        roomType: { $ref: '#/components/schemas/RoomTypeName' }
+
+    Drink:
+      type: object
+      required: [id, name, category, unitPrice]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        category: { $ref: '#/components/schemas/DrinkCategory' }
+        unitPrice: { $ref: '#/components/schemas/Money' }
+
+    DrinkSaleInput:
+      type: object
+      additionalProperties: false
+      required: [drinkId, units]
+      properties:
+        drinkId: { type: integer, minimum: 1 }
+        units: { type: integer, minimum: 1 }
+        soldAt:
+          type: string
+          format: date-time
+          description: Udeladt = nu
+
+    DrinkSale:
+      type: object
+      required: [id, drinkId, drinkName, category, units, unitPrice, revenue, soldAt, year, bartender]
+      properties:
+        id: { type: integer }
+        drinkId: { type: integer }
+        drinkName: { type: string }
+        category: { $ref: '#/components/schemas/DrinkCategory' }
+        units: { type: integer }
+        unitPrice: { $ref: '#/components/schemas/Money' }
+        revenue: { $ref: '#/components/schemas/Money' }
+        soldAt: { type: string, format: date-time }
+        year: { type: integer }
+        bartender: { type: string, example: Helene Christine }
+
+    Summary:
+      type: object
+      required:
+        [year, revenue, bookings, nightsSold, availableNights, occupancyRate, adr, revpar, alos, satisfaction]
+      properties:
+        year: { type: integer }
+        revenue: { $ref: '#/components/schemas/Money' }
+        bookings: { type: integer }
+        nightsSold: { type: integer }
+        availableNights: { type: integer, example: 78110 }
+        occupancyRate: { $ref: '#/components/schemas/Percent' }
+        adr: { $ref: '#/components/schemas/Money' }
+        revpar: { $ref: '#/components/schemas/Money' }
+        alos: { type: number, minimum: 0 }
+        satisfaction: { $ref: '#/components/schemas/SatisfactionValue' }
+
+    OccupancyRow:
+      type: object
+      required: [period, nightsSold, availableNights, occupancyRate]
+      properties:
+        period: { type: string, description: "Sæson (low|mid|high) eller måned (YYYY-MM)" }
+        nightsSold: { type: integer }
+        availableNights: { type: integer }
+        occupancyRate: { $ref: '#/components/schemas/Percent' }
+    Occupancy:
+      type: object
+      required: [year, total, bySeason, byMonth]
+      properties:
+        year: { type: integer }
+        total: { $ref: '#/components/schemas/OccupancyRow' }
+        bySeason:
+          type: array
+          items: { $ref: '#/components/schemas/OccupancyRow' }
+        byMonth:
+          type: array
+          items: { $ref: '#/components/schemas/OccupancyRow' }
+
+    RevenueCell:
+      type: object
+      required: [revenue, bookings, nights]
+      properties:
+        revenue: { $ref: '#/components/schemas/Money' }
+        bookings: { type: integer }
+        nights: { type: integer }
+
+    RoomTypeRevenue:
+      type: object
+      required: [rank, roomType, total, bySeason]
+      properties:
+        rank: { type: integer, minimum: 1, description: 1 = højeste indtjening }
+        roomType: { $ref: '#/components/schemas/RoomTypeName' }
+        total: { $ref: '#/components/schemas/RevenueCell' }
+        bySeason:
+          type: object
+          required: [low, mid, high]
+          properties:
+            low: { $ref: '#/components/schemas/RevenueCell' }
+            mid: { $ref: '#/components/schemas/RevenueCell' }
+            high: { $ref: '#/components/schemas/RevenueCell' }
+
+    CountryRevenue:
+      type: object
+      required: [rank, country, revenue, bookings, nights, guests]
+      properties:
+        rank: { type: integer, minimum: 1 }
+        country: { type: string }
+        revenue: { $ref: '#/components/schemas/Money' }
+        bookings: { type: integer }
+        nights: { type: integer }
+        guests: { type: integer, description: Sum af personer på bookingerne }
+
+    SatisfactionValue:
+      type: object
+      required: [average, responses]
+      properties:
+        average: { type: number, minimum: 0, maximum: 5, description: 0 hvis ingen besvarelser }
+        responses: { type: integer, minimum: 0 }
+    SatisfactionReport:
+      type: object
+      required: [year, overall, byRoomType]
+      properties:
+        year: { type: integer }
+        overall: { $ref: '#/components/schemas/SatisfactionValue' }
+        byRoomType:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/SatisfactionValue'
+              - type: object
+                required: [roomType]
+                properties:
+                  roomType: { $ref: '#/components/schemas/RoomTypeName' }
+
+    BarAnalytics:
+      type: object
+      required: [year, bartender, totals, drinks, categorySplit]
+      properties:
+        year: { type: integer }
+        bartender: { type: string, example: Helene Christine }
+        totals:
+          type: object
+          required: [revenue, units]
+          properties:
+            revenue: { $ref: '#/components/schemas/Money' }
+            units: { type: integer }
+        drinks:
+          type: array
+          description: Alle 30 drinks sorteret efter omsætning (faldende)
+          items:
+            type: object
+            required: [drinkId, name, category, unitPrice, units, revenue]
+            properties:
+              drinkId: { type: integer }
+              name: { type: string }
+              category: { $ref: '#/components/schemas/DrinkCategory' }
+              unitPrice: { $ref: '#/components/schemas/Money' }
+              units: { type: integer }
+              revenue: { $ref: '#/components/schemas/Money' }
+        categorySplit:
+          type: array
+          items:
+            type: object
+            required: [category, revenue, units, revenueShare, unitShare]
+            properties:
+              category: { $ref: '#/components/schemas/DrinkCategory' }
+              revenue: { $ref: '#/components/schemas/Money' }
+              units: { type: integer }
+              revenueShare: { $ref: '#/components/schemas/Percent' }
+              unitShare: { $ref: '#/components/schemas/Percent' }
+
+    BookingFact:
+      type: object
+      required:
+        [bookingId, year, month, season, checkIn, checkOut, roomType, roomNumber, country, guests, nights, price, satisfaction]
+      properties:
+        bookingId: { type: integer }
+        year: { type: integer }
+        month: { type: integer, minimum: 1, maximum: 12, description: Indtjekningsmåned }
+        season: { $ref: '#/components/schemas/Season' }
+        checkIn: { type: string, format: date }
+        checkOut: { type: string, format: date }
+        roomType: { $ref: '#/components/schemas/RoomTypeName' }
+        roomNumber: { type: integer }
+        country: { type: string }
+        guests: { type: integer }
+        nights: { type: integer }
+        price: { $ref: '#/components/schemas/Money' }
+        satisfaction: { type: [integer, 'null'] }
+
+    DrinkSaleFact:
+      type: object
+      required: [saleId, year, soldAt, drinkName, category, units, unitPrice, revenue, bartender]
+      properties:
+        saleId: { type: integer }
+        year: { type: integer }
+        soldAt: { type: string, format: date-time }
+        drinkName: { type: string }
+        category: { $ref: '#/components/schemas/DrinkCategory' }
+        units: { type: integer }
+        unitPrice: { $ref: '#/components/schemas/Money' }
+        revenue: { $ref: '#/components/schemas/Money' }
+        bartender: { type: string }
