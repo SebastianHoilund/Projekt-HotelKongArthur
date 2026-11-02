@@ -65,6 +65,7 @@ export function createApp(pool: Pool): Express {
     drinkRepository,
     drinkSaleRepository,
   );
+  const analyticsService = new AnalyticsService(bookingRepository);
 
   app.use(
     '/api',
