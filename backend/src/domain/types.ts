@@ -146,3 +146,28 @@ export interface SatisfactionReport {
   overall: SatisfactionValue;
   byRoomType: (SatisfactionValue & { roomType: RoomTypeName })[];
 }
+
+export interface BarDrink {
+  drinkId: number;
+  name: string;
+  category: DrinkCategory;
+  unitPrice: number;
+  units: number;
+  revenue: number;
+}
+
+export interface BarCategorySplit {
+  category: DrinkCategory;
+  revenue: number;
+  units: number;
+  revenueShare: number;
+  unitShare: number;
+}
+
+export interface BarAnalytics {
+  year: number;
+  bartender: string;
+  totals: { revenue: number; units: number };
+  drinks: BarDrink[];
+  categorySplit: BarCategorySplit[];
+}

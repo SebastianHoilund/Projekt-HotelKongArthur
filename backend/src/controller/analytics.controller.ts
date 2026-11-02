@@ -48,5 +48,12 @@ export function analyticsController(analytics: AnalyticsService): Router {
     }),
   );
 
+  router.get(
+    '/bar',
+    asyncHandler(async (req, res) => {
+      res.json(await analytics.bar(yearOf(req)));
+    }),
+  );
+
   return router;
 }

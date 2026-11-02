@@ -1,9 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { ROOM_TYPE_NAMES } from '../../src/domain/constants.js';
-import type { Booking } from '../../src/domain/types.js';
-import type { BookingFilters, BookingRepository } from '../../src/repository/interfaces.js';
+import type { Booking, Drink, DrinkSale } from '../../src/domain/types.js';
+import type {
+  BookingFilters,
+  BookingRepository,
+  DrinkRepository,
+  DrinkSaleFilters,
+  DrinkSaleRepository,
+} from '../../src/repository/interfaces.js';
 import {
   AnalyticsService,
+  getBarAnalytics,
   getOccupancy,
   getRevenueByCountry,
   getRevenueByRoomType,
@@ -220,7 +227,81 @@ describe('getSatisfaction', () => {
   });
 });
 
+const drinks: Drink[] = [
+  { id: 1, name: 'Margarita', category: 'Cocktail', unitPrice: 75 },
+  { id: 2, name: 'Mojito', category: 'Cocktail', unitPrice: 100 },
+  { id: 3, name: 'Espresso', category: 'Coffee', unitPrice: 30 },
+  { id: 4, name: 'Latte', category: 'Coffee', unitPrice: 40 },
+];
+
+let nextSaleId = 1;
+const sale = (drinkId: number, units: number, unitPrice: number): DrinkSale => {
+  const drink = drinks.find((d) => d.id === drinkId)!;
+  return {
+    id: nextSaleId++,
+    drinkId,
+    drinkName: drink.name,
+    category: drink.category,
+    units,
+    unitPrice,
+    revenue: units * unitPrice,
+    soldAt: '2026-12-31T23:59:59.000Z',
+    year: 2026,
+    bartender: 'Helene Christine',
+  };
+};
+
+describe('getBarAnalytics', () => {
+  it('summerer Helene Christines salg pr. drink og kategori med salgets egen pris', () => {
+    const bar = getBarAnalytics(
+      [sale(1, 2, 75), sale(1, 1, 60), sale(2, 1, 100), sale(3, 5, 30)],
+      drinks,
+      2026,
+    );
+
+    expect(bar.year).toBe(2026);
+    expect(bar.bartender).toBe('Helene Christine');
+    expect(bar.totals).toEqual({ revenue: 460, units: 9 });
+    expect(bar.drinks).toEqual([
+      {
+        drinkId: 1,
+        name: 'Margarita',
+        category: 'Cocktail',
+        unitPrice: 75,
+        units: 3,
+        revenue: 210,
+      },
+      { drinkId: 3, name: 'Espresso', category: 'Coffee', unitPrice: 30, units: 5, revenue: 150 },
+      { drinkId: 2, name: 'Mojito', category: 'Cocktail', unitPrice: 100, units: 1, revenue: 100 },
+      { drinkId: 4, name: 'Latte', category: 'Coffee', unitPrice: 40, units: 0, revenue: 0 },
+    ]);
+    expect(bar.categorySplit).toEqual([
+      { category: 'Cocktail', revenue: 310, units: 4, revenueShare: 67.39, unitShare: 44.44 },
+      { category: 'Coffee', revenue: 150, units: 5, revenueShare: 32.61, unitShare: 55.56 },
+    ]);
+  });
+
+  it('lader andelene summere til præcis 100 trods afrunding', () => {
+    const bar = getBarAnalytics([sale(1, 1, 1), sale(3, 2, 1)], drinks, 2026);
+    const shares = bar.categorySplit.map((row) => row.unitShare);
+    expect(shares).toEqual([33.33, 66.67]);
+    expect(shares[0] + shares[1]).toBeCloseTo(100, 10);
+  });
+
+  it('giver 0 overalt uden salg, men viser stadig alle drinks', () => {
+    const bar = getBarAnalytics([], drinks, 2030);
+    expect(bar.totals).toEqual({ revenue: 0, units: 0 });
+    expect(bar.drinks).toHaveLength(4);
+    expect(bar.categorySplit).toEqual([
+      { category: 'Cocktail', revenue: 0, units: 0, revenueShare: 0, unitShare: 0 },
+      { category: 'Coffee', revenue: 0, units: 0, revenueShare: 0, unitShare: 0 },
+    ]);
+  });
+});
+
 describe('AnalyticsService', () => {
+  const drinkRepo = { findAll: async () => drinks } as unknown as DrinkRepository;
+
   it('henter kun årets bookinger fra repository', async () => {
     const calls: BookingFilters[] = [];
     const repo = {
@@ -229,9 +310,23 @@ describe('AnalyticsService', () => {
         return [booking({ price: 1234, nights: 2 })];
       },
     } as BookingRepository;
-    const service = new AnalyticsService(repo);
+    const service = new AnalyticsService(repo, drinkRepo, {} as DrinkSaleRepository);
 
     expect(await service.summary(2025)).toMatchObject({ year: 2025, revenue: 1234, nightsSold: 2 });
     expect(calls).toEqual([{ year: 2025 }]);
+  });
+
+  it('henter kun årets drinksalg til barens nøgletal', async () => {
+    const calls: DrinkSaleFilters[] = [];
+    const sales = {
+      findAll: async (filters: DrinkSaleFilters = {}) => {
+        calls.push(filters);
+        return [sale(4, 2, 40)];
+      },
+    } as DrinkSaleRepository;
+    const service = new AnalyticsService({} as BookingRepository, drinkRepo, sales);
+
+    expect((await service.bar(2026)).totals).toEqual({ revenue: 80, units: 2 });
+    expect(calls).toEqual([{ year: 2026 }]);
   });
 });

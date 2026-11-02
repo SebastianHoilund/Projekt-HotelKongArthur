@@ -2,6 +2,10 @@ import type { RoomTypeName, Season } from './types.js';
 
 export const CAPACITY_ROOMS = 214;
 
+export const BARTENDER = 'Helene Christine';
+
+export const DRINK_CATEGORIES = ['Cocktail', 'Coffee'] as const;
+
 export const ROOM_TYPE_NAMES = [
   'Standard Single',
   'Grand Lit',
