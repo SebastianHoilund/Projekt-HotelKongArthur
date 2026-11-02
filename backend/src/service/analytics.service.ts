@@ -1,8 +1,16 @@
-import { CAPACITY_ROOMS, ROOM_TYPE_NAMES } from '../domain/constants.js';
+import {
+  BARTENDER,
+  CAPACITY_ROOMS,
+  DRINK_CATEGORIES,
+  ROOM_TYPE_NAMES,
+} from '../domain/constants.js';
 import { countDays } from '../domain/seasons.js';
 import type {
+  BarAnalytics,
   Booking,
   CountryRevenue,
+  Drink,
+  DrinkSale,
   Occupancy,
   OccupancyRow,
   RevenueCell,
@@ -12,7 +20,11 @@ import type {
   Season,
   Summary,
 } from '../domain/types.js';
-import type { BookingRepository } from '../repository/interfaces.js';
+import type {
+  BookingRepository,
+  DrinkRepository,
+  DrinkSaleRepository,
+} from '../repository/interfaces.js';
 
 const SEASONS: Season[] = ['low', 'mid', 'high'];
 
@@ -20,8 +32,8 @@ const SEASONS: Season[] = ['low', 'mid', 'high'];
 const round2 = (value: number) => Math.round((value + Number.EPSILON) * 100) / 100;
 const ratio = (numerator: number, denominator: number) =>
   denominator === 0 ? 0 : numerator / denominator;
-const sum = (bookings: Booking[], pick: (booking: Booking) => number) =>
-  bookings.reduce((total, booking) => total + pick(booking), 0);
+const sum = <T>(rows: T[], pick: (row: T) => number) =>
+  rows.reduce((total, row) => total + pick(row), 0);
 
 function occupancyRow(period: string, bookings: Booking[], days: number): OccupancyRow {
   const nightsSold = sum(bookings, (b) => b.nights);
@@ -147,9 +159,66 @@ export function getSatisfaction(bookings: Booking[], year: number): Satisfaction
   };
 }
 
-/** Henter årets bookinger og lader de rene funktioner ovenfor regne. Ingen caching. */
+/** Andele i procent, hvor den sidste er resten, så de afrundede andele summerer til præcis 100. */
+function shares(values: number[]): number[] {
+  const total = values.reduce((acc, value) => acc + value, 0);
+  if (total === 0) return values.map(() => 0);
+  const rounded = values.slice(0, -1).map((value) => round2((value / total) * 100));
+  return [...rounded, round2(100 - rounded.reduce((acc, value) => acc + value, 0))];
+}
+
+/** Forventer årets salg. Omsætningen bruger salgets egen pris, ikke drinkens nuværende pris. */
+export function getBarAnalytics(sales: DrinkSale[], drinks: Drink[], year: number): BarAnalytics {
+  const barDrinks = drinks
+    .map((drink) => {
+      const ofDrink = sales.filter((s) => s.drinkId === drink.id);
+      return {
+        drinkId: drink.id,
+        name: drink.name,
+        category: drink.category,
+        unitPrice: drink.unitPrice,
+        units: sum(ofDrink, (s) => s.units),
+        revenue: round2(sum(ofDrink, (s) => s.units * s.unitPrice)),
+      };
+    })
+    .sort((a, b) => b.revenue - a.revenue);
+
+  const categories = DRINK_CATEGORIES.map((category) => {
+    const ofCategory = sales.filter((s) => s.category === category);
+    return {
+      category,
+      revenue: sum(ofCategory, (s) => s.units * s.unitPrice),
+      units: sum(ofCategory, (s) => s.units),
+    };
+  });
+  const revenueShares = shares(categories.map((c) => c.revenue));
+  const unitShares = shares(categories.map((c) => c.units));
+
+  return {
+    year,
+    bartender: BARTENDER,
+    totals: {
+      revenue: round2(sum(sales, (s) => s.units * s.unitPrice)),
+      units: sum(sales, (s) => s.units),
+    },
+    drinks: barDrinks,
+    categorySplit: categories.map((c, index) => ({
+      category: c.category,
+      revenue: round2(c.revenue),
+      units: c.units,
+      revenueShare: revenueShares[index],
+      unitShare: unitShares[index],
+    })),
+  };
+}
+
+/** Henter årets bookinger og drinksalg og lader de rene funktioner ovenfor regne. Ingen caching. */
 export class AnalyticsService {
-  constructor(private readonly bookings: BookingRepository) {}
+  constructor(
+    private readonly bookings: BookingRepository,
+    private readonly drinks: DrinkRepository,
+    private readonly drinkSales: DrinkSaleRepository,
+  ) {}
 
   async summary(year: number): Promise<Summary> {
     return getSummary(await this.forYear(year), year);
@@ -169,6 +238,14 @@ export class AnalyticsService {
 
   async satisfaction(year: number): Promise<SatisfactionReport> {
     return getSatisfaction(await this.forYear(year), year);
+  }
+
+  async bar(year: number): Promise<BarAnalytics> {
+    const [sales, drinks] = await Promise.all([
+      this.drinkSales.findAll({ year }),
+      this.drinks.findAll(),
+    ]);
+    return getBarAnalytics(sales, drinks, year);
   }
 
   private forYear(year: number): Promise<Booking[]> {

@@ -210,11 +210,12 @@
 
 ### Implementation for User Story 5
 
-- [ ] T042 [P] [US5] Implement `DrinkSaleRepository` in `backend/src/repository/postgres/drink-sale.postgres.ts` (`sold_at` returned as ISO date-time string): `findAll(filters)` with JOIN to drink (ordered by sold_at DESC), `create(data)` → INSERT with unit_price copied from drink.unit_price at sale time
-- [ ] T043 [US5] Create `DrinkService` in `backend/src/service/drink.service.ts`: `listDrinks(category?)`, `getDrink(id)`, `listSales(filters)`, `createSale(input)` → validate drinkId exists (or NotFoundError 404), validate units ≥ 1, copy unit_price from drink, default soldAt to now, derive year from soldAt, insert
-- [ ] T044 [US5] Create `DrinkController` in `backend/src/controller/drink.controller.ts`: `GET /api/drinks` (?category), `GET /api/drinks/:id`, `GET /api/drink-sales` (?year, ?drinkId), `POST /api/drink-sales` → 201 + Location
-- [ ] T045 [US5] Add bar analytics to `AnalyticsService` in `backend/src/service/analytics.service.ts`: `getBarAnalytics(drinkSales[], drinks[], year)` → bartender: "Helene Christine", totals {revenue: Σ(units×unitPrice), units: Σunits}, drinks (all 30 with drinkId, name, category, unitPrice, units, revenue, sorted by revenue DESC), categorySplit [{category: "Cocktail", revenue, units, revenueShare%, unitShare%}, {category: "Coffee", ...}] where shares sum to 100
-- [ ] T046 [US5] Add bar analytics endpoint to `AnalyticsController`: `GET /api/analytics/bar?year=` → BarAnalytics object
+- [X] T042 [P] [US5] Implement `DrinkSaleRepository` in `backend/src/repository/postgres/drink-sale.postgres.ts` (`sold_at` returned as ISO date-time string): `findAll(filters)` with JOIN to drink (ordered by sold_at DESC), `create(data)` → INSERT with unit_price copied from drink.unit_price at sale time
+- [X] T043 [US5] Create `DrinkService` in `backend/src/service/drink.service.ts`: `listDrinks(category?)`, `getDrink(id)`, `listSales(filters)`, `createSale(input)` → validate drinkId exists (or NotFoundError 404), validate units ≥ 1, copy unit_price from drink, default soldAt to now, derive year from soldAt, insert
+- [X] T044 [US5] Create `DrinkController` in `backend/src/controller/drink.controller.ts`: `GET /api/drinks` (?category), `GET /api/drinks/:id`, `GET /api/drink-sales` (?year, ?drinkId), `POST /api/drink-sales` → 201 + Location
+- [X] T045 [US5] Add bar analytics to `AnalyticsService` in `backend/src/service/analytics.service.ts`: `getBarAnalytics(drinkSales[], drinks[], year)` → bartender: "Helene Christine", totals {revenue: Σ(units×unitPrice), units: Σunits}, drinks (all 30 with drinkId, name, category, unitPrice, units, revenue, sorted by revenue DESC), categorySplit [{category: "Cocktail", revenue, units, revenueShare%, unitShare%}, {category: "Coffee", ...}] where shares sum to 100
+- [X] T046 [US5] Add bar analytics endpoint to `AnalyticsController`: `GET /api/analytics/bar?year=` → BarAnalytics object
+  - *Note: `sold_at` er `TIMESTAMP` uden tidszone og gemmes i UTC. Input med offset omregnes til UTC, og året udledes af UTC-tidspunktet. Omsætning bruger salgets kopierede `unit_price`. Kategoriandelene summerer til præcis 100, fordi den sidste andel er resten. `Location` peger på `/api/drink-sales/{id}`, men kontrakten har ingen `GET /api/drink-sales/{id}` (afklares med OpenAPI-ansvarlig). Unit-tests i `drink.service.test.ts` og `analytics.service.test.ts`.*
 
 **Checkpoint**: Cocktailbar-nøgletal fungerer. Helene Christines totalsalg, omsætning pr. drink og procentfordeling beregnes korrekt.
 

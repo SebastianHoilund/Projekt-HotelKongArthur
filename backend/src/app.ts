@@ -3,6 +3,7 @@ import express from 'express';
 import type { Express } from 'express';
 import type { Pool } from 'pg';
 import { analyticsController } from './controller/analytics.controller.js';
+import { drinkController } from './controller/drink.controller.js';
 import { bookingController } from './controller/booking.controller.js';
 import { healthController } from './controller/health.controller.js';
 import { roomController } from './controller/room.controller.js';
@@ -10,6 +11,8 @@ import { NotFoundError } from './domain/errors.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { openApiValidator } from './middleware/openapi-validator.js';
 import { PostgresBookingRepository } from './repository/postgres/booking.postgres.js';
+import { PostgresDrinkSaleRepository } from './repository/postgres/drink-sale.postgres.js';
+import { PostgresDrinkRepository } from './repository/postgres/drink.postgres.js';
 import { PostgresGuestRepository } from './repository/postgres/guest.postgres.js';
 import { pingDatabase } from './repository/postgres/pool.js';
 import { PostgresRoomTypeRepository } from './repository/postgres/room-type.postgres.js';
@@ -18,6 +21,7 @@ import { PostgresUnitOfWork } from './repository/postgres/unit-of-work.postgres.
 import { createRoutes } from './routes.js';
 import { AnalyticsService } from './service/analytics.service.js';
 import { BookingService } from './service/booking.service.js';
+import { DrinkService } from './service/drink.service.js';
 import { PricingService } from './service/pricing.service.js';
 import { RoomService } from './service/room.service.js';
 
@@ -53,7 +57,14 @@ export function createApp(pool: Pool): Express {
     new PostgresUnitOfWork(pool),
     new PricingService(),
   );
-  const analyticsService = new AnalyticsService(bookingRepository);
+  const drinkRepository = new PostgresDrinkRepository(pool);
+  const drinkSaleRepository = new PostgresDrinkSaleRepository(pool);
+  const drinkService = new DrinkService(drinkRepository, drinkSaleRepository);
+  const analyticsService = new AnalyticsService(
+    bookingRepository,
+    drinkRepository,
+    drinkSaleRepository,
+  );
 
   app.use(
     '/api',
@@ -62,6 +73,7 @@ export function createApp(pool: Pool): Express {
       rooms: roomController(roomService),
       bookings: bookingController(bookingService),
       analytics: analyticsController(analyticsService),
+      drinks: drinkController(drinkService),
     }),
   );
 
