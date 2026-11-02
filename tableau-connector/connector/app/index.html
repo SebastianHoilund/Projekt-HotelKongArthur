@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotel Kong Arthur</title>
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <link rel="icon" href="data:," />
+    <link href="index.css" rel="stylesheet" />
+    <script src="index.ts" type="module" defer></script>
+  </head>
+  <body>
+    <main class="box">
+      <h1>Hotel Kong Arthur</h1>
+      <p>Henter bookinger, nøgletal og barsalg live fra backendens REST API.</p>
+      <form id="settings">
+        <label>
+          År
+          <input id="year" type="number" min="2000" max="2100" value="2026" required />
+        </label>
+        <label>
+          Backend-URL
+          <input id="baseUrl" type="url" value="http://localhost:3000" required />
+        </label>
+        <p id="error" class="error" role="alert" hidden></p>
+        <button type="submit" id="submitButton" disabled>Indlæser …</button>
+      </form>
+    </main>
+  </body>
+</html>

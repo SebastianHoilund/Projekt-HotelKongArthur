@@ -1,0 +1,39 @@
+{
+  "name": "hotel-kong-arthur",
+  "description": "Tableau WDC 3.0-connector til Hotel Kong Arthurs REST API",
+  "private": true,
+  "dependencies": {
+    "@tableau/taco-toolkit": "2.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "build": "taco-scripts build",
+    "clean": "taco-scripts clean",
+    "start": "taco-scripts start"
+  },
+  "targets": {
+    "handlers": {
+      "includeNodeModules": true,
+      "sourceMap": false,
+      "context": "web-worker",
+      "distDir": "../dist/handlers",
+      "outputFormat": "commonjs",
+      "isLibrary": false,
+      "optimize": false
+    },
+    "app": {
+      "publicUrl": "./",
+      "distDir": "../dist/app",
+      "engines": {
+        "browsers": "Chrome 70"
+      }
+    }
+  },
+  "alias": {
+    "process": false,
+    "path": false,
+    "util": false
+  }
+}

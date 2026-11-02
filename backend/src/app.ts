@@ -6,6 +6,7 @@ import { analyticsController } from './controller/analytics.controller.js';
 import { drinkController } from './controller/drink.controller.js';
 import { bookingController } from './controller/booking.controller.js';
 import { healthController } from './controller/health.controller.js';
+import { reportController } from './controller/report.controller.js';
 import { roomController } from './controller/room.controller.js';
 import { NotFoundError } from './domain/errors.js';
 import { errorHandler } from './middleware/error-handler.js';
@@ -23,6 +24,7 @@ import { AnalyticsService } from './service/analytics.service.js';
 import { BookingService } from './service/booking.service.js';
 import { DrinkService } from './service/drink.service.js';
 import { PricingService } from './service/pricing.service.js';
+import { ReportService } from './service/report.service.js';
 import { RoomService } from './service/room.service.js';
 
 // Frontend og Swagger UI må skrive. Andre origins må kun læse (research R-13).
@@ -60,12 +62,12 @@ export function createApp(pool: Pool): Express {
   const drinkRepository = new PostgresDrinkRepository(pool);
   const drinkSaleRepository = new PostgresDrinkSaleRepository(pool);
   const drinkService = new DrinkService(drinkRepository, drinkSaleRepository);
+  const reportService = new ReportService(bookingRepository, drinkSaleRepository);
   const analyticsService = new AnalyticsService(
     bookingRepository,
     drinkRepository,
     drinkSaleRepository,
   );
-  const analyticsService = new AnalyticsService(bookingRepository);
 
   app.use(
     '/api',
@@ -75,6 +77,7 @@ export function createApp(pool: Pool): Express {
       bookings: bookingController(bookingService),
       analytics: analyticsController(analyticsService),
       drinks: drinkController(drinkService),
+      reports: reportController(reportService),
     }),
   );
 

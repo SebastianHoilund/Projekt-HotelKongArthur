@@ -6,6 +6,7 @@ export interface Controllers {
   bookings: Router;
   analytics: Router;
   drinks: Router;
+  reports: Router;
 }
 
 export function createRoutes(controllers: Controllers): Router {
@@ -15,5 +16,6 @@ export function createRoutes(controllers: Controllers): Router {
   router.use('/bookings', controllers.bookings);
   router.use('/analytics', controllers.analytics);
   router.use(controllers.drinks);
+  router.use('/reports', controllers.reports);
   return router;
 }
