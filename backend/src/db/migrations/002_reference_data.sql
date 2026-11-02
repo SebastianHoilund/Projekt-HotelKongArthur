@@ -9,14 +9,13 @@ INSERT INTO room_type (id, name, max_guests, room_count, rate_low, rate_mid, rat
   (7, 'Suite', 4, 8, 2500, 3000, 3500),
   (8, 'LOFT Suite', 4, 6, 3000, 3500, 4000);
 
+-- Faste id'er rykker ikke sekvensen, så den sættes manuelt.
+SELECT setval(pg_get_serial_sequence('room_type', 'id'), 8);
+
 -- Værelsesnummer = type-id × 100 + løbenummer: 101–144, 201–230, ..., 801–806.
 INSERT INTO room (number, room_type_id)
-WITH RECURSIVE seq (n) AS (
-  SELECT 1
-  UNION ALL
-  SELECT n + 1 FROM seq WHERE n < 58
-)
 SELECT room_type.id * 100 + seq.n, room_type.id
 FROM room_type
-JOIN seq ON seq.n <= room_type.room_count
+CROSS JOIN generate_series(1, 58) AS seq (n)
+WHERE seq.n <= room_type.room_count
 ORDER BY room_type.id, seq.n;

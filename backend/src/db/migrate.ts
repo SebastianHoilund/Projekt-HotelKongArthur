@@ -1,23 +1,24 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import type { RowDataPacket } from 'mysql2/promise';
 import { logger } from '../config/logger.js';
-import { createMigrationConnection } from '../repository/mysql/pool.js';
+import { createMigrationClient } from '../repository/postgres/pool.js';
 
 const migrationsDir = fileURLToPath(new URL('./migrations/', import.meta.url));
 
 export async function migrate(): Promise<void> {
-  const connection = await createMigrationConnection();
+  const client = await createMigrationClient();
   try {
-    await connection.query(`
+    await client.query(`
       CREATE TABLE IF NOT EXISTS schema_migrations (
         version VARCHAR(50) PRIMARY KEY,
-        applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+        applied_at TIMESTAMP NOT NULL DEFAULT now()
+      )
     `);
-    const [rows] = await connection.query<RowDataPacket[]>('SELECT version FROM schema_migrations');
-    const applied = new Set(rows.map((row) => row.version as string));
+    const { rows } = await client.query<{ version: string }>(
+      'SELECT version FROM schema_migrations',
+    );
+    const applied = new Set(rows.map((row) => row.version));
 
     const files = (await readdir(migrationsDir)).filter((file) => file.endsWith('.sql')).sort();
     for (const file of files) {
@@ -25,18 +26,19 @@ export async function migrate(): Promise<void> {
       if (applied.has(version)) continue;
 
       const sql = await readFile(path.join(migrationsDir, file), 'utf8');
-      await connection.beginTransaction();
+      // DDL er transaktionel i PostgreSQL, så en fejlet migration efterlader ingen halve tabeller.
+      await client.query('BEGIN');
       try {
-        await connection.query(sql);
-        await connection.query('INSERT INTO schema_migrations (version) VALUES (?)', [version]);
-        await connection.commit();
+        await client.query(sql);
+        await client.query('INSERT INTO schema_migrations (version) VALUES ($1)', [version]);
+        await client.query('COMMIT');
       } catch (error) {
-        await connection.rollback();
+        await client.query('ROLLBACK');
         throw error;
       }
       logger.info({ version }, 'Migration kørt');
     }
   } finally {
-    await connection.end();
+    await client.end();
   }
 }

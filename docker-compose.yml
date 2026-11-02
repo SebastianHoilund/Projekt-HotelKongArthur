@@ -2,11 +2,11 @@ name: hotel-kong-arthur
 
 # Alle værdier har defaults, så et frisk clone starter uden en .env-fil (NFR-015).
 x-backend-env: &backend-env
-  MYSQL_HOST: ${MYSQL_HOST:-db}
-  MYSQL_PORT: ${MYSQL_PORT:-3306}
-  MYSQL_USER: ${MYSQL_USER:-hotel}
-  MYSQL_PASSWORD: ${MYSQL_PASSWORD:-hotel}
-  MYSQL_DATABASE: ${MYSQL_DATABASE:-hotel_kong_arthur}
+  DB_HOST: ${DB_HOST:-db}
+  DB_PORT: ${DB_PORT:-5432}
+  DB_USER: ${DB_USER:-hotel}
+  DB_PASSWORD: ${DB_PASSWORD:-hotel}
+  DB_NAME: ${DB_NAME:-hotel_kong_arthur}
   PORT: 3000
   DATA_DIR: /app/data
   OPENAPI_PATH: /app/openapi.yaml
@@ -18,19 +18,18 @@ x-backend-mounts: &backend-mounts
 
 services:
   db:
-    image: mysql:8.4
+    image: postgres:17
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-      MYSQL_USER: ${MYSQL_USER:-hotel}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-hotel}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-hotel_kong_arthur}
+      POSTGRES_USER: ${DB_USER:-hotel}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-hotel}
+      POSTGRES_DB: ${DB_NAME:-hotel_kong_arthur}
     volumes:
-      - mysql-data:/var/lib/mysql
+      - pg-data:/var/lib/postgresql/data
       - ./db/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      # TCP frem for socket: MySQLs midlertidige init-server svarer kun på socket,
-      # så -h localhost ville melde healthy, før den rigtige server er oppe.
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      # TCP frem for socket: PostgreSQLs midlertidige init-server lytter kun på socket,
+      # så uden -h 127.0.0.1 ville den melde healthy, før den rigtige server er oppe.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -89,9 +88,9 @@ services:
       target: test
     environment:
       <<: *backend-env
-      MYSQL_USER: hotel_test
-      MYSQL_PASSWORD: hotel_test
-      MYSQL_DATABASE: hotel_kong_arthur_test
+      DB_USER: hotel_test
+      DB_PASSWORD: hotel_test
+      DB_NAME: hotel_kong_arthur_test
       NODE_ENV: test
     volumes: *backend-mounts
     depends_on:
@@ -101,7 +100,7 @@ services:
       - hotel-net
 
 volumes:
-  mysql-data:
+  pg-data:
 
 networks:
   hotel-net:
