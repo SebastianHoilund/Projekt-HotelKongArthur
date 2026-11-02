@@ -27,6 +27,7 @@ Forventet:
 | URL | Forventet |
 |---|---|
 | http://localhost:8080 | Bookingliste med 1.000 bookinger |
+| http://localhost:8080/analytics.html | Nøgletal for hotel og bar for 2026 |
 | http://localhost:8081 | Swagger UI med "Hotel Kong Arthur API" |
 | http://localhost:3000/api/health | `{"status":"ok"}` |
 
@@ -132,3 +133,11 @@ docker-compose --profile test run --rm backend-test                 # integratio
 ```
 
 Forventet: alle tests grønne. Ingen response afviger fra `api/openapi.yaml`.
+
+### 11. Nøgletal i frontenden (US7 · FR-019 · SC-008)
+
+1. Åbn http://localhost:8080/analytics.html og vælg 2026.
+2. Sammenlign med `curl -s 'localhost:3000/api/analytics/summary?year=2026' | jq .`. Forventet: samme indtjening, `occupancyRate ≈ 6.89`, ADR, RevPAR, ALOS og tilfredshed (3,87 af 705 svar).
+3. Tjek at siden også viser belægning pr. sæson og måned, indtjening pr. værelsestype × sæson, indtjening pr. land, tilfredshed pr. værelsestype og barens tal (Helenes total, pr. drink og cocktail/kaffe i %).
+4. Opret booking fra scenarie 8 trin 5 og genindlæs siden. Forventet: årets indtjening stiger med præcis 40.000 DKK.
+5. Vælg 2030. Forventet: 0-værdier, ingen fejl.

@@ -7,7 +7,7 @@
 
 ## Content Quality
 
-- [x] No implementation details (languages, frameworks, APIs) – *Undtagelse: opgaven og constitution kræver REST/JSON, OpenAPI, Swagger UI, MySQL og Docker. De optræder kun som NFR-001 til NFR-006. Valg af sprog og frameworks er udskudt til Plan.*
+- [x] No implementation details (languages, frameworks, APIs) – *Undtagelse: opgaven og constitution kræver REST/JSON, OpenAPI, Swagger UI, PostgreSQL og Docker. De optræder kun som NFR-001 til NFR-006. Valg af sprog og frameworks er udskudt til Plan.*
 - [x] Focused on user value and business needs
 - [x] Written for non-technical stakeholders
 - [x] All mandatory sections completed
@@ -38,7 +38,7 @@
 - [x] Årets indtjening, belægningsgrad, kundetilfredshed og selvvalgt nøgletal: ADR, RevPAR, ALOS (US4, FR-011)
 - [x] Cocktailbar: totalt salg, omsætning pr. drink, procentfordeling (US5, FR-012)
 - [x] Fra statisk til live data og Tableau via REST API (US6, FR-015, SC-003)
-- [x] Ikke-funktionelle krav: 3 lag, REST/JSON, OpenAPI, Swagger UI, MySQL, Docker (NFR-001 til NFR-006, NFR-015)
+- [x] Ikke-funktionelle krav: 3 lag, REST/JSON, OpenAPI, Swagger UI, PostgreSQL, Docker (NFR-001 til NFR-006, NFR-015)
 - [x] Leverancer: README, CONTRIBUTE, spec-artefakter, git-bidrag (NFR-013, NFR-014)
 - [x] User stories i formatet "Som <rolle> ønsker jeg <mål>, så <værdi>" med INVEST og Given/When/Then
 - [x] Sporbarhed mellem opgavekrav, US, FR, NFR og SC (Sporbarhedsmatrix i spec.md)
