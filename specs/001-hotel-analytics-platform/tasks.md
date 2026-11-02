@@ -131,19 +131,24 @@
 
 ### Tests for User Story 1
 
-- [ ] T033 [P] [US1] Unit test for BookingService in `backend/tests/unit/booking.service.test.ts`: test validation (checkOut ≤ checkIn → error, guests > maxGuests → error, unknown roomType → error, empty guest names → error), test room assignment (picks lowest available room number), test overlap detection (overlapping periods rejected, checkout=checkin allowed), test update (same room kept if type unchanged and available, new room if type changed, 409 if none available), test price recalculation on date/type change without manual price, test manual price preserved when provided
+- [X] T033 [P] [US1] Unit test for BookingService in `backend/tests/unit/booking.service.test.ts`: test validation (checkOut ≤ checkIn → error, guests > maxGuests → error, unknown roomType → error, empty guest names → error), test room assignment (picks lowest available room number), test overlap detection (overlapping periods rejected, checkout=checkin allowed), test update (same room kept if type unchanged and available, new room if type changed, 409 if none available), test price recalculation on date/type change without manual price, test manual price preserved when provided
+  - Fakes i `tests/unit/fakes.ts`. Fake-repository returnerer alle bookinger på værelserne uden periodefilter, så overlapreglen testes i servicen
 
 ### Implementation for User Story 1
 
-- [ ] T034 [US1] Implement `BookingRepository` in `backend/src/repository/postgres/booking.postgres.ts` (`$n` placeholders, `INSERT … RETURNING id`, `UPDATE` sets `updated_at = now()`): `findAll(filters)` with JOINs to guest/room/room_type (ordered by check_in DESC), `findById(id)` with JOINs, `findByRoomInPeriod(roomId, checkIn, checkOut, excludeBookingId?)` for overlap check (`check_in < :checkOut AND check_out > :checkIn`), `create(data, connection)`, `update(id, data, connection)`, `delete(id, connection)`, `count()`
-- [ ] T035 [US1] Create `BookingService` in `backend/src/service/booking.service.ts`: implements full booking lifecycle:
+- [X] T034 [US1] Implement `BookingRepository` in `backend/src/repository/postgres/booking.postgres.ts` (`$n` placeholders, `INSERT … RETURNING id`, `UPDATE` sets `updated_at = now()`): `findAll(filters)` with JOINs to guest/room/room_type (ordered by check_in DESC), `findById(id)` with JOINs, `findByRoomInPeriod(roomId, checkIn, checkOut, excludeBookingId?)` for overlap check (`check_in < :checkOut AND check_out > :checkIn`), `create(data, connection)`, `update(id, data, connection)`, `delete(id, connection)`, `count()`
+  - `findByRoomInPeriod(roomId, …)` er erstattet af `findByRoomsInPeriod(roomIds, …)` i `repository/interfaces.ts`: én forespørgsel for alle værelser af typen i stedet for én pr. værelse. SQL'en filtrerer kun rækker. Overlapreglen ligger i `domain/booking-rules.ts` og bruges af servicen
+- [X] T035 [US1] Create `BookingService` in `backend/src/service/booking.service.ts`: implements full booking lifecycle:
+  - Manuel pris ved PUT uden `price`: beholdes kun, hvis hverken datoer eller værelsestype ændres (fx kun gæstens navn). Ellers genberegnes (clarification 2)
   - `create(input)`: validate with zod schema, validate roomType exists and guests ≤ maxGuests, validate checkOut > checkIn, determine season/year/nights, calculate price (or use manual), call `assignRoom()` in transaction → INSERT guest + INSERT booking, return full booking
   - `update(id, input)`: find existing booking or 404, validate input, if roomType unchanged and current room available in new period → keep room, else find new room or 409. If dates/type changed without new manual price → recalculate. Update guest + booking in transaction
   - `delete(id)`: find or 404, DELETE booking, DELETE orphaned guest, in transaction
   - `assignRoom(roomTypeName, checkIn, checkOut, excludeBookingId?, preferredRoomId?, connection)`: SELECT rooms FOR UPDATE, find all bookings overlapping period, pick lowest available room number (prefer preferredRoomId if available), throw ConflictError if none available
   - All writes use `UnitOfWork.withTransaction` for atomicity (FR-017, NFR-008)
-- [ ] T036 [US1] Create `BookingController` in `backend/src/controller/booking.controller.ts`: `GET /api/bookings` (optional ?year, ?roomType, ?country, ?season filters), `GET /api/bookings/:id`, `POST /api/bookings` → 201 + Location header, `PUT /api/bookings/:id` → 200, `DELETE /api/bookings/:id` → 204. Map DomainErrors to status codes via error middleware
-- [ ] T037 [US1] Create CSV seed module in `backend/src/db/seed.ts`: if `booking` table is empty → parse `hotel_bookings_2026.csv` (csv-parse): for each row create guest, look up room by `Room Number`, map all CSV columns to booking fields (Season from CSV, price_is_manual = TRUE for all seeded bookings, Satisfaction empty → NULL). Parse `drinks_menu_with_sales.csv`: create drink + drink_sale (units = Units Sold, sold_at = 2026-12-31T23:59:59, unit_price = drink.unit_price). All in one transaction. Validate zero overlaps before commit. Log counts with pino
+- [X] T036 [US1] Create `BookingController` in `backend/src/controller/booking.controller.ts`: `GET /api/bookings` (optional ?year, ?roomType, ?country, ?season filters), `GET /api/bookings/:id`, `POST /api/bookings` → 201 + Location header, `PUT /api/bookings/:id` → 200, `DELETE /api/bookings/:id` → 204. Map DomainErrors to status codes via error middleware
+  - Kontraktfejl fundet med responsvalidering: `Guest` var `allOf` af `GuestInput` (med `additionalProperties: false`) og `{id}`, så ingen booking kunne overholde kontrakten. Rettet til et selvstændigt skema i `api/openapi.yaml` og `contracts/openapi.yaml`
+- [X] T037 [US1] Create CSV seed module in `backend/src/db/seed.ts`: if `booking` table is empty → parse `hotel_bookings_2026.csv` (csv-parse): for each row create guest, look up room by `Room Number`, map all CSV columns to booking fields (Season from CSV, price_is_manual = TRUE for all seeded bookings, Satisfaction empty → NULL). Parse `drinks_menu_with_sales.csv`: create drink + drink_sale (units = Units Sold, sold_at = 2026-12-31T23:59:59, unit_price = drink.unit_price). All in one transaction. Validate zero overlaps before commit. Log counts with pino
+  - Idempotens via rækken `seed_csv_2026` i `schema_migrations` i stedet for "booking er tom", så seed aldrig kører igen, heller ikke hvis alle bookinger slettes (`drink.name` er UNIQUE og ville ellers give fejl). Validerer type, nætter, kapacitet og overlap pr. linje og afbryder opstarten ved fejl
 
 **Checkpoint**: Booking-CRUD er fuldt funktionel. Receptionist kan oprette, se, redigere og slette bookinger. Sæson, pris og værelse beregnes korrekt. Overlap forhindres. Seeddata indlæses.
 
@@ -159,7 +164,8 @@
 
 ### Implementation for User Story 3
 
-- [ ] T038 [US3] Extend analytics to include country distribution: the endpoint `GET /api/analytics/revenue/countries?year=` (implemented in Phase 6/US4 via T041) covers US3's requirement for country-based booking/nights/revenue breakdown. Mark US3 as covered by T037 (seed) + T041 (revenue/countries endpoint in US4)
+- [X] T038 [US3] Extend analytics to include country distribution: the endpoint `GET /api/analytics/revenue/countries?year=` (implemented in Phase 6/US4 via T041) covers US3's requirement for country-based booking/nights/revenue breakdown. Mark US3 as covered by T037 (seed) + T041 (revenue/countries endpoint in US4)
+  - *Note: Lukket sammen med fase 6. `GET /api/drinks` fra US3's Independent Test kommer først i fase 7 (US5).*
 
 **Checkpoint**: Historisk datagrundlag indlæst. Landefordeling tilgængelig via analytics (US4).
 
@@ -173,23 +179,24 @@
 
 ### Tests for User Story 4
 
-- [ ] T039 [P] [US4] Unit test for AnalyticsService in `backend/tests/unit/analytics.service.test.ts`: test summary calculation (revenue = Σprice, occupancy = nights/availableNights×100, ADR = revenue/nights, RevPAR = revenue/availableNights, ALOS = AVG(nights)). Test division by zero (0 bookings → all 0, no NaN). Test satisfaction average (only non-null, 0 responses → average 0). Test revenue by room type (groups by type and season, rank by total revenue). Test revenue by country (rank by revenue, includes bookings/nights/guests count). Test occupancy by season (low 104 days, mid 153 days, high 108 days × 214 rooms) and by month
+- [X] T039 [P] [US4] Unit test for AnalyticsService in `backend/tests/unit/analytics.service.test.ts`: test summary calculation (revenue = Σprice, occupancy = nights/availableNights×100, ADR = revenue/nights, RevPAR = revenue/availableNights, ALOS = AVG(nights)). Test division by zero (0 bookings → all 0, no NaN). Test satisfaction average (only non-null, 0 responses → average 0). Test revenue by room type (groups by type and season, rank by total revenue). Test revenue by country (rank by revenue, includes bookings/nights/guests count). Test occupancy by season (low 104 days, mid 153 days, high 108 days × 214 rooms) and by month
 
 ### Implementation for User Story 4
 
-- [ ] T040 [US4] Create `AnalyticsService` in `backend/src/service/analytics.service.ts`: pure functions that take booking/drink-sale rows and compute:
+- [X] T040 [US4] Create `AnalyticsService` in `backend/src/service/analytics.service.ts`: pure functions that take booking/drink-sale rows and compute:
   - `getSummary(bookings[], year)`: totalRevenue, totalBookings, nightsSold, availableNights (214 × daysInYear), occupancyRate, ADR, RevPAR, ALOS, satisfaction {average, responses}. Division by zero → 0
   - `getRevenueByRoomType(bookings[])`: group by roomType, then by season (low/mid/high). Revenue, bookings, nights per cell. Rank 1–8 by total revenue descending. All 8 types always present (0 if no bookings)
   - `getRevenueByCountry(bookings[])`: group by country. Revenue, bookings, nights, guests. Rank by revenue descending
   - `getOccupancy(bookings[], year)`: total, bySeason (3 rows), byMonth (12 rows). availableNights = 214 × days in period. occupancyRate = nightsSold / availableNights × 100
   - `getSatisfaction(bookings[])`: overall {average over non-null, responses count}, byRoomType (same per type, all 8 present)
-- [ ] T041 [US4] Create `AnalyticsController` in `backend/src/controller/analytics.controller.ts`:
+- [X] T041 [US4] Create `AnalyticsController` in `backend/src/controller/analytics.controller.ts`:
   - `GET /api/analytics/summary?year=` → Summary object
   - `GET /api/analytics/occupancy?year=` → Occupancy with total, bySeason, byMonth
   - `GET /api/analytics/revenue/room-types?year=` → array of 8 RoomTypeRevenue with rank, total, bySeason
   - `GET /api/analytics/revenue/countries?year=` → array of CountryRevenue with rank
   - `GET /api/analytics/satisfaction?year=` → SatisfactionReport with overall and byRoomType
   - All endpoints use BookingRepository.findAll(year) → AnalyticsService pure functions → JSON. No caching
+  - *Note: Controlleren kalder en tynd `AnalyticsService`-klasse, der henter `findAll({ year })` og sender rækkerne til de rene funktioner, så controlleren ikke taler direkte med repository. Dage pr. sæson og måned tælles af `countDays(year)` i `domain/seasons.ts` (skudår håndteres) i stedet for de faste 2026-konstanter. Lande rangeres med alfabetisk rækkefølge ved lige indtjening, værelsestyper i fast typerækkefølge.*
 
 **Checkpoint**: Alle hotel-nøgletal er tilgængelige. Belægningsgrad 2026 ≈ 6,89%. ADR, RevPAR, ALOS beregnes korrekt. Indtjening pr. type/sæson og pr. land rangeres.
 

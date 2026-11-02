@@ -499,12 +499,14 @@ components:
         familyName: { type: string, minLength: 1, maxLength: 100 }
         country: { type: string, minLength: 1, maxLength: 100 }
     Guest:
-      allOf:
-        - $ref: '#/components/schemas/GuestInput'
-        - type: object
-          required: [id]
-          properties:
-            id: { type: integer }
+      # Ikke allOf med GuestInput: dens additionalProperties: false ville afvise id.
+      type: object
+      required: [id, firstName, familyName, country]
+      properties:
+        id: { type: integer }
+        firstName: { type: string, minLength: 1, maxLength: 100 }
+        familyName: { type: string, minLength: 1, maxLength: 100 }
+        country: { type: string, minLength: 1, maxLength: 100 }
 
     BookingInput:
       type: object

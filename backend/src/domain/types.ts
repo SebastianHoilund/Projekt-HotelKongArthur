@@ -85,3 +85,64 @@ export interface DrinkSaleData {
   soldAt: string;
   year: number;
 }
+
+export interface SatisfactionValue {
+  average: number;
+  responses: number;
+}
+
+export interface Summary {
+  year: number;
+  revenue: number;
+  bookings: number;
+  nightsSold: number;
+  availableNights: number;
+  occupancyRate: number;
+  adr: number;
+  revpar: number;
+  alos: number;
+  satisfaction: SatisfactionValue;
+}
+
+export interface OccupancyRow {
+  /** Året ('2026'), sæsonen (low|mid|high) eller måneden ('2026-01'). */
+  period: string;
+  nightsSold: number;
+  availableNights: number;
+  occupancyRate: number;
+}
+
+export interface Occupancy {
+  year: number;
+  total: OccupancyRow;
+  bySeason: OccupancyRow[];
+  byMonth: OccupancyRow[];
+}
+
+export interface RevenueCell {
+  revenue: number;
+  bookings: number;
+  nights: number;
+}
+
+export interface RoomTypeRevenue {
+  rank: number;
+  roomType: RoomTypeName;
+  total: RevenueCell;
+  bySeason: Record<Season, RevenueCell>;
+}
+
+export interface CountryRevenue {
+  rank: number;
+  country: string;
+  revenue: number;
+  bookings: number;
+  nights: number;
+  guests: number;
+}
+
+export interface SatisfactionReport {
+  year: number;
+  overall: SatisfactionValue;
+  byRoomType: (SatisfactionValue & { roomType: RoomTypeName })[];
+}

@@ -30,12 +30,14 @@ export interface BookingFilters {
 export interface BookingRepository {
   findAll(filters?: BookingFilters): Promise<Booking[]>;
   findById(id: number, tx?: Tx): Promise<Booking | null>;
-  /** Bookinger på værelset, der overlapper perioden (`check_in < checkOut AND check_out > checkIn`). */
-  findByRoomInPeriod(
-    roomId: number,
+  /**
+   * Bookinger på værelserne, der kan ramme perioden. SQL'en filtrerer kun for at hente færre rækker.
+   * Selve overlapreglen og valget af værelse ligger i `BookingService`.
+   */
+  findByRoomsInPeriod(
+    roomIds: number[],
     checkIn: string,
     checkOut: string,
-    excludeBookingId?: number,
     tx?: Tx,
   ): Promise<Booking[]>;
   create(data: BookingData, tx?: Tx): Promise<number>;
