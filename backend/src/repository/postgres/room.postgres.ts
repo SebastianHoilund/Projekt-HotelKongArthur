@@ -1,13 +1,13 @@
-import type { Pool, RowDataPacket } from 'mysql2/promise';
+import type { Pool } from 'pg';
 import type { Room, RoomTypeName } from '../../domain/types.js';
 import type { RoomFilters, RoomRepository, Tx } from '../interfaces.js';
-import { executor } from './unit-of-work.mysql.js';
+import { executor } from './unit-of-work.postgres.js';
 
-interface RoomRow extends RowDataPacket {
+type RoomRow = {
   id: number;
   number: number;
   room_type: RoomTypeName;
-}
+};
 
 const SELECT_ROOM = `
   SELECT r.id, r.number, rt.name AS room_type
@@ -18,7 +18,7 @@ function toRoom(row: RoomRow): Room {
   return { id: row.id, number: row.number, roomType: row.room_type };
 }
 
-export class MysqlRoomRepository implements RoomRepository {
+export class PostgresRoomRepository implements RoomRepository {
   constructor(private readonly pool: Pool) {}
 
   async findByType(
@@ -27,16 +27,16 @@ export class MysqlRoomRepository implements RoomRepository {
   ): Promise<Room[]> {
     // OF r: låsen skal kun ramme værelserne, ikke den room_type-række de er joinet med.
     const lock = options.forUpdate ? 'FOR UPDATE OF r' : '';
-    const [rows] = await executor(this.pool, options.tx).execute<RoomRow[]>(
-      `${SELECT_ROOM} WHERE r.room_type_id = ? ORDER BY r.number ${lock}`,
+    const { rows } = await executor(this.pool, options.tx).query<RoomRow>(
+      `${SELECT_ROOM} WHERE r.room_type_id = $1 ORDER BY r.number ${lock}`,
       [roomTypeId],
     );
     return rows.map(toRoom);
   }
 
   async findByNumber(number: number, tx?: Tx): Promise<Room | null> {
-    const [rows] = await executor(this.pool, tx).execute<RoomRow[]>(
-      `${SELECT_ROOM} WHERE r.number = ?`,
+    const { rows } = await executor(this.pool, tx).query<RoomRow>(
+      `${SELECT_ROOM} WHERE r.number = $1`,
       [number],
     );
     return rows[0] ? toRoom(rows[0]) : null;
@@ -47,19 +47,19 @@ export class MysqlRoomRepository implements RoomRepository {
     const params: (string | number)[] = [];
 
     if (filters.roomType) {
-      conditions.push('rt.name = ?');
       params.push(filters.roomType);
+      conditions.push(`rt.name = $${params.length}`);
     }
     if (filters.availableFrom && filters.availableTo) {
+      params.push(filters.availableTo, filters.availableFrom);
       conditions.push(`NOT EXISTS (
         SELECT 1 FROM booking b
-        WHERE b.room_id = r.id AND b.check_in < ? AND b.check_out > ?
+        WHERE b.room_id = r.id AND b.check_in < $${params.length - 1} AND b.check_out > $${params.length}
       )`);
-      params.push(filters.availableTo, filters.availableFrom);
     }
 
     const where = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
-    const [rows] = await this.pool.execute<RoomRow[]>(
+    const { rows } = await this.pool.query<RoomRow>(
       `${SELECT_ROOM} ${where} ORDER BY r.number`,
       params,
     );

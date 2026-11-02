@@ -1,18 +1,22 @@
 import cors from 'cors';
 import express from 'express';
 import type { Express } from 'express';
-import type { Pool } from 'mysql2/promise';
+import type { Pool } from 'pg';
 import { healthController } from './controller/health.controller.js';
+import { roomController } from './controller/room.controller.js';
 import { NotFoundError } from './domain/errors.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { openApiValidator } from './middleware/openapi-validator.js';
-import { pingDatabase } from './repository/mysql/pool.js';
+import { pingDatabase } from './repository/postgres/pool.js';
+import { PostgresRoomTypeRepository } from './repository/postgres/room-type.postgres.js';
+import { PostgresRoomRepository } from './repository/postgres/room.postgres.js';
 import { createRoutes } from './routes.js';
+import { RoomService } from './service/room.service.js';
 
 // Frontend og Swagger UI må skrive. Andre origins må kun læse (research R-13).
 const WRITE_ORIGINS = ['http://localhost:8080', 'http://localhost:8081'];
 
-// Eneste sted, der kobler lagene sammen. Her skiftes repository-implementering, hvis MySQL udskiftes.
+// Eneste sted, der kobler lagene sammen. Her skiftes repository-implementering, hvis databasen udskiftes.
 export function createApp(pool: Pool): Express {
   const app = express();
 
@@ -29,10 +33,16 @@ export function createApp(pool: Pool): Express {
   );
   app.use(openApiValidator());
 
+  const roomService = new RoomService(
+    new PostgresRoomTypeRepository(pool),
+    new PostgresRoomRepository(pool),
+  );
+
   app.use(
     '/api',
     createRoutes({
       health: healthController(() => pingDatabase(pool)),
+      rooms: roomController(roomService),
     }),
   );
 
