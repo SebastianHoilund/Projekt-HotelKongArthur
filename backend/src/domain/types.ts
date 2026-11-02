@@ -171,3 +171,32 @@ export interface BarAnalytics {
   drinks: BarDrink[];
   categorySplit: BarCategorySplit[];
 }
+
+/** Én række pr. booking til Tableau. Gæstens navn er udeladt; landet er nok til analysen. */
+export interface BookingFact {
+  bookingId: number;
+  year: number;
+  month: number;
+  season: Season;
+  checkIn: string;
+  checkOut: string;
+  roomType: RoomTypeName;
+  roomNumber: number;
+  country: string;
+  guests: number;
+  nights: number;
+  price: number;
+  satisfaction: number | null;
+}
+
+export interface DrinkSaleFact {
+  saleId: number;
+  year: number;
+  soldAt: string;
+  drinkName: string;
+  category: DrinkCategory;
+  units: number;
+  unitPrice: number;
+  revenue: number;
+  bartender: string;
+}
