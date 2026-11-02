@@ -2,15 +2,23 @@ import cors from 'cors';
 import express from 'express';
 import type { Express } from 'express';
 import type { Pool } from 'pg';
+import { analyticsController } from './controller/analytics.controller.js';
+import { bookingController } from './controller/booking.controller.js';
 import { healthController } from './controller/health.controller.js';
 import { roomController } from './controller/room.controller.js';
 import { NotFoundError } from './domain/errors.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { openApiValidator } from './middleware/openapi-validator.js';
+import { PostgresBookingRepository } from './repository/postgres/booking.postgres.js';
+import { PostgresGuestRepository } from './repository/postgres/guest.postgres.js';
 import { pingDatabase } from './repository/postgres/pool.js';
 import { PostgresRoomTypeRepository } from './repository/postgres/room-type.postgres.js';
 import { PostgresRoomRepository } from './repository/postgres/room.postgres.js';
+import { PostgresUnitOfWork } from './repository/postgres/unit-of-work.postgres.js';
 import { createRoutes } from './routes.js';
+import { AnalyticsService } from './service/analytics.service.js';
+import { BookingService } from './service/booking.service.js';
+import { PricingService } from './service/pricing.service.js';
 import { RoomService } from './service/room.service.js';
 
 // Frontend og Swagger UI må skrive. Andre origins må kun læse (research R-13).
@@ -33,16 +41,27 @@ export function createApp(pool: Pool): Express {
   );
   app.use(openApiValidator());
 
-  const roomService = new RoomService(
-    new PostgresRoomTypeRepository(pool),
-    new PostgresRoomRepository(pool),
+  const roomTypeRepository = new PostgresRoomTypeRepository(pool);
+  const roomRepository = new PostgresRoomRepository(pool);
+  const roomService = new RoomService(roomTypeRepository, roomRepository);
+  const bookingRepository = new PostgresBookingRepository(pool);
+  const bookingService = new BookingService(
+    bookingRepository,
+    new PostgresGuestRepository(pool),
+    roomRepository,
+    roomTypeRepository,
+    new PostgresUnitOfWork(pool),
+    new PricingService(),
   );
+  const analyticsService = new AnalyticsService(bookingRepository);
 
   app.use(
     '/api',
     createRoutes({
       health: healthController(() => pingDatabase(pool)),
       rooms: roomController(roomService),
+      bookings: bookingController(bookingService),
+      analytics: analyticsController(analyticsService),
     }),
   );
 

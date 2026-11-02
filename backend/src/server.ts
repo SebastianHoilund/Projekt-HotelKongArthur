@@ -2,13 +2,15 @@ import { createApp } from './app.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { migrate } from './db/migrate.js';
+import { seed } from './db/seed.js';
 import { createPool } from './repository/postgres/pool.js';
 
 try {
   await migrate();
-  // T037: seed() kaldes her, når seed-modulet er lavet.
+  const pool = createPool();
+  await seed(pool);
 
-  const app = createApp(createPool());
+  const app = createApp(pool);
   app.listen(env.port, () => {
     logger.info({ port: env.port }, 'Backend lytter');
   });

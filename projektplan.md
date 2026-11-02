@@ -13,8 +13,8 @@
 ## Fase 0 – Opstart og fælles setup (man 26/10)
 
 1. **Rollefordeling** - *Ansvarsområder*:
-   - Backend og database - **Oscar** 
-   - Frontend (booking-CRUD) - **Sebastian** 
+   - Backend og database - **Astrid, Oscar og Rosalina** 
+   - Frontend - **Sebastian** 
    - Docker - **Astrid**
    - OpenAPI og Swagger - **Rosalina** 
    - Tableau og analytics - **Fælles**
