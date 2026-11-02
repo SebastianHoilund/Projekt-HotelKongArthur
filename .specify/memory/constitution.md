@@ -1,5 +1,13 @@
 <!--
 Sync Impact Report
+- 2.0.0 (MAJOR): Tillægsopgave uge 2. Databasen skiftes fra MySQL til PostgreSQL efter kundens ønske,
+  og nøgletallene skal også vises i prototype-frontenden (læst fra REST API'et), ikke kun i Tableau.
+  - Modified principles: I (dataadgang mod PostgreSQL), II (ingen direkte DB-adgang), III (`db`-container,
+    healthcheck og volume for PostgreSQL), IV (CRUD persisteres i PostgreSQL)
+  - Modified sections: Teknologistak (database, præsentationsklienter, analytics-krav, README-krav)
+  - Templates requiring updates: ✅ plan-, spec- og tasks-templates er databaseneutrale og uændrede
+  - Dependent artifacts: spec.md, plan.md, research.md, data-model.md, quickstart.md og tasks.md opdateres
+  - Follow-up TODOs: None
 - 1.2.0 (MINOR): Afstemt med spec og referencedata: berigede datafiler (datoer, år, antal personer,
   værelsesnummer), referencedata som eneste kilde til sæsoner/takster/værelser, fast kapacitet
   (aldrig skaleret), forbud mod overlappende bookinger, sæson udledt af indtjekningsdato, år på alle
@@ -30,13 +38,13 @@ Sync Impact Report
 
 ### I. 3-Lagsarkitektur & Ansvarsadskillelse (NON-NEGOTIABLE)
 Backenden SKAL være strengt opdelt i tre klart adskilte lag med ensrettet afhængighedsretning
-(`Controller/API` → `Service/Forretningslogik` → `Repository/Dataadgang` → `MySQL`):
+(`Controller/API` → `Service/Forretningslogik` → `Repository/Dataadgang` → `PostgreSQL`):
 - **Præsentationslag (`controller`)**: Håndterer udelukkende HTTP-requests/responses, input-parsing,
   statuskoder og serialisering til/fra JSON. Må IKKE indeholde forretningsberegninger eller SQL.
 - **Forretningslogiklag (`service`)**: Indeholder al domænelogik, validering (f.eks. datoer,
   værelseskapacitet, overbooking), sæsonprisberegning og aggregering af nøgletal.
-- **Dataadgangslag (`repository`)**: Indkapsler al kommunikation med MySQL-databasen.
-  Lagdelingen SKAL sikre, at MySQL eller præsentationslaget (frontend/eksternt bookingsystem) kan
+- **Dataadgangslag (`repository`)**: Indkapsler al kommunikation med PostgreSQL-databasen.
+  Lagdelingen SKAL sikre, at databasen eller præsentationslaget (frontend/eksternt bookingsystem) kan
   udskiftes uafhængigt uden at påvirke de øvrige lag.
 
 ### II. Kontrakt- & REST-Først (OpenAPI & JSON)
@@ -49,18 +57,18 @@ bookingsystemer) og backend SKAL foregå gennem et RESTful HTTP API med JSON som
 - Ressourcer SKAL navngives med substantiver i flertal (f.eks. `/api/bookings`, `/api/rooms`,
   `/api/drink-sales`), anvende korrekte HTTP-verber (`GET`, `POST`, `PUT`, `DELETE`) og returnere
   retvisende HTTP-statuskoder (`200`, `201`, `204`, `400`, `404`, `409`).
-- Ingen ekstern klient — heller ikke Tableau — må tilgå MySQL-databasen direkte uden om REST API'et.
+- Ingen ekstern klient — heller ikke Tableau — må tilgå databasen direkte uden om REST API'et.
 - API'et SKAL understøtte skrivning (`POST`/`PUT`/`DELETE`) af bookinger fra eksterne
   bookingsystemer, ikke kun fra prototype-frontenden.
 
 ### III. Containerisering & Single-Command Drift
 Hele systemet SKAL være fuldt containeriseret og kunne startes på enhver maskine med én enkelt
 `docker-compose up`-kommando uden manuelle opsætningstrin:
-- Systemet SKAL som minimum omfatte containere til `db` (MySQL), `backend`, `frontend` og
+- Systemet SKAL som minimum omfatte containere til `db` (PostgreSQL), `backend`, `frontend` og
   `swagger-ui` forbundet via et internt Docker-netværk.
-- Opstartsrækkefølgen SKAL styres deterministisk med `healthcheck` på MySQL og
+- Opstartsrækkefølgen SKAL styres deterministisk med `healthcheck` på PostgreSQL og
   `depends_on: condition: service_healthy` for backenden.
-- MySQL-data SKAL persisteres i et navngivet Docker-volume, så oprettede og redigerede bookinger
+- PostgreSQL-data SKAL persisteres i et navngivet Docker-volume, så oprettede og redigerede bookinger
   overlever genstart af containere.
 - Ved første opstart på en tom database SKAL skema og historiske grunddata (værelsestyper, 214
   værelser, gæster, bookinger samt cocktail-/kaffesalg) seedes automatisk fra de berigede
@@ -70,7 +78,7 @@ Hele systemet SKAL være fuldt containeriseret og kunne startes på enhver maski
 Systemet SKAL transformere de udleverede statiske CSV/XLSX-datasæt til et levende, transaktionelt
 system, hvor ændringer øjeblikkeligt slår igennem i analyserne:
 - Oprettelse, redigering og sletning af bookinger (CRUD) i prototype-frontenden SKAL straks
-  persisteres i MySQL og afspejles i API'ets nøgletals- og rapport-endpoints.
+  persisteres i PostgreSQL og afspejles i API'ets nøgletals- og rapport-endpoints.
 - Tableau SKAL hente opdaterede data via backendens REST API (f.eks. gennem Web Data Connector eller
   dedikerede JSON/CSV rapport-endpoints understøttet af API-kontrakten).
 - Definitioner af sæsoner (lav-, mellem- og højsæson), belægningsgrad og prisberegning SKAL være
@@ -101,7 +109,7 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
 
 ## Teknologistak & Arkitektoniske Rammer
 
-- **Database**: MySQL 8.x kørende i Docker med automatiseret DDL-migrering og seed-import af
+- **Database**: PostgreSQL 17 kørende i Docker. Kunden har fravalgt MySQL (tillægsopgave uge 2). Databasen kører med automatiseret DDL-migrering og seed-import af
   `hotel_bookings_2026.csv` og `drinks_menu_with_sales.csv`. Filerne er beriget med
   indtjekning, udtjekning, år (2026), antal personer, værelsesnummer og valgfri kundetilfredshed
   (bookinger) samt år (drinks).
@@ -116,10 +124,12 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
   datoer (kun 16.–31. december er højsæson), takster pr. værelsestype og sæson, antal værelser pr.
   type samt reglerne for de berigede data. Ændringer sker kun dér.
 - **Præsentationsklienter**:
-  1. Browserbaseret prototype-frontend til booking-CRUD (opret, vis, redigér, slet).
+  1. Browserbaseret prototype-frontend til booking-CRUD (opret, vis, redigér, slet) og visning af
+     nøgletallene for hotel og cocktailbar, læst fra REST API'et.
   2. Swagger UI i Docker til interaktiv udforskning og test af REST API-kontrakten.
   3. Interaktivt Tableau-dashboard til visualisering af nøgletal for hotel og cocktailbar.
-- **Obligatoriske analytics-krav** (SKAL kunne beregnes af API'et og vises i Tableau):
+- **Obligatoriske analytics-krav** (SKAL beregnes af API'et og kunne læses direkte dér, og SKAL vises i både
+  prototype-frontenden og Tableau):
   - Hotel: gæsternes lande; indtjening pr. værelsestype (pr. sæson) og pr. land; hvilke værelser og
     lande der indtjener mest; årets samlede indtjening; belægningsgrad; kundetilfredshed
     (data har ingen rating, så den ligger som opfundet, valgfri score 1–5 i datafilen, hvor NULL
@@ -133,7 +143,7 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
   kørselsvejledning og domænedefinitioner), `CONTRIBUTE.md` samt alle Spec Kit-artefakter
   (`constitution`, `spec`, `plan`, `tasks` og sidste `converge`-resultat) (constitution ligger i `.specify/memory/`, de øvrige i `specs/`).
   `spec.md` SKAL indeholde user stories med acceptkriterier. README SKAL desuden beskrive
-  request-flowet (frontend → MySQL → svar), lagenes ansvar og udskiftelighed.
+  request-flowet (frontend → database → svar), lagenes ansvar og udskiftelighed.
 
 ## Udviklingsworkflow & Kvalitetskrav
 
@@ -164,4 +174,4 @@ Udviklingen SKAL følge GitHub Spec Kit-workflowet i rækkefølgen:
 - Ved hvert `Converge`-tjek og Pull Request SKAL det kontrolleres, at løsningen overholder
   3-lagsarkitekturen, OpenAPI-kontrakten og single-command Docker-opstarten.
 
-**Version**: 1.2.0 | **Ratified**: 2026-10-28 | **Last Amended**: 2026-10-28
+**Version**: 2.0.0 | **Ratified**: 2026-10-28 | **Last Amended**: 2026-11-02

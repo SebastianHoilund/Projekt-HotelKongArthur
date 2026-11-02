@@ -4,9 +4,11 @@
 
 **Created**: 2026-10-28
 
+**Updated**: 2026-11-02 (Tillaegsopgavebeskrivelse.pdf: PostgreSQL i stedet for MySQL, nøgletal i frontenden)
+
 **Status**: Ready for Plan
 
-**Input**: User description: "Komplet specifikation for Hotel Kong Arthur booking-, cocktailbar- og dataanalyse-platform med live nøgletal baseret på Opgavebeskrivelse.pdf, Tillægsspørgsmål.pdf og projektplan.md"
+**Input**: User description: "Komplet specifikation for Hotel Kong Arthur booking-, cocktailbar- og dataanalyse-platform med live nøgletal baseret på Opgavebeskrivelse.pdf, Tillægsspørgsmål.pdf og projektplan.md" + ændrede krav i Tillaegsopgavebeskrivelse.pdf (uge 2)
 
 **Referencedata**: Takster, værelsesfordeling, sæsoner og berigede datafiler er samlet i [reference-data.md](reference-data.md). Det er den eneste kilde til disse værdier.
 
@@ -20,7 +22,12 @@
 - Q: Hvordan skal systemet håndtere en manuelt angivet totalpris ved oprettelse og opdatering af en booking? → A: Manuel pris gælder kun for den enkelte booking (`Price` > 0); ved ændring af datoer eller værelsestype genberegnes prisen efter sæsontaksterne, medmindre en ny manuel pris angives.
 - Q: Hvordan skal en bookings omsætning og solgte værelsesnætter henføres til år, sæson og måned i nøgletalsberegningerne, hvis opholdet strækker sig hen over et årsskifte, sæsonskifte eller månedsskifte? → A: Hele bookingens omsætning (`Price`) og alle dens værelsesnætter (`Days Rented`) tilskrives indtjekningsdatoens år, sæson og måned samlet (ingen opsplitning nat-for-nat).
 - Q: Hvilken takstmodel skal anvendes til at fastsætte døgnprisen for `low`, `mid` og `high` sæson ud fra opgavebeskrivelsens prisintervaller? → A: `low` = nedre grænse (min), `mid` = midtpunktet af intervallet, `high` = øvre grænse (max), som fastlagt i `reference-data.md`.
-- Q: Hvordan afgrænses begrebet "live data" i Tableau-dashboardet, når bookinger eller barsalg ændres i systemet? → A: On-demand via REST API: Backendens endpoints leverer altid aktuelle tal fra MySQL ved hvert kald, og Tableau viser ændringerne straks når datakilden opdateres (refresh).
+- Q: Hvordan afgrænses begrebet "live data" i Tableau-dashboardet, når bookinger eller barsalg ændres i systemet? → A: On-demand via REST API: Backendens endpoints leverer altid aktuelle tal fra databasen ved hvert kald, og Tableau viser ændringerne straks når datakilden opdateres (refresh).
+
+### Session 2026-11-02 (Tillægsopgave uge 2)
+
+- Q: Hvilken database skal erstatte MySQL, når kunden ikke ønsker MySQL? → A: PostgreSQL 17. Den relationelle datamodel, transaktioner med rækkelåse (`SELECT … FOR UPDATE`) og opsætningen i Docker kan genbruges, så kun dataadgangslaget, migrationerne og `db`-containeren ændres.
+- Q: Hvilke nøgletal skal frontenden vise, og hvordan? → A: De samme nøgletal som Tableau-dashboardet (US4 og US5) for et valgt år: nøgletalskort, belægningsgrad pr. sæson og måned, indtjening pr. værelsestype og sæson, indtjening pr. land, kundetilfredshed pr. værelsestype og barens nøgletal. Frontenden læser dem fra `/api/analytics/*` og beregner intet selv. Visningen er tabeller og nøgletalskort uden grafbibliotek.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -175,6 +182,30 @@
 
 ---
 
+### User Story 7 - Nøgletal i Frontenden direkte fra API'et (Priority: P1)
+
+> **User Story:** *"Som **hoteladministrator / beslutningstager** ønsker jeg at kunne se hotellets og cocktailbarens nøgletal direkte i frontend-prototypen og i REST API'et, så jeg ikke er afhængig af Tableau for at aflæse dem."*
+
+**Why this priority**: Kunden har udtrykkeligt bedt om at kunne læse dataanalyserne direkte i API'et og se dem i frontenden (tillægsopgave uge 2).
+
+**INVEST-vurdering & Independent Test**:
+- **I**ndependent: Bygger kun på de eksisterende analytics-endpoints (US4, US5) og kan udvikles uafhængigt af Tableau.
+- **N**egotiable: Layout og opdeling i sektioner kan tilpasses, så længe tallene kommer fra API'et.
+- **V**aluable: Ledelsen kan aflæse nøgletal uden Tableau-licens.
+- **E**stimable: Nøgletallene og endpoints er allerede fastlagt i kontrakten.
+- **S**mall: Én visning med et årsfilter, der kun læser data.
+- **T**estable: Tallene i frontenden kan sammenlignes én til én med svarene fra `/api/analytics/*`.
+
+**Acceptance Scenarios (Confirmation)**:
+
+1. **Given** systemet er startet med seeddata, **When** brugeren åbner nøgletalsvisningen i frontenden og vælger 2026, **Then** vises årets indtjening, belægningsgrad (ca. 6,89 %), ADR, RevPAR, ALOS og kundetilfredshed med samme værdier som `GET /api/analytics/summary?year=2026`.
+2. **Given** nøgletalsvisningen er åben, **When** brugeren ser på hotelsektionerne, **Then** vises belægningsgrad pr. sæson og måned, indtjening pr. værelsestype opdelt på sæson med rangering, indtjening pr. land med rangering og kundetilfredshed pr. værelsestype.
+3. **Given** nøgletalsvisningen er åben, **When** brugeren ser på barsektionen, **Then** vises Helene Christines totale salg, omsætning pr. drink og procentfordelingen mellem cocktails og kaffe.
+4. **Given** en receptionist har oprettet en booking på 40.000 DKK i 2026, **When** nøgletalsvisningen genindlæses, **Then** er årets indtjening steget med præcis 40.000 DKK.
+5. **Given** brugeren vælger et år uden data (f.eks. 2030), **When** visningen indlæses, **Then** vises 0-værdier og ingen fejl.
+
+---
+
 ### Edge Cases
 
 - **Ugyldige eller negative værdier ved booking**: Hvad sker der, hvis en bruger forsøger at oprette en booking med udtjekning før eller samme dag som indtjekning, negativ pris, 0 personer eller tomme gæsteoplysninger? Systemet SKAL afvise forespørgslen med en beskrivende fejlbesked og statuskode for ugyldigt input (`400`) uden at gemme data.
@@ -191,7 +222,7 @@
 
 #### Booking & Hoteldrift
 - **FR-001** *(US1)*: Systemet SKAL udstille funktionalitet til at oprette (`CREATE`), læse (`READ`), opdatere (`UPDATE`) og slette (`DELETE`) værelsesbookinger.
-- **FR-002** *(US1)*: Systemet SKAL levere en browserbaseret brugergrænseflade (frontend-prototype), hvori en bruger kan se bookinglisten samt oprette, redigere og slette bookinger.
+- **FR-002** *(US1, US7)*: Systemet SKAL levere en browserbaseret brugergrænseflade (frontend-prototype), hvori en bruger kan se bookinglisten samt oprette, redigere og slette bookinger og se nøgletallene (FR-019).
 - **FR-003** *(US1, US2)*: Systemet SKAL ved oprettelse og opdatering af en booking validere, at fornavn, efternavn og land er udfyldt, at værelsestypen er en af hotellets 8 gyldige typer, at udtjekning ligger efter indtjekning, og at antal personer er mindst 1 og højst værelsestypens kapacitet.
 - **FR-004** *(US2)*: Systemet SKAL udlede en bookings sæson (`low`, `mid`, `high`) ud fra indtjekningsdatoen og beregne totalprisen som takst (type, sæson) × antal nætter, hvis en specifik totalpris ikke er angivet manuelt. En manuelt angivet pris (`Price` > 0) gælder kun for den enkelte booking; ved senere ændring af datoer eller værelsestype genberegnes prisen efter sæsontaksterne i [reference-data.md](reference-data.md), medmindre en ny manuel pris angives i opdateringen.
 - **FR-005** *(US2)*: Systemet SKAL repræsentere hotellets 214 værelser fordelt på de 8 værelsestyper (kapacitet 1–4 personer pr. værelse, i alt 428 gæster) med sæsontakster fastsat som `low` = nedre grænse (min), `mid` = midtpunktet af prisintervallet og `high` = øvre grænse (max), jf. [reference-data.md](reference-data.md).
@@ -215,8 +246,9 @@
 
 #### Data-Seeding, Kontrakt & Live-Integration
 - **FR-013** *(US3)*: Systemet SKAL ved første opstart automatisk indlæse de 1.000 historiske bookinger fra `hotel_bookings_2026.csv` og de 30 drikkevarer med salgstal fra `drinks_menu_with_sales.csv` (begge med `Year` = 2026).
-- **FR-014** *(US1, US6)*: Alle funktioner og nøgletal SKAL udstilles gennem en dokumenteret grænsefladekontrakt (OpenAPI), som både frontend-prototypen, eksterne bookingsystemer (`POST`/`PUT`/`DELETE`) og Tableau kan anvende.
-- **FR-015** *(US6)*: Et interaktivt Tableau-dashboard SKAL fremvise samtlige hotel- og cocktailbar-nøgletal baseret på data leveret on-demand fra backendens REST API (hvert API-kald returnerer friske realtidsberegninger fra MySQL, som vises i Tableau straks ved datakilde-opdatering/refresh).
+- **FR-014** *(US1, US6, US7)*: Alle funktioner og nøgletal SKAL udstilles gennem en dokumenteret grænsefladekontrakt (OpenAPI), som både frontend-prototypen, eksterne bookingsystemer (`POST`/`PUT`/`DELETE`) og Tableau kan anvende. Alle nøgletal SKAL kunne læses direkte som JSON fra API'et uden Tableau.
+- **FR-015** *(US6)*: Et interaktivt Tableau-dashboard SKAL fremvise samtlige hotel- og cocktailbar-nøgletal baseret på data leveret on-demand fra backendens REST API (hvert API-kald returnerer friske realtidsberegninger fra databasen, som vises i Tableau straks ved datakilde-opdatering/refresh).
+- **FR-019** *(US7)*: Frontend-prototypen SKAL vise samtlige hotel- og cocktailbar-nøgletal fra FR-008 til FR-012 for et valgt år. Tallene SKAL læses fra REST API'ets analytics-endpoints, og frontenden må ikke selv beregne nøgletal.
 
 ### Non-Functional Requirements
 
@@ -225,7 +257,7 @@ Opgavens tekniske rammer gælder som krav. Se constitution for den bindende begr
 - **NFR-001 Arkitektur**: Backend SKAL være opdelt i tre lag (præsentation, forretningslogik, dataadgang), så database og klient kan udskiftes uafhængigt.
 - **NFR-002 Grænseflade**: Al kommunikation SKAL foregå via et REST API med JSON. Ingen klient må tilgå databasen direkte.
 - **NFR-003 Kontrakt**: API'et SKAL dokumenteres i en OpenAPI-specifikation, der kan udforskes via Swagger UI kørende i en Docker-container. Implementering og kontrakt SKAL stemme overens.
-- **NFR-004 Database**: Data SKAL gemmes i MySQL.
+- **NFR-004 Database**: Data SKAL gemmes i PostgreSQL. MySQL må ikke bruges (kundekrav, tillægsopgave uge 2).
 - **NFR-005 Drift**: Hele systemet SKAL kunne startes med én `docker-compose up`, uden manuelle trin, med kontrolleret opstartsrækkefølge (databasen klar før backend).
 - **NFR-006 Persistens**: Data SKAL overleve genstart af containere.
 - **NFR-007 Ydeevne**: Nøgletal og rapporter SKAL returneres inden for 1 sekund ved det seedede datasæt (1.000 bookinger).
@@ -233,7 +265,7 @@ Opgavens tekniske rammer gælder som krav. Se constitution for den bindende begr
 - **NFR-009 Fejlhåndtering**: API'et SKAL returnere retvisende statuskoder (`200`, `201`, `204`, `400`, `404`, `409`) og beskrivende fejlbeskeder i JSON. Nøgletal må aldrig give `500` pga. tomme data.
 - **NFR-010 Testbarhed**: Forretningslogik (prisberegning, sæsonudledning, overlapkontrol, validering, nøgletal) SKAL dækkes af automatiserede unit-tests.
 - **NFR-011 Sikkerhed**: Login er uden for scope for prototypen (se Assumptions). Input SKAL valideres, og SQL SKAL bruge parametriserede forespørgsler.
-- **NFR-012 Anvendelighed**: Frontenden SKAL kunne køres i en almindelig browser og gøre det muligt at oprette, rette og slette en booking uden vejledning.
+- **NFR-012 Anvendelighed**: Frontenden SKAL kunne køres i en almindelig browser og gøre det muligt at oprette, rette og slette en booking og aflæse nøgletallene uden vejledning.
 - **NFR-013 Dokumentation**: Repositoryet SKAL indeholde README.md (arkitekturdiagram, kørselsvejledning, domænedefinitioner), CONTRIBUTE.md, samt spec-artefakter (constitution, spec, plan, tasks og seneste converge).
 - **NFR-014 Samarbejde**: Alle gruppemedlemmer SKAL bidrage med egne commits. Arbejdet foregår på branches og merges via pull requests.
 - **NFR-015 Genskabelighed**: Et friskt `git clone` efterfulgt af `docker-compose up` SKAL starte alle containere og data uden fejl.
@@ -260,6 +292,7 @@ Tidsgrænserne i SC-003 og SC-006 er projektets egne måltal. Opgaven angiver de
 - **SC-005** *(US5, US6)*: Beslutningstagere kan i Tableau-dashboardet aflæse Helene Christines totale årssalg i baren, omsætning pr. drink for alle 30 drinks samt den nøjagtige procentfordeling mellem cocktails og kaffe.
 - **SC-006** *(NFR-005, NFR-015)*: Hele systemet kan startes fra en frisk kloning med én enkelt opstartskommando og være fuldt funktionelt inden for 2 minutter.
 - **SC-007** *(US1, FR-017)*: Efter seed og efter enhver bookingændring findes der 0 overlappende bookinger på samme værelse.
+- **SC-008** *(US7, FR-019)*: Alle nøgletal i SC-004 og SC-005 kan aflæses i frontend-prototypen, og hver værdi er identisk med API'ets svar for samme år.
 
 ## Sporbarhedsmatrix
 
@@ -274,7 +307,8 @@ Tidsgrænserne i SC-003 og SC-006 er projektets egne måltal. Opgaven angiver de
 | Årets indtjening, belægningsgrad, kundetilfredshed, selvvalgt nøgletal | US4 | FR-011, FR-016 | NFR-008, NFR-010 | SC-004 |
 | Cocktailbar: totalsalg, omsætning pr. drink, procentfordeling | US5 | FR-006, FR-007, FR-012 | NFR-007 | SC-005 |
 | Live data i Tableau via REST API | US6 | FR-014, FR-015 | NFR-002, NFR-003 | SC-003, SC-004, SC-005 |
-| 3-lags backend, OpenAPI, Swagger UI, MySQL, Docker | (alle) | FR-014 | NFR-001, NFR-002, NFR-003, NFR-004, NFR-005 | SC-006 |
+| Nøgletal direkte i API'et og i frontenden (tillægsopgave uge 2) | US7 | FR-002, FR-014, FR-019 | NFR-002, NFR-012 | SC-008 |
+| 3-lags backend, OpenAPI, Swagger UI, PostgreSQL (ikke MySQL), Docker | (alle) | FR-014 | NFR-001, NFR-002, NFR-003, NFR-004, NFR-005 | SC-006 |
 | README, CONTRIBUTE, spec-artefakter, git-bidrag | (alle) | | NFR-013, NFR-014, NFR-015 | SC-006 |
 
 ## Assumptions

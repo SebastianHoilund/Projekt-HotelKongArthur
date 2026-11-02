@@ -1,5 +1,8 @@
 # Implement-status: Docker og OpenAPI/Swagger
 
+> [!NOTE]
+> Historisk status fra uge 1, da databasen var MySQL. Skiftet til PostgreSQL er Phase 2B i [tasks.md](tasks.md).
+
 **Dato**: 2026-10-30 | **Ansvarsområder**: Docker og docker-compose (Astrid), OpenAPI og Swagger (Rosalina)
 
 **Sammenlignet med**: [spec.md](spec.md), [plan.md](plan.md), [tasks.md](tasks.md), [quickstart.md](quickstart.md)
