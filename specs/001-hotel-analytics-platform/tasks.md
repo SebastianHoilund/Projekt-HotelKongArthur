@@ -254,10 +254,11 @@
 
 ### Implementation for User Story 7
 
-- [ ] T071 [US7] Create `frontend/analytics.html`: year selector (default 2026), sections for KPI cards (revenue, occupancy, ADR, RevPAR, ALOS, satisfaction), occupancy by season and month, revenue by room type × season with rank, revenue by country with rank, satisfaction by room type, and bar (Helene Christine totals, revenue per drink, Cocktail/Coffee split in %). Add navigation links between `index.html` and `analytics.html`
-- [ ] T072 [US7] Create `frontend/js/analytics.js`: on load and on year change call `GET /api/analytics/summary`, `/occupancy`, `/revenue/room-types`, `/revenue/countries`, `/satisfaction` and `/bar` via `frontend/js/api.js`, render cards and tables. Only formatting (DKK, %, decimals) is allowed in the frontend — NO calculations. Show 0 values for years without data and an error message if the API fails
-- [ ] T073 [P] [US7] Add styles for KPI cards and analytics tables in `frontend/css/styles.css`
-- [ ] T074 [US7] Validate quickstart scenario 11: values match the API for 2026, a new 40.000 DKK booking increases revenue by exactly 40.000 DKK after reload, 2030 shows 0 values
+- [X] T071 [US7] Create `frontend/analytics.html`: year selector (default 2026), sections for KPI cards (revenue, occupancy, ADR, RevPAR, ALOS, satisfaction), occupancy by season and month, revenue by room type × season with rank, revenue by country with rank, satisfaction by room type, and bar (Helene Christine totals, revenue per drink, Cocktail/Coffee split in %). Add navigation links between `index.html` and `analytics.html`
+- [X] T072 [US7] Create `frontend/js/analytics.js`: on load and on year change call `GET /api/analytics/summary`, `/occupancy`, `/revenue/room-types`, `/revenue/countries`, `/satisfaction` and `/bar` via `frontend/js/api.js`, render cards and tables. Only formatting (DKK, %, decimals) is allowed in the frontend — NO calculations. Show 0 values for years without data and an error message if the API fails
+- [X] T073 [P] [US7] Add styles for KPI cards and analytics tables in `frontend/css/styles.css`
+- [X] T074 [US7] Validate quickstart scenario 11: values match the API for 2026, a new 40.000 DKK booking increases revenue by exactly 40.000 DKK after reload, 2030 shows 0 values
+  - *Note: Testet i headless Chromium mod stacken (32 tjek): alle kort og tabeller matcher `/api/analytics/*` for 2026, en ny booking på 40.000 DKK hæver indtjeningen med præcis 40.000 efter genindlæsning, 2030 viser 0, API-fejl viser fejlbesked og rydder tallene, og siden har ingen vandret scroll på mobil. Året gemmes i adressen (`?year=`), så genindlæsning viser samme år.*
 
 **Checkpoint**: Alle nøgletal fra SC-004 og SC-005 kan aflæses i frontenden og er identiske med API'ets svar (SC-008).
 

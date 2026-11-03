@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nøgletal – Hotel Kong Arthur</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Hotel Kong Arthur</h1>
+      <nav>
+        <a href="index.html">Bookinger</a>
+        <a href="analytics.html" aria-current="page">Nøgletal</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel">
+        <form id="year-form" class="filters year-filter">
+          <label>År <input name="year" type="number" min="2000" max="2100" value="2026" required /></label>
+          <button type="submit">Vis</button>
+        </form>
+        <p class="note">
+          Alle tal kommer direkte fra <code>/api/analytics/*</code>. Siden regner intet selv.
+        </p>
+        <div id="status" class="message" role="status"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="kpi-title">
+        <h2 id="kpi-title">Hotellets nøgletal</h2>
+        <div id="kpi-cards" class="kpi-grid"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="occupancy-title">
+        <h2 id="occupancy-title">Belægningsgrad</h2>
+        <div class="split">
+          <div>
+            <h3>Pr. sæson</h3>
+            <div id="occupancy-season" class="table-wrap"></div>
+          </div>
+          <div>
+            <h3>Pr. måned</h3>
+            <div id="occupancy-month" class="table-wrap"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="room-types-title">
+        <h2 id="room-types-title">Indtjening pr. værelsestype og sæson</h2>
+        <div id="room-types" class="table-wrap"></div>
+      </section>
+
+      <div class="split">
+        <section class="panel" aria-labelledby="countries-title">
+          <h2 id="countries-title">Indtjening pr. land</h2>
+          <div id="countries" class="table-wrap"></div>
+        </section>
+
+        <section class="panel" aria-labelledby="satisfaction-title">
+          <h2 id="satisfaction-title">Kundetilfredshed pr. værelsestype</h2>
+          <div id="satisfaction" class="table-wrap"></div>
+        </section>
+      </div>
+
+      <section class="panel" aria-labelledby="bar-title">
+        <h2 id="bar-title">Cocktailbaren</h2>
+        <div id="bar-cards" class="kpi-grid"></div>
+        <div class="split">
+          <div>
+            <h3>Cocktail og kaffe</h3>
+            <div id="bar-split" class="table-wrap"></div>
+          </div>
+          <div>
+            <h3>Omsætning pr. drink</h3>
+            <div id="bar-drinks" class="table-wrap"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="js/analytics.js"></script>
+  </body>
+</html>
