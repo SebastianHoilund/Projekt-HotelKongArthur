@@ -21,23 +21,27 @@ docker-compose run --rm wdc-build
 
 ## 2. Start Tableau Desktop med connectoren
 
-Connectoren er ikke signeret, så Tableau skal startes med to flag. Stien skal pege på mappen med
-`.taco`-filen.
+Connectoren er ikke signeret, og Tableaus EPS-proces skal køre med `--mode dev` for at tillade
+lokale HTTP-kald til `http://localhost:3000` (ellers blokerer Tableaus sandbox med `localhost access is disallowed`).
+Stien til `-DConnectPluginsPath` skal pege på mappen med `.taco`-filen, og `-DEPSPath` skal pege på wrapper-scriptet.
 
-macOS:
+macOS (Apple Silicon / Intel):
 
 ```bash
-open -a "Tableau Desktop 2025.2" --args \
+open -n -a "/Applications/Tableau Desktop (Apple silicon) 2025.2.app" --args \
   -DConnectPluginsPath="$PWD/tableau-connector/dist" \
-  -DDisableVerifyConnectorPluginSignature=true
+  -DDisableVerifyConnectorPluginSignature=true \
+  -DEPSPath="$PWD/tableau-connector/eps-dev.sh"
 ```
+*(Bruger du Intel Mac, hedder appen normalt `"Tableau Desktop 2025.2.app"`).*
 
 Windows (PowerShell):
 
 ```powershell
 & "C:\Program Files\Tableau\Tableau 2025.2\bin\tableau.exe" `
   "-DConnectPluginsPath=$PWD\tableau-connector\dist" `
-  -DDisableVerifyConnectorPluginSignature=true
+  -DDisableVerifyConnectorPluginSignature=true `
+  "-DEPSPath=$PWD\tableau-connector\eps-dev.cmd"
 ```
 
 ## 3. Forbind
@@ -78,8 +82,9 @@ samme som i API'et og i frontenden. Kapaciteten er fast 214 værelser, så belæ
 ## 5. Opdatér data (live)
 
 Opret, redigér eller slet en booking i frontenden (`http://localhost:8080`) eller registrér et
-barsalg. Vælg derefter **Data → Refresh** i Tableau. Connectoren kalder API'et igen, og de nye
-tal vises med det samme. Intet caches i backenden.
+barsalg. Gå derefter til Tableau, højreklik på datakilden i feltet **Data** (øverst til venstre)
+og vælg **Extract → Refresh** (eller **Data → [Datakilde] → Extract → Refresh** i topmenuen).
+Connectoren kalder API'et igen, udtrækket genopbygges, og de nye tal vises med det samme. Intet caches i backenden.
 
 ## Backup uden WDC
 

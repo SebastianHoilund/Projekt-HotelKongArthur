@@ -217,10 +217,10 @@ Manuelle scenarier, fx overlap, samtidige bookinger og live-opdatering af Tablea
 
 ## Tableau
 
-Se [`tableau/README.md`](tableau/README.md): start Tableau Desktop med connectoren, vælg år, og
-hent de 8 tabeller (bookinger, nøgletal, indtjening pr. type og sæson, pr. land, belægning,
-tilfredshed og baren). **Data → Refresh** henter de aktuelle tal fra API'et. Kan connectoren ikke
-køre, kan `/api/reports/*?format=csv` bruges som backup.
+Se [`tableau/README.md`](tableau/README.md): start Tableau Desktop med connectoren og udvikler-wrapperen
+(`-DEPSPath` for localhost-adgang), vælg år, og hent de 8 tabeller (bookinger, nøgletal, indtjening pr. type og sæson,
+pr. land, belægning, tilfredshed og baren). **Data → [Datakilde] → Extract → Refresh** henter de aktuelle tal fra API'et live.
+Kan connectoren ikke køre, kan `/api/reports/*?format=csv` bruges som backup.
 
 ## SWA-eksamen: de 10 tillægsspørgsmål
 
