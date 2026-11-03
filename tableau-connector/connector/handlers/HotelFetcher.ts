@@ -1,5 +1,5 @@
 import { Fetcher, FetchOptions, FetchUtils } from '@tableau/taco-toolkit/handlers'
-import type { HotelData, HotelInput } from './api-types'
+import type { HotelData, HotelInput } from '../types'
 
 export default class HotelFetcher extends Fetcher {
   async *fetch({ handlerInput }: FetchOptions) {

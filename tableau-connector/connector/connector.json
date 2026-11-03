@@ -6,13 +6,15 @@
     "min": "2025.2"
   },
   "vendor": {
-    "name": "Hotel Kong Arthur (KEA SWA 2026)",
+    "name": "Hotel Kong Arthur",
     "support-link": "https://github.com/SebastianHoilund/Projekt-HotelKongArthur",
     "email": "support@example.com"
   },
   "permission": {
     "api": {
-      "http://localhost:3000/": ["GET"]
+      "http://localhost:3000/": [
+        "GET"
+      ]
     }
   },
   "auth": {
