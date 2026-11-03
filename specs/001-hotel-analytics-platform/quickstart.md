@@ -7,7 +7,7 @@ Denne guide beviser end-to-end, at systemet opfylder spec'en. Scenarierne bruges
 ## Forudsætninger
 
 - Docker Desktop (Compose v2) og Git
-- Tableau Desktop 2023.1+ (Tableau for Students-licens) til scenarie 8
+- Tableau Desktop 2025.2+ (Tableau for Students-licens) til scenarie 8. Connectoren er bygget med taco-toolkit 2.2.0
 - `curl` og evt. `jq`
 - Ledige porte: 3000 (API), 8080 (frontend), 8081 (Swagger UI)
 
@@ -107,9 +107,9 @@ Forventet: `totals.revenue` = Σ(`Price (DKK)` × `Units Sold`) fra CSV'en. Efte
 ### 8. Tableau live via WDC 3.0 (US6 · FR-015 · SC-003–SC-005)
 
 1. Start Tableau Desktop med connectoren:
-   - macOS: `open -a "Tableau Desktop 2025.1" --args -DConnectPluginsPath="$PWD/tableau-connector/dist" -DDisableVerifyConnectorPluginSignature=true`
-   - Windows: `"C:\Program Files\Tableau\Tableau 2025.1\bin\tableau.exe" -DConnectPluginsPath=<repo>\tableau-connector\dist -DDisableVerifyConnectorPluginSignature=true`
-2. *Connect → To a Server → Hotel Kong Arthur (WDC)*. Vælg år 2026 og URL `http://localhost:3000`.
+   - macOS: `open -a "Tableau Desktop 2025.2" --args -DConnectPluginsPath="$PWD/tableau-connector/dist" -DDisableVerifyConnectorPluginSignature=true`
+   - Windows: `"C:\Program Files\Tableau\Tableau 2025.2\bin\tableau.exe" -DConnectPluginsPath=<repo>\tableau-connector\dist -DDisableVerifyConnectorPluginSignature=true`
+2. *Connect → To a Server → Hotel Kong Arthur*. Vælg år 2026, behold URL `http://localhost:3000`, og klik *Hent data*.
 3. Forventet: 8 tabeller (`bookings_fact`, `kpi_summary`, `revenue_room_type_season`, `revenue_country`, `occupancy_period`, `satisfaction_room_type`, `bar_drinks`, `bar_summary`).
 4. Åbn `tableau/hotel-kong-arthur.twb`. Notér årets indtjening og LOFT Suite / `high`.
 5. Opret i frontenden: LOFT Suite, 2026-12-20 → 2026-12-30, 4 personer, land fx `Norway`.
