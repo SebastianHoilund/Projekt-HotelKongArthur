@@ -25,7 +25,10 @@ async function request(method, path, body) {
 
 function query(params) {
   const entries = Object.entries(params).filter(([, value]) => value !== '' && value != null);
-  return entries.length === 0 ? '' : `?${new URLSearchParams(entries)}`;
+  if (entries.length === 0) return '';
+  // encodeURIComponent giver %20 for mellemrum; URLSearchParams giver '+', som backendens
+  // OpenAPI-validering afviser (fx "LOFT Suite", "United Kingdom").
+  return `?${entries.map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join('&')}`;
 }
 
 export const api = {
