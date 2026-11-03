@@ -13,8 +13,19 @@ const cancelButton = document.getElementById('cancel-edit');
 const filters = document.getElementById('filters');
 const rows = document.getElementById('booking-rows');
 const listMessage = document.getElementById('list-message');
+const sortHeaders = document.querySelectorAll('th[data-sort]');
+
+const SORT_VALUES = {
+  id: (b) => b.id,
+  checkIn: (b) => b.checkIn,
+  checkOut: (b) => b.checkOut,
+  price: (b) => b.price,
+  satisfaction: (b) => b.satisfaction,
+};
 
 let editingId = null;
+let loadedBookings = [];
+let sort = null; // { key, direction: 'ascending' | 'descending' }
 
 function showMessage(element, text, kind = '') {
   element.textContent = text;
@@ -59,7 +70,7 @@ function renderRows(bookings) {
   rows.replaceChildren(
     ...bookings.map((b) => {
       const tr = document.createElement('tr');
-      const price = `${money.format(b.price)}${b.priceIsManual ? ' (manuel)' : ''}`;
+      const price = money.format(b.price);
       tr.append(
         cell(b.id),
         cell(`${b.guest.firstName} ${b.guest.familyName}`),
@@ -86,14 +97,58 @@ function renderRows(bookings) {
   );
 }
 
+// Sortering er ren visning af den allerede hentede liste; uden valgt kolonne bevares API'ets rækkefølge.
+function sorted(bookings) {
+  if (!sort) return bookings;
+  const value = SORT_VALUES[sort.key];
+  const factor = sort.direction === 'ascending' ? 1 : -1;
+  return [...bookings].sort((a, b) => {
+    const x = value(a);
+    const y = value(b);
+    // Bookinger uden værdi (fx ingen tilfredshed) lægges altid sidst.
+    if (x == null || y == null) return (x == null) - (y == null);
+    return (x < y ? -1 : x > y ? 1 : 0) * factor;
+  });
+}
+
+function updateSortIndicators() {
+  for (const th of sortHeaders) {
+    const active = sort?.key === th.dataset.sort;
+    const ascending = active && sort.direction === 'ascending';
+    th.setAttribute('aria-sort', active ? sort.direction : 'none');
+    const toggle = th.querySelector('button.sort');
+    toggle.textContent = active ? (ascending ? '↑' : '↓') : '↕';
+    toggle.setAttribute('aria-pressed', String(active));
+    // Teksten beskriver, hvad næste klik gør.
+    toggle.title = `Sortér ${toggle.dataset.label} ${ascending ? 'faldende (DESC)' : 'stigende (ASC)'}`;
+    toggle.setAttribute('aria-label', toggle.title);
+  }
+}
+
+// Første klik sorterer stigende; derefter skifter hvert klik mellem ASC og DESC.
+function toggleSort(key) {
+  const direction =
+    sort?.key === key && sort.direction === 'ascending' ? 'descending' : 'ascending';
+  sort = { key, direction };
+  updateSortIndicators();
+  renderRows(sorted(loadedBookings));
+}
+
+function addSortToggle(th) {
+  const toggle = button('↕', 'sort', () => toggleSort(th.dataset.sort));
+  toggle.dataset.label = th.textContent.trim();
+  th.append(toggle);
+}
+
 async function loadBookings() {
   const params = Object.fromEntries(new FormData(filters));
   showMessage(listMessage, 'Henter bookinger …');
   try {
-    const bookings = await api.listBookings(params);
-    renderRows(bookings);
-    showMessage(listMessage, `${bookings.length} bookinger`);
+    loadedBookings = await api.listBookings(params);
+    renderRows(sorted(loadedBookings));
+    showMessage(listMessage, `${loadedBookings.length} bookinger`);
   } catch (error) {
+    loadedBookings = [];
     rows.replaceChildren();
     showMessage(listMessage, `Kunne ikke hente bookinger: ${error.message}`, 'error');
   }
@@ -201,6 +256,8 @@ filters.addEventListener('submit', (event) => {
   event.preventDefault();
   loadBookings();
 });
+sortHeaders.forEach(addSortToggle);
+updateSortIndicators();
 
 try {
   await loadRoomTypes();

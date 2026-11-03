@@ -23,8 +23,7 @@
   --radius-sm: 8px;
   --radius: 14px;
   --focus-ring: 0 0 0 3px rgba(138, 100, 32, 0.35);
-  font-family:
-    -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', sans-serif;
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   color: var(--text);
@@ -113,7 +112,7 @@ body {
   color: var(--text);
 }
 
-.site-header a[aria-current="page"] {
+.site-header a[aria-current='page'] {
   background: var(--accent-tint);
   color: var(--accent);
 }
@@ -337,6 +336,38 @@ th {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+}
+
+th button.sort {
+  margin-left: 0.3rem;
+  vertical-align: middle;
+  min-height: 0;
+  padding: 0.05rem 0.2rem;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: inherit;
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1.2;
+  opacity: 0.5;
+}
+
+th button.sort:hover {
+  background: var(--row-hover);
+  color: var(--text);
+  opacity: 1;
+}
+
+th button.sort[aria-pressed='true'] {
+  background: var(--accent-tint);
+  color: var(--accent);
+  opacity: 1;
+}
+
+th[aria-sort='ascending'],
+th[aria-sort='descending'] {
+  color: var(--text);
 }
 
 tbody tr {
