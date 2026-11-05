@@ -226,8 +226,9 @@ api/
 └── openapi.yaml                  # Bindende kontrakt (læses af backend og swagger-ui)
 db/
 └── init/01-test-database.sql     # Testdatabase + testbruger (kun ved tomt volume)
-hotel_bookings_2026.csv           # Seed-data (mountes read-only i backend)
-drinks_menu_with_sales.csv
+data/
+├── hotel_bookings_2026.csv       # Seed-data (mountes read-only i backend)
+└── drinks_menu_with_sales.csv
 
 backend/
 ├── Dockerfile

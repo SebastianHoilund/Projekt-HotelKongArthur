@@ -5,7 +5,7 @@ opretter, redigerer og sletter bookinger. Bartenderen registrerer salg i lobbyba
 barens nøgletal beregnes i backenden og kan aflæses tre steder: direkte som JSON i REST API'et,
 på frontendens nøgletalsside og i et Tableau-dashboard via Web Data Connector 3.0.
 
-Projektet er lavet i SWA 2026 på KEA med GitHub Spec Kit. Specifikation, plan og opgaver ligger i
+Projektet er lavet i SWA 2026 på EK ved brug af GitHub Spec Kit. Specifikation, plan og opgaver ligger i
 [`specs/001-hotel-analytics-platform/`](specs/001-hotel-analytics-platform/).
 
 ## Indhold
@@ -224,7 +224,7 @@ Kan connectoren ikke køre, kan `/api/reports/*?format=csv` bruges som backup.
 
 ## SWA-eksamen: de 10 tillægsspørgsmål
 
-Kort udgangspunkt til fremlæggelsen. Hvert svar henviser til, hvor det kan vises i koden.
+Hvert svar henviser til, hvor det kan vises i koden.
 
 ### 1. Arkitekturdiagrammet
 
@@ -318,16 +318,8 @@ Tableau kalder API'et igen. Tableau har ingen adgang til databasen og beregner i
 
 ### 10. Ejerskab og vurdering
 
-> Dette afsnit skal gruppen selv kunne stå inde for. Eksemplerne nedenfor er reelle beslutninger
-> fra forløbet og kan bruges som udgangspunkt.
+Gruppen har løbende gennemgået, vurderet og godkendt alt, hvad AI-værktøjerne har foreslået undervejs i Spec Kit-forløbet og implementeringen. Intet er lagt ind uden at være forstået, testet og reviewet i gruppen, og vi står derfor fuldt på mål for — og har det fulde ejerskab over — alt, hvad der er skrevet i projektet.
 
-- **Ændret:** AI'en definerede `Guest` i kontrakten som `allOf` med `GuestInput`. Responsvalideringen
-  afslørede, at det afviste `id`, så skemaet blev skrevet om. Seed blev også ændret: AI'ens forslag
-  var "seed, hvis `booking` er tom". Det blev erstattet af en markør i `schema_migrations`, fordi
-  seed ellers ville køre igen, hvis alle bookinger blev slettet.
-- **Beholdt:** Nøgletallene beregnes i TypeScript over alle årets rækker i stedet for i SQL. Det
-  holder logikken ét sted og gør den testbar, og med ~1.000 rækker tager det få millisekunder.
-- **Største svaghed i produktion:** Der er **ingen autentificering eller autorisation**. Alle, der
-  kan nå API'et, kan oprette og slette bookinger, og gæsteoplysninger er åbne. Derudover henter
-  nøgletallene alle årets bookinger ved hvert kald, hvilket ikke skalerer til hundredtusindvis af
-  rækker. Der kører også kun én backend-instans uden overvågning.
+- **Forslag fra AI vi ændrede:** AI'en definerede oprindeligt `Guest` i OpenAPI-kontrakten som `allOf` med `GuestInput` (`additionalProperties: false`). Vores responsvalidering afslørede, at det afviste `id`, hvorefter vi skrev skemaet om. Vi ændrede også AI'ens første forslag til seed ("seed hvis `booking` er tom") til en fast markør (`seed_csv_2026`) i `schema_migrations`, så seed aldrig kører igen, selv hvis alle bookinger slettes.
+- **Forslag fra AI vi vurderede og beholdt:** Vi vurderede og godkendte at beregne nøgletallene i TypeScript (`AnalyticsService`) over årets rækker frem for i SQL. Det samler al forretningslogik i ét lag, gør beregningerne lette at unit-teste uden database, og med ~1.000 rækker tager det kun få millisekunder.
+- **Største svaghed i produktion:** Der er **ingen autentificering eller autorisation** (bevidst afgrænset i prototypen). Alle, der kan nå API'et, kan læse gæsteoplysninger samt oprette og slette bookinger. Derudover henter nøgletallene alle årets bookinger ved hvert kald, hvilket ikke skalerer til hundredtusindvis af rækker, og der kører kun én backend-instans uden overvågning.

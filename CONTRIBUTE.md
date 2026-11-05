@@ -19,7 +19,7 @@
    | `api/openapi.yaml`, Swagger | Rosalina |
    | `tableau/`, `specs/` | Fælles |
 
-   Fordelingen følger `projektplan.md`.
+   Fordelingen følger `docs/projektplan.md`.
 
 5. Merge, når testene er grønne, og slet branchen.
 

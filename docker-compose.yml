@@ -12,8 +12,8 @@ x-backend-env: &backend-env
   OPENAPI_PATH: /app/openapi.yaml
 
 x-backend-mounts: &backend-mounts
-  - ./hotel_bookings_2026.csv:/app/data/hotel_bookings_2026.csv:ro
-  - ./drinks_menu_with_sales.csv:/app/data/drinks_menu_with_sales.csv:ro
+  - ./data/hotel_bookings_2026.csv:/app/data/hotel_bookings_2026.csv:ro
+  - ./data/drinks_menu_with_sales.csv:/app/data/drinks_menu_with_sales.csv:ro
   - ./api/openapi.yaml:/app/openapi.yaml:ro
 
 services:

@@ -20,7 +20,7 @@
 
 - **Web app**: `backend/src/`, `frontend/`, `tableau-connector/`
 - API-kontrakt: `api/openapi.yaml`
-- Data: `hotel_bookings_2026.csv`, `drinks_menu_with_sales.csv`
+- Data: `data/hotel_bookings_2026.csv`, `data/drinks_menu_with_sales.csv`
 
 ---
 
@@ -276,7 +276,7 @@
 - [X] T054 [P] Create integration test for analytics API in `backend/tests/integration/analytics.api.test.ts`: summary returns correct structure, occupancy returns bySeason/byMonth, revenue/room-types returns 8 entries with ranks, revenue/countries ranked, satisfaction with responses count, bar with 30 drinks and categorySplit summing to 100. All validated against OpenAPI schema
   - *Note: 9 tests, inkl. live-opdatering (booking + barsalg slår igennem uden cache) og CSV-rapporten.*
 - [X] T055 Write `README.md` at repository root: project description, architecture diagram (mermaid matching plan.md), prerequisites (Docker, Node.js optional for local dev, Tableau Desktop for WDC), quick start (`git clone && docker-compose up`), URL table (8080 frontend, 8081 Swagger, 3000 API), request flow explanation (frontend → nginx → Express controller → service → repository → PostgreSQL → response), the frontend analytics page, the MySQL → PostgreSQL switch as the concrete example of substitutability (tillægsspørgsmål 5), layer responsibilities and substitutability explanation, domain definitions (seasons, rates, capacity), testing instructions, Tableau WDC setup instructions, and a dedicated SWA Exam Preparation section answering all 10 Tillægsspørgsmål (architecture, request flow, 3-tier boundaries, business logic placement, substitutability, REST design, OpenAPI contract, Docker orchestration/startup/persistence, static-to-live pipeline, AI ownership/decisions)
-  - *Note: Påstandene om MySQL → PostgreSQL er tjekket mod `git diff v1.0-mysql 433534d`. Svaret på tillægsspørgsmål 10 er markeret som udgangspunkt, gruppen selv skal stå inde for.*
+  - *Note: Påstandene om MySQL → PostgreSQL er tjekket mod `git diff v1.0-mysql 433534d`. Svaret på tillægsspørgsmål 10 er gennemgået og godkendt af gruppen.*
 - [X] T056 [P] Write `CONTRIBUTE.md` at repository root: git workflow (branch + PR), coding standards (TypeScript, ESLint/Prettier), commit message format, how to add a migration, how to add an endpoint (controller → service → repository pattern)
 - [X] T057 [P] ESLint/Prettier configuration and lint pass: configure `backend/eslint.config.js` with TypeScript rules including `import/no-restricted-paths` (enforce layer boundaries: controller cannot import repository, service cannot import express/pg; only `repository/postgres` may import `pg`), run `npx eslint --fix` and `npx prettier --write` on all source files
   - *Note: `import/no-restricted-paths` er erstattet af typescript-eslints `no-restricted-imports` med mønstre pr. mappe (ingen ekstra afhængighed, virker med ESLint 10). `app.ts` og `db/` må importere typer fra `pg`. Verificeret med 5 bevidste brud, som alle blev fanget.*
